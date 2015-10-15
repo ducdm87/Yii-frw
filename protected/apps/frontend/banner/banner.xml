@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root type="app">
+    <name>banner</name>
+    <author>BHmedia group php</author>
+    <version>1.0.0</version>
+    <creationDate>July 2006</creationDate>
+    <description>Top hits article</description>
+    
+    <params>
+        <param title="advance" path="extensions/modules/tophits/element">
+            <field type="radio" name="show_link_title" default="1" label="Show Link Title" >
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+        </param>
+    </params>
+    
+    <views>
+        <view name="Category">
+             <params>
+                <param title="advance">
+                     <field type="text" name="id" label="Category" />
+                     <field type="text" name="limit" label="Limit" />
+                     <field type="text" name="col" label="Col" />
+                </param>
+                <param title="advance">
+                     <field type="text" name="catid" label="Category" />
+                     <field type="text" name="limit" label="Limit" />
+                     <field type="text" name="col" label="Col" />
+                </param>
+             </params>
+        </view>
+        
+        <view name="detail">
+            <params>
+                <param title="advance">
+                     <field type="text" name="id" label="Category" />
+                     <field type="text" name="limit" label="Limit" />
+                     <field type="text" name="col" label="Col" />
+                </param>
+                <param title="advance">
+                     <field type="text" name="catid" label="Category" />
+                     <field type="text" name="limit" label="Limit" />
+                     <field type="text" name="col" label="Col" />
+                </param>
+             </params>
+        </view>
+    </views>
+    
+</root>
