@@ -1,7 +1,7 @@
 <?php
 //session_start();
 //session_unset("user");
-
+error_reporting(E_ALL);
 require_once dirname(__FILE__).'/protected/includes/libs/request.php';
 $config_frontend = "frontend.php";
 require_once dirname(__FILE__).'/protected/functions.php';

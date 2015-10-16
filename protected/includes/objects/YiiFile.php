@@ -1,14 +1,4 @@
 <?php
-
-/**
- * @package     Joomla.Platform
- * @subpackage  FileSystem
- *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
- */
-defined('JPATH_PLATFORM') or die;
-
 /**
  * A File handling class
  *
@@ -258,7 +248,7 @@ class YiiFile {
      *
      * @since   11.1
      */
-    public static function upload($src, $dest, $use_streams = false) {
+    public static function upload($src, $dest) {
         // Ensure that the path is valid and clean 
         $dest = rtrim($dest, "/");
 

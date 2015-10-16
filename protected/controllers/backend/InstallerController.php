@@ -34,11 +34,17 @@ class InstallerController extends BackEndController {
                 $this->redirect($this->createUrl("/installer"));
             }
 
+             
+           // $YiiFile = new YiiFile; 
+            
             $path_file_pach_install = PATH_TMP . $pack_install['name'];
-            move_uploaded_file($pack_install['tmp_name'], $path_file_pach_install);
+            YiiFile::upload($pack_install['tmp_name'], $path_file_pach_install); 
+            
             $file_info = pathinfo($path_file_pach_install);
             if (strtolower($file_info['extension']) != "zip") {
+                
                 YiiMessage::raseWarning("Invalid extension install package");
+                YiiFile::delete($path_file_pach_install);
                 $this->redirect($this->createUrl("/installer"));
             }
             $filename = $file_info['filename'];
@@ -52,10 +58,13 @@ class InstallerController extends BackEndController {
             $zip->close();
         } else {
             YiiMessage::raseWarning("Invalid extract file install package");
+            YiiFile::delete($path_file_pach_install);
             $this->redirect($this->createUrl("/installer"));
         }
         $files_xml = YiiFolder::files($path_extact, "\.xml", 1, true);
         if (count($files_xml) == 0) {
+            YiiFile::delete($path_file_pach_install);
+            YiiFolder::delete($path_extact);
             YiiMessage::raseWarning("Invalid extension install package");
             $this->redirect($this->createUrl("/installer"));
         }
@@ -115,6 +124,8 @@ class InstallerController extends BackEndController {
         if(!YiiFolder::create($path_ext,0775))
         {
             YiiMessage::raseWarning("FILESYSTEM ERROR Could not create directory");
+            YiiFile::delete($path_file_pach_install);
+            YiiFolder::delete($path_extact);
             $this->redirect($this->createUrl("/installer"));
         }
                 
@@ -130,6 +141,9 @@ class InstallerController extends BackEndController {
             $row_module->status = 0;
             $row_module->store();
         }
+        YiiFile::delete($path_file_pach_install);
+        YiiFolder::delete($path_extact);
+            
          $this->redirect($this->createUrl("/installer"), "Succesfully install package");
     }
 
