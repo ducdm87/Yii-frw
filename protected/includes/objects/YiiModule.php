@@ -11,11 +11,15 @@ class YiiModule{
     private $items = array();
     private $item = array();
     private $active = 0;
+    var $_db = null;
     
-    private $table = "{{extensions}}";
+    private $table = "{{modules}}";
     
-    function __construct() {
-         $this->table = TBL_EXTENSIONS;
+    function __construct($db = null) {
+        $this->_db = $db;        
+        if($this->_db == null) $this->_db = Yii::app()->db;
+        
+         $this->table = TBL_MODULES;
     }
     
     static function & getInstance() {
@@ -28,26 +32,23 @@ class YiiModule{
         return $instance;
     } 
     
-    function loadItems($field = "*", $menuID, $condition = "", $oderby = " lft ASC "){
-        if($condition != "" AND $condition != null)
-        {
-            $condition = "menuID = $menuID AND $condition ";
-        }else $condition = "menuID = $menuID ";
-        $table_menu_item = YiiTables::getInstance(TBL_MENU_ITEM);
-        $items = $table_menu_item->loads($field, $condition,$oderby, null);
+    function loadItems($field = null, $condition = ""){
+        if($field == null){
+           $field = "a.id, a.title, a.alias, a.cdate, a.mdate, a.ordering, a.position, a.menu, a.module, a.description, a.status + 2*(b.status - 1) as status, a.params";
+        }
+        
+        $command = $this->_db->createCommand()->select($field)
+                ->from(TBL_MODULES . " as a")
+                ->leftjoin(TBL_EXTENSIONS . " as b", " a.module = b.folder");
+        if($condition != null) $command->where($condition);
+        $items = $command->queryAll();     
         return $items;
     }
     
-    function loadItem($field = "*", $getSub = true){
-        $table_menu = YiiTables::getInstance(TBL_MENU);
-        $items = $table_menu->loads($field);
-        
-        if($getSub == true){
-            foreach($items as &$item){
-                $item['_items'] = $this->loadItems("*",$item['id']);
-            }
-        }
-       return $items;
+    function loadItem($id, $field = "*"){
+        $table_menu = YiiTables::getInstance(TBL_MODULES);
+        $table_menu->load($id);
+       return $table_menu;
     }
     
     function loadXrefMenu($moduleID)

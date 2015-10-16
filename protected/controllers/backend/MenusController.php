@@ -169,7 +169,7 @@ class MenusController extends BackEndController {
         $model = MenuItem::getInstance();  
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YiiMessage::raseSuccess("Invalid menu id");
+            YiiMessage::raseWarning("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }
         
@@ -214,7 +214,7 @@ class MenusController extends BackEndController {
     public function actionEditmenuitem() {
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YiiMessage::raseSuccess("Invalid menu id");
+            YiiMessage::raseWarning("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }
         
@@ -225,7 +225,7 @@ class MenusController extends BackEndController {
         $cid = Request::getVar("cid", 0);
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YiiMessage::raseSuccess("Invalid menu id");
+            YiiMessage::raseWarning("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }
         
@@ -265,7 +265,7 @@ class MenusController extends BackEndController {
     function actionCancelmenuitem(){
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YiiMessage::raseSuccess("Invalid menu id");
+            YiiMessage::raseWarning("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }else{           
             $this->redirect($this->createUrl('menus/menuitems?menu='.$menuID));
@@ -340,6 +340,7 @@ class MenusController extends BackEndController {
                      
             $this->updateLftRgt($item_parent['id'], $item_parent['parentID']);
         }
+        return array($this->item2["menuID"], $this->item2["id"]);
    
     }
     

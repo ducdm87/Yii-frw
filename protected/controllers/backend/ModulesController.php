@@ -21,12 +21,16 @@ class ModulesController extends BackEndController {
         $this->model = Module::getInstance();
     }
 
-    public function actionDisplay() {
-//        $obj_ext = YiiModule::getInstance();
-//        $extension = $obj_ext->loads();
+    public function actionDisplay() {        
+        $this->addIconToolbar("Creat", $this->createUrl("/menus/newmenutype"), "new");
+        $this->addIconToolbar("Edit", $this->createUrl("/menus/editmenutype"), "edit", 1, 1, "Please select a item from the list to edit");        
+        $this->addIconToolbar("Publish", $this->createUrl("/menus/publishmenutype"), "publish");
+        $this->addIconToolbar("Unpublish", $this->createUrl("/menus/unpublishmenutype"), "unpublish");
+        $this->addIconToolbar("Delete", $this->createUrl("/menus/removemenutype"), "trash", 1, 1, "Please select a item from the list to Remove");        
+        $this->addBarTitle("Modules <small>[manager]</small>", "user");   
         
-        $extension = $this->model->getExtentions();
-        $this->render('default', array("extentions" => $extension));
+        $items = $this->model->getItems();
+        $this->render('default', array("items" => $items));
     }
 
     private function readFileExtention($dir) {
@@ -55,62 +59,73 @@ class ModulesController extends BackEndController {
         return $lines;
     }
 
-    public function actionCreate($id = false) {
-        $item = array();
+    public function actionEdit() {
+        $cid = Request::getVar('cid', "");        
         setSysConfig("sidebar.display", 0);
         //check boolean id
-        if ($id) {
-            $item = $this->model->getExtensionById($id);
-        }
+        if ($cid) $item = $this->model->getExtensionById($cid);   
+ 
+        $lists = $this->model->getListEdit($item);
 
-        $lists = $this->model->getListEdit();
+        $this->addIconToolbar("Save", $this->createUrl("/modules/save"), "save");
+        $this->addIconToolbar("Apply", $this->createUrl("/modules/apply"), "apply");
+        $this->addBarTitle("Module <small>[Edit]</small>", "user");
+        $this->addIconToolbar("Close", $this->createUrl("/modules/cancel"), "cancel");
+        $this->pageTitle = "Edit module";           
         
         $this->render('add', array("item" => $item, "lists"=>$lists));
     }
 
-    public function actiondoPost() {
+    function actionApply() {
+        $cid = $this->store();
+        $this->redirect($this->createUrl('modules/edit') . "?cid=" . $cid);
+    }
+    
+    function actionSave() {
+        $cid = $this->store();
+        $this->redirect($this->createUrl('modules/'));
+    }
+    
+    function actionCancel()
+    {
+        $this->redirect($this->createUrl('modules/'));
+    }
+    
+    public function store() {
         global $mainframe;
-        $btn = Request::getVar("btn-action", 0);  
-        if($btn == "close" || $btn == "cancel"){
-            $this->redirect($this->createUrl("/modules"));
-            exit;
-        }
         
-        $id = Request::getVar("id", 0);
-      
-        $table_ext = YiiTables::getInstance(TBL_EXTENSIONS);
-        $table_ext->load($id);
-        $table_ext->bind($_POST);
+        $cid = Request::getVar("id", 0); 
+       
+        $obj_module = YiiModule::getInstance();
+        $obj_row = $obj_module->loadItem($cid);
+        $obj_row->bind($_POST);
         
-        $table_ext->params = json_encode($_POST['params']);
-        $table_ext->store();
-        $menu_selected = Request::getVar('selection-menu-select', 'select');
-        
-        $all_menu = array();
+        $menu_selected = Request::getVar('selection-menu-select', 'selected');
+        $obj_row->params = json_encode($_POST['params']);
+        $obj_row->menu = $menu_selected;
+        $obj_row->store();
+         
         if($menu_selected == 'all'){
-            $obj_menu = YiiMenu::getInstance();
-            $items = $obj_menu->loadItems(); 
-            foreach($items as $item)
-                 $all_menu[] = $item['id'];
-        }else if($menu_selected == 'select'){
-            $all_menu = $_POST['selection-menu'];
-        }
- 
-        if(count($all_menu) >0 ){
-            foreach($all_menu as $menuid){
-                $query = "REPLACE INTO ".TBL_MODULE_MENUITEM_REF." SET moduleID = $table_ext->id, menuID = $menuid ";
+            $query = "DELETE FROM ".TBL_MODULE_MENUITEM_REF." WHERE moduleID = $obj_row->id ";
+            Yii::app()->db->createCommand($query)->query();
+            
+            $query = "INSERT INTO ".TBL_MODULE_MENUITEM_REF." SET moduleID = $obj_row->id, menuID = 0 ";
+            Yii::app()->db->createCommand($query)->query();
+            
+        }else if($menu_selected == 'selected' AND isset ($_POST['selection-menu'])){
+            $menuids = $_POST['selection-menu'];
+            foreach($menuids as $menuid){
+                $query = "REPLACE INTO ".TBL_MODULE_MENUITEM_REF." SET moduleID = $obj_row->id, menuID = $menuid ";
                 Yii::app()->db->createCommand($query)->query();
-            }            
+            } 
         }else{
-            $query = "DELETE FROM ".TBL_MODULE_MENUITEM_REF." WHERE moduleID = $table_ext->id ";            
+            $query = "DELETE FROM ".TBL_MODULE_MENUITEM_REF." WHERE moduleID = $obj_row->id ";
             Yii::app()->db->createCommand($query)->query();
         }
-       
+            
  
         YiiMessage::raseSuccess("Successfully save Module(s)");
-        if($btn == "save")
-            $this->redirect($this->createUrl("/modules"));
-        else $this->redirect($this->createUrl("/modules/create?id=". $table_ext->id));
+        return $obj_row->id;
     }
 
     /**

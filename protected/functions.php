@@ -494,7 +494,7 @@ function sysLoadXmlParam($xml_file, $values = null, $type = "Module"){
             YiiMessage::raseSuccess($message);
             return false;
         }
-        print_r($obj_xml); die;
+//        print_r($obj_xml); die;
         
         $config = $obj_xml->config?$obj_xml->config:false;
         if($config == false) return array();

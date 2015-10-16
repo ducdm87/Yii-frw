@@ -104,12 +104,12 @@ class YiiExtensions{
      */    
     function loadModules($field = null, $condition = ""){ 
         if($field == null){
-           $field = "a.id, a.title, a.alias, a.cdate, a.mdate, a.ordering, a.position, a.module, a.description, a.status + 2*(b.status - 1) as status, a.params";
+           $field = "a.id, a.title, a.alias, a.cdate, a.mdate, a.ordering, a.position, a.menu, a.module, a.description, a.status + 2*(b.status - 1) as status, a.params";
         }
         
         $command = $this->_db->createCommand()->select($field)
                 ->from(TBL_MODULES . " as a")
-                ->rightjoin(TBL_EXTENSIONS . " as b", " ON a.module = b.folder");
+                ->leftjoin(TBL_EXTENSIONS . " as b", " a.module = b.folder");
         if($conditions != null) $command->where($conditions);
         $items = $command->queryAll();
         return $items;
