@@ -45,15 +45,15 @@ class ServicesController extends BackEndController {
             );
             if (isset($data['id']) && $data['id']) {
                 if ($this->service_model->updateRecord($data)) {
-                    YError::raseWarning("Update bean has success!.");
+                    YiiMessage::raseSuccess("Update bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Update fail!.");
+                    YiiMessage::raseWarning("Error! Update fail!.");
                 }
             } else {// $_POST['id'] null add new 
                 if ($this->service_model->addRecord($data)) {
-                    YError::raseWarning("Create bean has success!.");
+                    YiiMessage::raseSuccess("Create bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Created fail!.");
+                    YiiMessage::raseWarning("Error! Created fail!.");
                 }
             }
 
@@ -68,10 +68,10 @@ class ServicesController extends BackEndController {
 
         if ($this->service_model->deleteRecord($id)) {
 
-            YError::raseWarning("Delete bean has success!.");
+            YiiMessage::raseSuccess("Delete bean has success!.");
         } else {
 
-            YError::raseNotice("Error! Delete fail!.");
+            YiiMessage::raseWarning("Error! Delete fail!.");
         }
         $this->redirect($this->createUrl("/services"));
     }

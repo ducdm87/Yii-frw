@@ -8,7 +8,7 @@
 
             <!-- Sidebar -->
             <?php echo $this->renderPartial('/block/sidebar'); ?>
-            <?php YError::showMessage(); ?>
+            <?php YiiMessage::showMessage(); ?>
             <div id="page-wrapper">
                 <?php $this->showToolbar(); ?>
                 <?php echo $content; ?>

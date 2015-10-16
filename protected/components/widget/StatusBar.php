@@ -67,7 +67,7 @@ class StatusBar extends CPortlet {
                     <div class="popup-header" >
                         <h2>Log in</h2>
                     </div>
-                    <div id="status-bar-login"><?php YError::showMessage(); ?></div>
+                    <div id="status-bar-login"><?php YiiMessage::showMessage(); ?></div>
                     <form name="login" action="" method="POST" id="form-login">
                         <div class="element">
                             <input id="LoginForm-username" name="LoginForm[username]" value="" placeholder="Email" class="el-form-login" />
@@ -106,7 +106,7 @@ class StatusBar extends CPortlet {
                     <div class="popup-header" >
                         <h2>Forgot Password</h2>
                     </div>
-                    <div id="status-bar-forgotpassword"><?php YError::showMessage(); ?></div>
+                    <div id="status-bar-forgotpassword"><?php YiiMessage::showMessage(); ?></div>
                     <form name="login" action="" method="POST" id="form-forgot-password">
                         <div class="element">
                             <input id="forgotpassword-username" name="forgotpassword[username]" value="" placeholder="Email" />

@@ -82,17 +82,17 @@ class ExtentionsController extends BackEndController {
             if (isset($data['id']) && $data['id']) {
                 if ($this->model->updateExtention($data)) {
 
-                    YError::raseWarning("Update bean has success!.");
+                    YiiMessage::raseSuccess("Update bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Update fail!.");
+                    YiiMessage::raseWarning("Error! Update fail!.");
                 }
             } else {
                 if ($this->model->addExtention($data)) {
                     // Create folder
                     $this->createFolder($data);
-                    YError::raseWarning("Create bean has success!.");
+                    YiiMessage::raseSuccess("Create bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Created fail!.");
+                    YiiMessage::raseWarning("Error! Created fail!.");
                 }
             }
             $this->redirect($this->createUrl("/extentions"));
@@ -206,17 +206,17 @@ class ExtentionsController extends BackEndController {
             foreach ($_POST['ids'] as $key => $id) {
 
                 if ($this->model->updateExtention(array('id' => $id, 'status' => 0))) {
-                    YError::raseWarning("Update bean has success!.");
+                    YiiMessage::raseSuccess("Update bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Update fail!.");
+                    YiiMessage::raseWarning("Error! Update fail!.");
                 }
                 if (isset($_POST['status']) && $_POST['status']) {
                     foreach ($_POST['status'] as $status) {
                         if ($id == $status) {
                             if ($this->model->updateExtention(array('id' => $id, 'status' => 1))) {
-                                YError::raseWarning("Update bean has success!.");
+                                YiiMessage::raseSuccess("Update bean has success!.");
                             } else {
-                                YError::raseNotice("Error! Update fail!.");
+                                YiiMessage::raseWarning("Error! Update fail!.");
                             }
                         }
                     }

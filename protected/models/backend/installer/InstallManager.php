@@ -84,7 +84,7 @@ class InstallManager extends CFormModel {
         $path = Yii::app()->basePath . '/extensions/modules/' . $obj_row->folder;
         $module_xml_file = $path . "/". $obj_row->folder.".xml";
         if(!file_exists($module_xml_file)){
-            YError::raseNotice("Error! file xml module is not existing!.");
+            YiiMessage::raseWarning("Error! file xml module is not existing!.");
             $mainframe->redirect(Yii::app()->createUrl("/modules"));
         }
         $params = sysLoadXmlParam($module_xml_file, $obj_row->params);

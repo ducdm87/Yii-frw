@@ -34,7 +34,7 @@ class MenusController extends BackEndController {
                     $this->changeStatusMenuType ($cid, 2);
                 else $this->changeStatusMenuType ($cid, 0);
             }
-            YError::raseWarning("Successfully saved changes status for menu type");
+            YiiMessage::raseSuccess("Successfully saved changes status for menu type");
         }
         
         $this->addIconToolbar("Creat", $this->createUrl("/menus/newmenutype"), "new");
@@ -106,7 +106,7 @@ class MenusController extends BackEndController {
       
         if($obj_tblMenu->title == "" AND $obj_tblMenu->alias == "") return false;
         
-        YError::raseWarning("Successfully saved changes to menu: " . $this->item['title']);
+        YiiMessage::raseSuccess("Successfully saved changes to menu: " . $this->item['title']);
         $obj_tblMenu->store();
         return $obj_tblMenu->id;
     }
@@ -121,7 +121,7 @@ class MenusController extends BackEndController {
                 $table_menu->remove($cid);
             }
         }
-        YError::raseWarning("Successfully remove Menutype(s)");
+        YiiMessage::raseSuccess("Successfully remove Menutype(s)");
         $this->redirect($this->createUrl('menus/menutypes'));
     }
     
@@ -133,7 +133,7 @@ class MenusController extends BackEndController {
                 $this->changeStatusMenuType($cids[$i], 1);
             }
         }
-        YError::raseWarning("Successfully publish Menutype(s)");
+        YiiMessage::raseSuccess("Successfully publish Menutype(s)");
         $this->redirect($this->createUrl('menus/menutypes'));
     }
     
@@ -145,7 +145,7 @@ class MenusController extends BackEndController {
                 $this->changeStatusMenuType($cids[$i], 0);
             }
         }
-        YError::raseWarning("Successfully unpublish Menutype(s)");
+        YiiMessage::raseSuccess("Successfully unpublish Menutype(s)");
         $this->redirect($this->createUrl('menus/menutypes'));
     }
     
@@ -169,7 +169,7 @@ class MenusController extends BackEndController {
         $model = MenuItem::getInstance();  
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YError::raseWarning("Invalid menu id");
+            YiiMessage::raseSuccess("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }
         
@@ -189,7 +189,7 @@ class MenusController extends BackEndController {
 
                 $this->storeItem($item);
             }
-            YError::raseWarning("Successfully saved changes status for menu type");
+            YiiMessage::raseSuccess("Successfully saved changes status for menu type");
         }
         
         $this->addIconToolbar("Creat", $this->createUrl("/menus/newmenuitem?menu=$menuID"), "new");
@@ -214,7 +214,7 @@ class MenusController extends BackEndController {
     public function actionEditmenuitem() {
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YError::raseWarning("Invalid menu id");
+            YiiMessage::raseSuccess("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }
         
@@ -225,7 +225,7 @@ class MenusController extends BackEndController {
         $cid = Request::getVar("cid", 0);
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YError::raseWarning("Invalid menu id");
+            YiiMessage::raseSuccess("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }
         
@@ -265,7 +265,7 @@ class MenusController extends BackEndController {
     function actionCancelmenuitem(){
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
-            YError::raseWarning("Invalid menu id");
+            YiiMessage::raseSuccess("Invalid menu id");
             $this->redirect($this->createUrl('menus/menutypes'));
         }else{           
             $this->redirect($this->createUrl('menus/menuitems?menu='.$menuID));
@@ -332,7 +332,7 @@ class MenusController extends BackEndController {
             echo "\$query1: ".$query; echo '<hr />';
         }
         
-        YError::raseWarning("Successfully saved changes to menu item: " . $this->item2['title']);
+        YiiMessage::raseSuccess("Successfully saved changes to menu item: " . $this->item2['title']);
         $this->item2["id"] = $this->storeItem($this->item2, $this->tbl_menuitem);
          
         if($change_ordering == true){

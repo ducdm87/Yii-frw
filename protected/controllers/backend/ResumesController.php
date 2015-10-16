@@ -110,7 +110,7 @@ class ResumesController extends BackEndController {
                 
                 $this->storeItem($item, $this->tbl_field);
             }
-            YError::raseWarning("Successfully saved changes status for fields");
+            YiiMessage::raseSuccess("Successfully saved changes status for fields");
         }
         
         $field_data = $model->getFields();
@@ -154,10 +154,10 @@ class ResumesController extends BackEndController {
             $f_id = Request::getVar('cid', '');
             $f_name = Request::getVar('name', '');
             $link_edit = $this->createUrl("/resumes/editfield") . "?cid[]=" . $f_id;
-            YError::raseWarning("Successfully saved changes field to : " . $f_name);
+            YiiMessage::raseSuccess("Successfully saved changes field to : " . $f_name);
             $mainframe->redirect($link_edit);
         } else {
-            YError::raseNotice("Something error");
+            YiiMessage::raseWarning("Something error");
             $mainframe->redirect($this->createUrl("/resumes/fields"));
         }
     }
@@ -167,10 +167,10 @@ class ResumesController extends BackEndController {
         $model = Resume::getInstance();
         if ($model->saveField()) {
             $f_name = Request::getVar('name', '');
-            YError::raseWarning("Successfully saved changes field to : " . $f_name);
+            YiiMessage::raseSuccess("Successfully saved changes field to : " . $f_name);
             $mainframe->redirect($this->createUrl("resumes/fields"));
         } else {
-            YError::raseNotice("Something error");
+            YiiMessage::raseWarning("Something error");
             $mainframe->redirect($this->createUrl("/resumes/fields"));
         }
     }
@@ -185,11 +185,11 @@ class ResumesController extends BackEndController {
             if (!$model->deleteField($cid, $arr_template)) {
                 $arr_template = array_unique($arr_template);
                 $str = implode(',', $arr_template);
-                YError::raseNotice("Error remove field(s). Something field is using by template !!! (" . $str . ") ");
+                YiiMessage::raseWarning("Error remove field(s). Something field is using by template !!! (" . $str . ") ");
                 $mainframe->redirect($link_tem);
             }
         }
-        YError::raseWarning("Successfully remove field(s)");
+        YiiMessage::raseSuccess("Successfully remove field(s)");
         $mainframe->redirect($link_tem);
     }
 
@@ -235,7 +235,7 @@ class ResumesController extends BackEndController {
                 
                 $this->storeItem($item, $this->tbl_template);
             }
-            YError::raseWarning("Successfully saved changes status for templates");
+            YiiMessage::raseSuccess("Successfully saved changes status for templates");
         }
 
         $temp_data = $model->getTemplates();
@@ -294,11 +294,11 @@ class ResumesController extends BackEndController {
         $link_tem = $this->createUrl("/resumes/templates");
         foreach ($cids as $cid) {
             if (!$model->deleteTemplate($cid)) {
-                YError::raseNotice("Error remove template(s). Something template is using by user !!! ");
+                YiiMessage::raseWarning("Error remove template(s). Something template is using by user !!! ");
                 $mainframe->redirect($link_tem);
             }
         }
-        YError::raseWarning("Successfully remove template(s)");
+        YiiMessage::raseSuccess("Successfully remove template(s)");
         $mainframe->redirect($link_tem);
     }
 
@@ -308,7 +308,7 @@ class ResumesController extends BackEndController {
         $t_id = $model->saveTemplate();
         $t_name = Request::getVar('name', '');
         $link_edit = $this->createUrl("/resumes/edittemplate") . "?cid[]=" . $t_id;
-        YError::raseWarning("Successfully saved changes template to : " . $t_name);
+        YiiMessage::raseSuccess("Successfully saved changes template to : " . $t_name);
         $mainframe->redirect($link_edit);
     }
 
@@ -317,7 +317,7 @@ class ResumesController extends BackEndController {
         $model = Resume::getInstance();
         $model->saveTemplate();
         $t_name = Request::getVar('name', '');
-        YError::raseWarning("Successfully saved changes field to : " . $t_name);
+        YiiMessage::raseSuccess("Successfully saved changes field to : " . $t_name);
         $mainframe->redirect($this->createUrl("resumes/templates"));
     }
 

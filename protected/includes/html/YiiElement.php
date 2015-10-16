@@ -26,7 +26,7 @@ class YiiElement
         if(!in_array(strtolower($node['type']), array("menutype", "list",'radio', 'text', "textarea"))) return "";
         if(!class_exists($className))
         {
-            YError::raseNotice("Element ".$node['type']." is not existing ");           
+            YiiMessage::raseWarning("Element ".$node['type']." is not existing ");           
             exit;
         }
         

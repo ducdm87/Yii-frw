@@ -9,7 +9,7 @@
 
 
 
-class YiiMenu{ 
+class YiiMenu{  
     private $items = array();
     private $item = array();
     private $active = 0;
@@ -37,7 +37,7 @@ class YiiMenu{
     {
         if(count($this->items)>0)
             return $this->items;
-        
+         
         $query = "SELECT * FROM ". $this->table_item ." WHERE status = 1 ORDER BY `lft` ASC ";
         $query_command = Yii::app()->db->createCommand($query);
         $items = $query_command->queryAll();

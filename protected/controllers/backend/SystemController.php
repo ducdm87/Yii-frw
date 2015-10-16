@@ -53,7 +53,7 @@ class SystemController extends BackEndController {
          $this->setConfig('frontend','sessionName','md5("'.$post['config']['site']['sessionname'].'")', 'session');
         $this->writeConfig('frontend');
         
-         YError::raseWarning("Successfully saved changes config");
+         YiiMessage::raseSuccess("Successfully saved changes config");
 //        $this->pageTitle = "Home page Display";        
         $this->redirect($this->createUrl("/system/config"));
     }

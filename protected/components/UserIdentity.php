@@ -33,7 +33,7 @@ class UserIdentity extends CUserIdentity {
             $result = $conmmand->queryRow();
             
             if (!$result) {
-                YError::raseNotice("Invalid your usename or password");
+                YiiMessage::raseWarning("Invalid your usename or password");
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
             } else {
                 $query = "UPDATE " . $this->tablename . " SET lastvisit = now() WHERE id = " . $result['id'];

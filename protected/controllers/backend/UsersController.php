@@ -41,7 +41,7 @@ class UsersController extends BackEndController {
 
                 $this->storeItem($item, $this->tablename);
             }
-            YError::raseWarning("Successfully saved changes status for users");
+            YiiMessage::raseSuccess("Successfully saved changes status for users");
         }
 
 
@@ -81,9 +81,9 @@ class UsersController extends BackEndController {
     private function deleteRoleGroup($id = false) {
         if ($id) {
             if ($this->model_group->deleteGroup($id)) {
-                YError::raseWarning("Delete bean has success!.");
+                YiiMessage::raseSuccess("Delete bean has success!.");
             } else {
-                YError::raseNotice("Error! Delete fail!.");
+                YiiMessage::raseWarning("Error! Delete fail!.");
             }
             $this->redirect($this->createUrl("/users/groups"));
         }
@@ -106,15 +106,15 @@ class UsersController extends BackEndController {
             );
             if (isset($data['id']) && $data['id']) {
                 if ($this->model_group->updateGroup($data)) {
-                    YError::raseWarning("Update bean has success!.");
+                    YiiMessage::raseSuccess("Update bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Update fail!.");
+                    YiiMessage::raseWarning("Error! Update fail!.");
                 }
             } else {// $_POST['id'] null add new 
                 if ($this->model_group->addGroup($data)) {
-                    YError::raseWarning("Create bean has success!.");
+                    YiiMessage::raseSuccess("Create bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Created fail!.");
+                    YiiMessage::raseWarning("Error! Created fail!.");
                 }
             }
 

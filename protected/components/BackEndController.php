@@ -71,7 +71,7 @@ class BackEndController extends CController {
         
         if ($mainframe->isLogin()) {
             if (!$mainframe->isAdmin()) {
-                YError::raseNotice("Your account not have permission to visit backend page");
+                YiiMessage::raseWarning("Your account not have permission to visit backend page");
                 Yii::app()->session['userbackend'] = null;
                 $this->redirect(array('user/logout'));
                 return;
@@ -110,7 +110,7 @@ class BackEndController extends CController {
 
     public function redirect($url, $message = "", $terminate = true, $statusCode = 302) {
         if ($message != "") {
-               YError::raseWarning($message);             
+               YiiMessage::raseSuccess($message);             
            // Yii::app()->session['message'] = $message;
             //Yii::app()->session['rasestatus'] = "notice";
         }

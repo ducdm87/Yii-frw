@@ -40,7 +40,7 @@ class UserController extends BackEndController {
     public function actionLogin() {
         $LoginForm = Request::getVar("LoginForm");
         if (Request::getVar("LoginForm") and ($LoginForm['username'] == "" || $LoginForm['password'] == "")) {
-            YError::raseNotice("Type your username and password");
+            YiiMessage::raseWarning("Type your username and password");
             $this->redirect(array('user/login'));
             return;
         }
@@ -56,7 +56,7 @@ class UserController extends BackEndController {
                 $this->redirect($this->createUrl('cpanel/display'));
 //                    $this->redirect("/backend/");
             } else {
-                YError::raseNotice("Invalid your usename or password");
+                YiiMessage::raseWarning("Invalid your usename or password");
             }
         }
         $this->pageTitle = "Page login";
@@ -121,7 +121,7 @@ class UserController extends BackEndController {
         $post = $_POST;
 
         if (!isset($_POST['username'])) {
-            YError::raseWarning("Cannot save the user information");
+            YiiMessage::raseSuccess("Cannot save the user information");
             $this->redirect($this->createUrl('users/'));
         }
 
@@ -149,16 +149,16 @@ class UserController extends BackEndController {
 
       
         if (trim($_POST['username']) == "") {
-            YError::raseNotice("You must provide an username.");
+            YiiMessage::raseWarning("You must provide an username.");
             $bool = false;
         } else if ($_POST["password"] != $_POST["repassword"] AND $_POST["password"] != "") {
-            YError::raseNotice("Passwords Do Not Match.");
+            YiiMessage::raseWarning("Passwords Do Not Match.");
             $bool = false;
         } else if (trim($_POST['email']) == "") {
-            YError::raseNotice("You must provide an e-mail address.");
+            YiiMessage::raseWarning("You must provide an e-mail address.");
             $bool = false;
         } else if ($item and $item["id"] != $this->item["id"]) {
-            YError::raseNotice("This username is already in use.");
+            YiiMessage::raseWarning("This username is already in use.");
             $bool = false;
         } 
         
@@ -169,7 +169,7 @@ class UserController extends BackEndController {
             else
                 unset($this->item["password"]);
             
-            YError::raseWarning("Successfully saved changes to User: " . $this->item['username']);
+            YiiMessage::raseSuccess("Successfully saved changes to User: " . $this->item['username']);
             $this->item["id"] = $this->storeItem();
         }
     }

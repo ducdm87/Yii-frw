@@ -491,7 +491,7 @@ function sysLoadXmlParam($xml_file, $values = null, $type = "Module"){
             foreach (libxml_get_errors() as $error) {
                 $message .= "<br>". $error->message;
             }
-            YError::raseWarning($message);
+            YiiMessage::raseSuccess($message);
             return false;
         }
         print_r($obj_xml); die;

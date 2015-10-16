@@ -17,7 +17,7 @@
                                                     <td align="center" colspan="2" class="ui_form_value">You must enter a username and password to login to the ...</td>                                                    
                                                 </tr>
                                                 <tr>
-                                                    <td align="center" colspan="2" class="ui_form_value"><?php YError::showMessage(); ?> </td>
+                                                    <td align="center" colspan="2" class="ui_form_value"><?php YiiMessage::showMessage(); ?> </td>
                                                 </tr>
                                                 <tr class="ui_form_pair">
                                                     <td class="ui_form_label"><b>Username</b></td>

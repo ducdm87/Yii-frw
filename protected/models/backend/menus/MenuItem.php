@@ -128,7 +128,7 @@ class MenuItem extends CFormModel {
              $file_xml = PATH_APPS_FRONT."/".$app['folder']."/".$app['folder'].".xml";
              if(!file_exists($file_xml)) 
              {
-                 YError::raseWarning("Invalid xml: " . $app['folder']);
+                 YiiMessage::raseSuccess("Invalid xml: " . $app['folder']);
                  break;
              }
              $xml = simplexml_load_file($file_xml);

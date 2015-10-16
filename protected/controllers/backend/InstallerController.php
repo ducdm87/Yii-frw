@@ -30,7 +30,7 @@ class InstallerController extends BackEndController {
         
             $pack_install = $_FILES['install_package'];
             if ($pack_install == null or $pack_install['error'] != 0) {
-                YError::raseNotice("Unable to find install package");
+                YiiMessage::raseWarning("Unable to find install package");
                 $this->redirect($this->createUrl("/installer"));
             }
 
@@ -38,7 +38,7 @@ class InstallerController extends BackEndController {
             move_uploaded_file($pack_install['tmp_name'], $path_file_pach_install);
             $file_info = pathinfo($path_file_pach_install);
             if (strtolower($file_info['extension']) != "zip") {
-                YError::raseNotice("Invalid extension install package");
+                YiiMessage::raseWarning("Invalid extension install package");
                 $this->redirect($this->createUrl("/installer"));
             }
             $filename = $file_info['filename'];
@@ -51,12 +51,12 @@ class InstallerController extends BackEndController {
             $zip->extractTo($path_extact);
             $zip->close();
         } else {
-            YError::raseNotice("Invalid extract file install package");
+            YiiMessage::raseWarning("Invalid extract file install package");
             $this->redirect($this->createUrl("/installer"));
         }
         $files_xml = YiiFolder::files($path_extact, "\.xml", 1, true);
         if (count($files_xml) == 0) {
-            YError::raseNotice("Invalid extension install package");
+            YiiMessage::raseWarning("Invalid extension install package");
             $this->redirect($this->createUrl("/installer"));
         }
         $xml = null;
@@ -114,7 +114,7 @@ class InstallerController extends BackEndController {
              
         if(!YiiFolder::create($path_ext,0775))
         {
-            YError::raseNotice("FILESYSTEM ERROR Could not create directory");
+            YiiMessage::raseWarning("FILESYSTEM ERROR Could not create directory");
             $this->redirect($this->createUrl("/installer"));
         }
                 
@@ -152,12 +152,12 @@ class InstallerController extends BackEndController {
                 else
                     $this->changeStatus($cid, 0);
             }
-            YError::raseWarning("Successfully saved changes status for extention");
+            YiiMessage::raseSuccess("Successfully saved changes status for extention");
         }else if ($task == "delete") {
             var_dump($_POST);
             die;
         }
-
+ 
         $obj_ext = YiiExtensions::getInstance();
         $extension = $obj_ext->loadExts();
 

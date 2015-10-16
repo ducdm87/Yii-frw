@@ -234,7 +234,7 @@ class POP3 {
 
     //  Does the Error Log now contain anything?
     if ($this->error && $this->do_debug >= 1) {
-      $this->displayErrors();
+      $this->displaYiiMessages();
     }
 
     //  Did we connect?
@@ -247,7 +247,7 @@ class POP3 {
       );
 
       if ($this->do_debug >= 1) {
-        $this->displayErrors();
+        $this->displaYiiMessages();
       }
 
       return false;
@@ -289,7 +289,7 @@ class POP3 {
       $this->error = 'Not connected to POP3 server';
 
       if ($this->do_debug >= 1) {
-        $this->displayErrors();
+        $this->displaYiiMessages();
       }
     }
 
@@ -374,7 +374,7 @@ class POP3 {
       );
 
       if ($this->do_debug >= 1) {
-        $this->displayErrors();
+        $this->displaYiiMessages();
       }
 
       return false;
@@ -388,7 +388,7 @@ class POP3 {
    * If debug is enabled, display the error message array
    * @access private
    */
-  private function displayErrors () {
+  private function displaYiiMessages () {
     echo '<pre>';
 
     foreach ($this->error as $single_error) {

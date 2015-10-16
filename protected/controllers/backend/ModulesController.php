@@ -107,7 +107,7 @@ class ModulesController extends BackEndController {
         }
        
  
-        YError::raseWarning("Successfully save Module(s)");
+        YiiMessage::raseSuccess("Successfully save Module(s)");
         if($btn == "save")
             $this->redirect($this->createUrl("/modules"));
         else $this->redirect($this->createUrl("/modules/create?id=". $table_ext->id));
@@ -233,17 +233,17 @@ class ModulesController extends BackEndController {
             foreach ($_POST['ids'] as $key => $id) {
 
                 if ($this->model->saveExtention(array('id' => $id, 'status' => 0))) {
-                    YError::raseWarning("Update bean has success!.");
+                    YiiMessage::raseSuccess("Update bean has success!.");
                 } else {
-                    YError::raseNotice("Error! Update fail!.");
+                    YiiMessage::raseWarning("Error! Update fail!.");
                 }
                 if (isset($_POST['status']) && $_POST['status']) {
                     foreach ($_POST['status'] as $status) {
                         if ($id == $status) {
                             if ($this->model->saveExtention(array('id' => $id, 'status' => 1))) {
-                                YError::raseWarning("Update bean has success!.");
+                                YiiMessage::raseSuccess("Update bean has success!.");
                             } else {
-                                YError::raseNotice("Error! Update fail!.");
+                                YiiMessage::raseWarning("Error! Update fail!.");
                             }
                         }
                     }
@@ -259,9 +259,9 @@ class ModulesController extends BackEndController {
             $this->deleteDirectory($data);
         }
         if ($this->model->deleteExtention($id)) {
-            YError::raseWarning("Delete bean has success!.");
+            YiiMessage::raseSuccess("Delete bean has success!.");
         } else {
-            YError::raseNotice("Error! Delete fail!.");
+            YiiMessage::raseWarning("Error! Delete fail!.");
         }
         $this->redirect($this->createUrl("/modules"));
     }
