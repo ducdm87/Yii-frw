@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2015 at 10:22 AM
+-- Generation Time: Oct 17, 2015 at 07:04 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -633,7 +633,7 @@ INSERT INTO `tbl_extensions` (`id`, `title`, `alias`, `author`, `version`, `desc
 (1, 'article', 'article', 'ducdm87', '1.0', 'bai viet', '', 1, 'app', 'article', '', 0, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'banner', 'banner', 'ducdm87', '', 'banner', '', 2, 'app', 'banner', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (3, 'tophits', '', 'BHmedia group php', '', 'Top hits article', 'July 2006', 1, 'module', 'tophits', 'site', 0, '{"param":{"attr":{"title":{"0":"advance"},"path":{"0":"extensions\\/modules\\/tophits\\/element"}},"field":[{"@attributes":{"type":"text","name":"","default":"","label":"","description":""}},{"@attributes":{"type":"textarea","name":"","default":"","label":"","description":"","cols":"10","rows":"10"}},{"@attributes":{"type":"radio","name":"","default":"","label":"","description":""},"option":["On","Off"]},{"@attributes":{"type":"select","name":"layout","default":"","label":"","description":""},"option":["tin moi","tin noi bat"]},{"@attributes":{"type":"category","name":"catID","label":"","description":"","scope":"","parent":"","maxlevel":"2"}},{"@attributes":{"type":"date","name":"date","label":"","description":""}}]}}', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 'main menu', 'main-menu', 'ducdm87', '1.0', '', 'January 1', 0, 'module', 'mainmenu', '1', 1, '{"menutype":"1","menu_style":"horiz_flat","showAllChildren":"1","moduleclass_sfx":"sdf -aasd","header":"as","footer":"dsa","cache":"1","cache_time":"600"}', '2015-10-02 10:37:49', '2015-10-13 11:10:14');
+(4, 'main menu', 'main-menu', 'ducdm87', '1.0', '', 'January 1', 0, 'module', 'mainmenu', '1', 0, '{"menutype":"1","menu_style":"horiz_flat","showAllChildren":"1","moduleclass_sfx":"sdf -aasd","header":"as","footer":"dsa","cache":"1","cache_time":"600"}', '2015-10-02 10:37:49', '2015-10-16 04:59:40');
 
 -- --------------------------------------------------------
 
@@ -787,7 +787,7 @@ INSERT INTO `tbl_menu_item` (`id`, `title`, `alias`, `menuID`, `parentID`, `lft`
 (1, 'menu_root', 'root', 0, 0, 0, 39, 'app', 0, '', '', '', 0, 0, 0, '0000-00-00 00:00:00', '2015-08-17 10:15:59', ''),
 (23, 'tin trong nuoc', 'tin-trong-nuoc', 1, 17, 6, 7, 'app', 0, '', '', '', 2, 23, 1, '0000-00-00 00:00:00', '2015-10-12 09:05:41', '{"app":"article","controller":"category","action":"blog","catid":"10","menu_text":1}'),
 (24, 'tin quoc te', 'tin-quoc-te', 1, 17, 8, 9, 'app', 0, '', '', '', 2, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:42:44', ''),
-(17, 'tin tuc', 'tin-tuc', 1, 1, 5, 32, 'app', 1, '', '', '', 1, 17, 1, '0000-00-00 00:00:00', '2015-08-18 10:36:17', '{"app":"article","controller":"category","action":"blog","catid":"10","menu_text":1}'),
+(17, 'tin tuc', 'tin-tuc', 1, 1, 5, 32, 'app', 1, '', '', '', 1, 17, 1, '0000-00-00 00:00:00', '2015-10-16 05:41:14', '{"app":"article","controller":"category","action":"blog","catid":"10","menu_text":1}'),
 (18, 'menu 2', 'menu 1', 1, 1, 33, 36, 'app', 0, '', 'articles', 'category', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:33:03', ''),
 (19, 'menu 3', 'menu 1', 1, 1, 37, 38, 'app', 0, '', '', '', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:34:42', ''),
 (20, 'menu 4', '', 1, 1, 39, 40, 'app', 0, '', '', '', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:35:42', ''),
@@ -798,7 +798,7 @@ INSERT INTO `tbl_menu_item` (`id`, `title`, `alias`, `menuID`, `parentID`, `lft`
 (29, 'menu 1.3.2', '', 1, 25, 13, 16, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:58:09', ''),
 (30, 'menu 1.5.1', '', 1, 27, 25, 28, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:59:03', ''),
 (31, 'menu 1.3.3', '', 1, 25, 15, 18, 'app', 0, '', '', '', 3, 29, 1, '0000-00-00 00:00:00', '2015-08-18 07:37:28', ''),
-(32, 'Trang chu', 'trang-chu', 1, 1, 3, 30, '', 0, '', '', '', 1, 17, 1, '0000-00-00 00:00:00', '2015-10-12 06:15:03', '');
+(32, 'Trang chu', 'trang-chu', 1, 1, 3, 30, '', 0, '', '', '', 1, 32, 1, '0000-00-00 00:00:00', '2015-10-16 05:05:14', '');
 
 -- --------------------------------------------------------
 
@@ -856,6 +856,8 @@ CREATE TABLE IF NOT EXISTS `tbl_modules` (
   `cdate` datetime NOT NULL,
   `mdate` datetime NOT NULL,
   `ordering` int(11) NOT NULL,
+  `showtitle` smallint(6) NOT NULL,
+  `menu` varchar(32) NOT NULL,
   `position` varchar(128) NOT NULL,
   `module` varchar(128) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -868,8 +870,8 @@ CREATE TABLE IF NOT EXISTS `tbl_modules` (
 -- Dumping data for table `tbl_modules`
 --
 
-INSERT INTO `tbl_modules` (`id`, `title`, `alias`, `cdate`, `mdate`, `ordering`, `position`, `module`, `description`, `status`, `params`) VALUES
-(1, 'main menu', 'main-menu', '2015-10-14 05:31:21', '2015-10-14 05:31:21', 0, '', 'mainmenu', '', 0, '');
+INSERT INTO `tbl_modules` (`id`, `title`, `alias`, `cdate`, `mdate`, `ordering`, `showtitle`, `menu`, `position`, `module`, `description`, `status`, `params`) VALUES
+(1, 'main menu', 'main-menu', '2015-10-14 05:31:21', '2015-10-16 10:06:12', 0, 1, 'all', '', 'mainmenu', '', 1, '{"menutype":"3","menu_style":"horiz_flat","showAllChildren":"1","moduleclass_sfx":"sdf -aasd","header":"","footer":"","cache":"1","cache_time":"600"}');
 
 -- --------------------------------------------------------
 
@@ -888,14 +890,7 @@ CREATE TABLE IF NOT EXISTS `tbl_module_menuitem_ref` (
 --
 
 INSERT INTO `tbl_module_menuitem_ref` (`moduleID`, `menuID`) VALUES
-(4, 17),
-(4, 23),
-(4, 24),
-(4, 25),
-(4, 27),
-(4, 28),
-(4, 30),
-(4, 32);
+(1, 0);
 
 -- --------------------------------------------------------
 
@@ -1580,6 +1575,7 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(128) NOT NULL,
   `groupID` tinyint(4) NOT NULL,
+  `leader` smallint(6) NOT NULL,
   `mobile` varchar(50) NOT NULL,
   `home_phone` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
@@ -1611,18 +1607,18 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `groupID`, `mobile`, `home_phone`, `first_name`, `last_name`, `address`, `city`, `province_state`, `zip_code`, `country`, `suppliers`, `cdate`, `mdate`, `template_id`, `status`, `lastvisit`, `activeCode`, `params`) VALUES
-(28, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 25, '', '', 'admin', 'admin', '', '', '', '', 0, '', 0, 2015, 0, 1, '2015-10-15 09:09:43', '', ''),
-(20, 'ducdm87@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ducdm87@gmail.com', 19, '', '', 'ducdm87', '', '', '', '', '', 0, 'facebook', 1392186072, 2015, 0, 0, '2014-02-12 14:34:00', '', ''),
-(7, 'ducdm@binhhoang.com', '25f9e794323b453885f5181f1b624d0b', 'ducdm@binhhoang.com', 19, '', '', 'ducdm', '', '', '', '', '', 0, '', 1389770555, 2014, 0, 1, '2014-01-16 10:04:50', '2ed194a21f0735a76ee4358192533784:1389840767', ''),
-(8, 'dinhbang19@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'dinhbang19@gmail.com', 19, '', '', 'dinhbang19', '', '', '', '', '', 0, '', 1389841867, 1389841867, 0, 1, '2014-01-16 10:15:45', '17bb5d16f6e732bfddcc11d63a584a6a:1389841867', ''),
-(12, 'ducdm87@twitter.com', '', 'ducdm87@twitter.com', 19, '', '', 'ducdm87', '', '', '', '', '', 0, 'twitter', 1389856370, 1389856370, 0, 1, '0000-00-00 00:00:00', '', ''),
-(16, 'bangtdadmin', '96e6fc55ef27cd6ee161ba7a062c3111', 'bangtdadmin@gmail.com', 24, '', '', 'bangtdadmin', 'bangtdadmin', '', '', '', '', 0, '', 0, 2014, 0, 1, '2014-02-17 14:24:04', '', ''),
-(14, 'bangtd@binhhoang.com', 'e10adc3949ba59abbe56e057f20f883e', 'bangtd@binhhoang.com', 19, '', '', 'bangtd', '', '', '', '', '', 0, '', 1390532686, 1390532686, 0, 1, '2014-01-24 10:14:08', '0ccf5da3b41dff684ee030f1b6f9894e:1390532686', ''),
-(15, 'hoangdaoxuan@yahoo.com.au', '', 'hoangdaoxuan@yahoo.com.au', 19, '', '', 'hoangdaoxuan', '', '', '', '', '', 0, 'facebook', 1390536708, 1390536708, 0, 1, '0000-00-00 00:00:00', '', ''),
-(17, 'vuhien', 'c0f849c33cf98290c9bd976fb81eb6b0', 'vuhien@binhhoang.com', 23, '', '', 'vuhien', 'vuhien', '', '', '', '', 0, '', 0, 2014, 0, 1, '2014-02-10 13:53:28', '', ''),
-(18, 'anhmantk@gmail.com', '', 'anhmantk@gmail.com', 19, '', '', 'anhmantk', '', '', '', '', '', 0, 'facebook', 1392112877, 1392112877, 0, 1, '0000-00-00 00:00:00', '', ''),
-(19, 'ducdm871@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ducdm871@gmail.com', 19, '', '', 'ducdm871', '', '', '', '', '', 0, '', 1392177110, 1392177110, 0, 1, '2014-02-12 13:14:56', '18f48748011eb544d6bbf7062d6042da:1392177110', '');
+INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `groupID`, `leader`, `mobile`, `home_phone`, `first_name`, `last_name`, `address`, `city`, `province_state`, `zip_code`, `country`, `suppliers`, `cdate`, `mdate`, `template_id`, `status`, `lastvisit`, `activeCode`, `params`) VALUES
+(28, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 25, 0, '', '', 'admin', 'admin', '', '', '', '', 0, '', 0, 2015, 0, 1, '2015-10-17 11:11:33', '', ''),
+(20, 'ducdm87@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ducdm87@gmail.com', 19, 0, '', '', 'ducdm87', '', '', '', '', '', 0, 'facebook', 1392186072, 2015, 0, 0, '2014-02-12 14:34:00', '', ''),
+(7, 'ducdm@binhhoang.com', '25f9e794323b453885f5181f1b624d0b', 'ducdm@binhhoang.com', 19, 0, '', '', 'ducdm', '', '', '', '', '', 0, '', 1389770555, 2014, 0, 1, '2014-01-16 10:04:50', '2ed194a21f0735a76ee4358192533784:1389840767', ''),
+(8, 'dinhbang19@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'dinhbang19@gmail.com', 19, 0, '', '', 'dinhbang19', '', '', '', '', '', 0, '', 1389841867, 1389841867, 0, 1, '2014-01-16 10:15:45', '17bb5d16f6e732bfddcc11d63a584a6a:1389841867', ''),
+(12, 'ducdm87@twitter.com', '', 'ducdm87@twitter.com', 19, 0, '', '', 'ducdm87', '', '', '', '', '', 0, 'twitter', 1389856370, 1389856370, 0, 1, '0000-00-00 00:00:00', '', ''),
+(16, 'bangtdadmin', '96e6fc55ef27cd6ee161ba7a062c3111', 'bangtdadmin@gmail.com', 24, 0, '', '', 'bangtdadmin', 'bangtdadmin', '', '', '', '', 0, '', 0, 2014, 0, 1, '2014-02-17 14:24:04', '', ''),
+(14, 'bangtd@binhhoang.com', 'e10adc3949ba59abbe56e057f20f883e', 'bangtd@binhhoang.com', 19, 0, '', '', 'bangtd', '', '', '', '', '', 0, '', 1390532686, 1390532686, 0, 1, '2014-01-24 10:14:08', '0ccf5da3b41dff684ee030f1b6f9894e:1390532686', ''),
+(15, 'hoangdaoxuan@yahoo.com.au', '', 'hoangdaoxuan@yahoo.com.au', 19, 0, '', '', 'hoangdaoxuan', '', '', '', '', '', 0, 'facebook', 1390536708, 1390536708, 0, 1, '0000-00-00 00:00:00', '', ''),
+(17, 'vuhien', 'c0f849c33cf98290c9bd976fb81eb6b0', 'vuhien@binhhoang.com', 23, 0, '', '', 'vuhien', 'vuhien', '', '', '', '', 0, '', 0, 2014, 0, 1, '2014-02-10 13:53:28', '', ''),
+(18, 'anhmantk@gmail.com', '', 'anhmantk@gmail.com', 19, 0, '', '', 'anhmantk', '', '', '', '', '', 0, 'facebook', 1392112877, 1392112877, 0, 1, '0000-00-00 00:00:00', '', ''),
+(19, 'ducdm871@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ducdm871@gmail.com', 19, 0, '', '', 'ducdm871', '', '', '', '', '', 0, '', 1392177110, 1392177110, 0, 1, '2014-02-12 13:14:56', '18f48748011eb544d6bbf7062d6042da:1392177110', '');
 
 -- --------------------------------------------------------
 
@@ -1637,27 +1633,25 @@ CREATE TABLE IF NOT EXISTS `tbl_users_group` (
   `lft` int(11) NOT NULL DEFAULT '0',
   `value` varchar(255) NOT NULL DEFAULT '',
   `isActive` varchar(1) NOT NULL,
+  `status` smallint(6) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `matdep_gacl_parent_id_aro_groups` (`parent_id`),
   KEY `matdep_gacl_lft_rgt_aro_groups` (`lft`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `tbl_users_group`
 --
 
-INSERT INTO `tbl_users_group` (`id`, `parent_id`, `name`, `lft`, `value`, `isActive`) VALUES
-(17, 0, 'ROOT', 1, 'ROOT', ''),
-(28, 17, 'USERS', 2, 'USERS', ''),
-(29, 28, 'Public Frontend', 3, 'Public Frontend', ''),
-(18, 29, 'Registered', 4, 'Registered', ''),
-(19, 18, 'Author', 5, 'Author', ''),
-(20, 19, 'Editor', 6, 'Editor', ''),
-(21, 20, 'Publisher', 7, 'Publisher', ''),
-(30, 28, 'Public Backend', 13, 'Public Backend', ''),
-(23, 30, 'Manager', 14, 'Manager', ''),
-(24, 23, 'Administrator', 15, 'Administrator', ''),
-(25, 24, 'Super Administrator', 16, 'Super Administrator', '');
+INSERT INTO `tbl_users_group` (`id`, `parent_id`, `name`, `lft`, `value`, `isActive`, `status`) VALUES
+(1, 0, 'ROOT', 1, 'ROOT', '', 1),
+(8, 1, 'Registered', 4, 'Registered', '', 1),
+(7, 6, 'Author', 5, 'Author', '', 1),
+(6, 5, 'Editor', 6, 'Editor', '', 1),
+(5, 1, 'Publisher', 7, 'Publisher', '', 1),
+(2, 1, 'Super Administrator', 16, 'Super Administrator', '', 1),
+(31, 2, 'quản lý khu vực 1', 3, 'quản lý khu vực 1', '1', 1),
+(32, 2, 'quản lý khu vực 2', 1, 'quản lý khu vực 2', '1', 1);
 
 -- --------------------------------------------------------
 

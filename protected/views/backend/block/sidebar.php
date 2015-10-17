@@ -32,16 +32,15 @@
                 </ul>
             </li>
             
-            <li class="dropdown <?php if ($controll == "users") echo "active current"; ?>">
-                <a href="<?php echo $this->createUrl('users/'); ?>" class="dropdown-toggle parent" data-toggle="dropdown">
-                    <i class="fa fa-caret-square-o-down"></i> Users
-                    <b class="caret"></b>
+            <li class="dropdown <?php if ($controll == "users" OR $controll == "usergroups") echo "active current"; ?>">
+                <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
+                    <i class="fa fa-caret-square-o-down"></i> Users <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu"> 
-                    <li class="<?php if ($controll == "users" AND $action == "groups") echo "active"; ?>">
-                        <a href="<?php echo $this->createUrl('users/groups'); ?>">Groups</a>
+                    <li class="<?php if ($controll == "usergroups") echo "active"; ?>">
+                        <a href="<?php echo $this->createUrl('usergroups/'); ?>">Groups</a>
                     </li>
-                    <li class="<?php if ($controll == "users" AND $action == "display") echo "active"; ?>">
+                    <li class="<?php if ($controll == "users") echo "active"; ?>">
                         <a href="<?php echo $this->createUrl('users/'); ?>">Users</a>
                     </li>
                 </ul>
