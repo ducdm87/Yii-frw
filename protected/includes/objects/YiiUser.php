@@ -33,25 +33,29 @@ class YiiUser{
     // lay tat ca user
     function getUsers($condition = null, $fields = "*")
     {
-        if(count($this->items)>0)
-            return $this->items;
-         
-        $query = "SELECT * FROM ". $this->table." WHERE status = 1 ORDER BY `lft` ASC ";
-        $query_command = Yii::app()->db->createCommand($query);
-        $items = $query_command->queryAll();
-        
-        $this->items = $arr_new;
-        return $this->items;
+        $tbl_user = YiiTables::getInstance(TBL_USERS);
+        $items = $tbl_user->loads($fields, $condition, "lft asc ", null);
+        return $items;
     }
     
     function getUser($cid, $field = "*")
     {
-
+        $tbl_user = YiiTables::getInstance(TBL_USERS);
+        $tbl_user->load($cid, $field);
+        return $tbl_user;
     }
     
-    function getGroups($condition = null, $fields = "*", $build_tree){ }
+    function getGroups($condition = null, $fields = "*", $build_tree = false){ 
+        $tbl_group = YiiTables::getInstance(TBL_USERS_GROUP);
+        $items = $tbl_group->loads($fields, $condition, "lft asc ", null);
+        return $items;
+    }
     
-    function getGroup($cid, $field = "*"){ }
+    function getGroup($cid, $field = "*"){ 
+        $tbl_group = YiiTables::getInstance(TBL_USERS_GROUP);
+        $tbl_group->load($cid, $field);
+        return $tbl_group;
+    }
     
     function login($username = "", $password = "", $remember = false){}
     

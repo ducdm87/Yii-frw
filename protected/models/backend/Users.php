@@ -22,6 +22,16 @@ class Users extends CFormModel {
     }
 
     function getGroup() {
+        $obj_user = YiiUser::getInstance();
+        $groups = $obj_user->getGroups();
+        $arr_new = array();
+        foreach ($groups as $group) {
+            $arr_new[$group['id']] = $group;
+        }
+        $groups = $arr_new;
+        
+        return $groups;
+        
         $arr_group = array();
         $arr_group[29] = array(29, 'Public Front-end', 1, 0);
         $arr_group[18] = array(18, 'Registered', 2, 0);

@@ -25,7 +25,7 @@ class UserIdentity extends CUserIdentity {
 
             $query = "SELECT u.*,g.lft,g.name groupname "
                     . "FROM " . $this->table_group . " g right join " . $this->tablename . " u ON g.id = u.groupID "
-                    . " WHERE username = :username ANd password=:password AND status = 1 ";
+                    . " WHERE username = :username ANd password=:password AND u.status = 1 ";
             $password = md5($this->password);
             $conmmand = Yii::app()->db->createCommand($query);
             $conmmand->bindParam(':username', $this->username);
@@ -43,10 +43,7 @@ class UserIdentity extends CUserIdentity {
             }
 
             $user = Yii::app()->session['userbackend'] = $result;
-    
-//            var_dump(Yii::app()->session['userbackend']);  echo '<hr />';
- 
-//            die;
+
             $mainframe->set("user",$user);
             return !$this->errorCode;
         }else{
