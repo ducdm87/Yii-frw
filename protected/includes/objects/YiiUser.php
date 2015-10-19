@@ -1,0 +1,73 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+ 
+
+
+
+class YiiUser{  
+    private $items = array();
+    private $item = array();
+    private $active = 0;
+    
+    private $table = "{{users}}";
+    
+    function __construct() {
+         $this->table = TBL_USERS;
+    }
+    
+    static function & getInstance() {
+        static $instance;
+
+        if (!is_object($instance)) {
+            $instance = new YiiUser();
+        }
+
+        return $instance;
+    }
+    
+    // lay tat ca user
+    function getUsers($condition = null, $fields = "*")
+    {
+        $tbl_user = YiiTables::getInstance(TBL_USERS);
+        $items = $tbl_user->loads($fields, $condition, "lft asc ", null);
+        return $items;
+    }
+    
+    function getUser($cid, $field = "*")
+    {
+        $tbl_user = YiiTables::getInstance(TBL_USERS);
+        $tbl_user->load($cid, $field);
+        return $tbl_user;
+    }
+    
+    function getGroups($condition = null, $fields = "*", $build_tree = false){ 
+        $tbl_group = YiiTables::getInstance(TBL_USERS_GROUP);
+        $items = $tbl_group->loads($fields, $condition, "lft asc ", null);
+        return $items;
+    }
+    
+    function getGroup($cid, $field = "*"){ 
+        $tbl_group = YiiTables::getInstance(TBL_USERS_GROUP);
+        $tbl_group->load($cid, $field);
+        return $tbl_group;
+    }
+    
+    function login($username = "", $password = "", $remember = false){}
+    
+    function logout($cid){}
+    
+    function isLogin($cid = null){}
+    
+    function isLogout($cid = null){}
+    
+    function isAdmin($cid = null){}
+    
+    function isLeader($cid = null){ }
+    
+    function checkPermistion($arr_url){ }
+}
