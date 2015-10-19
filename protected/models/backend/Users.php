@@ -21,7 +21,7 @@ class Users extends CFormModel {
         return $result;
     }
 
-    function getGroup() {
+    function getGroups() {
         $obj_user = YiiUser::getInstance();
         $groups = $obj_user->getGroups();
         $arr_new = array();

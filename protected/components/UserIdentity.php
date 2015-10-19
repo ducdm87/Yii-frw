@@ -23,7 +23,7 @@ class UserIdentity extends CUserIdentity {
 
         if ($mainframe->isBackEnd()) {
 
-            $query = "SELECT u.*,g.lft,g.name groupname "
+            $query = "SELECT u.*,g.lft,g.name groupname, g.backend "
                     . "FROM " . $this->table_group . " g right join " . $this->tablename . " u ON g.id = u.groupID "
                     . " WHERE username = :username ANd password=:password AND u.status = 1 ";
             $password = md5($this->password);

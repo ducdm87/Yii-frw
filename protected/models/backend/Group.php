@@ -16,17 +16,60 @@ class Group extends CFormModel {
         $this->command = Yii::app()->db->createCommand();
         $this->connection = Yii::app()->db;
     }
+    
+    static function getInstance(){
+        static $instance;
 
-    public function getGroups() {
-        $groups = $this->command->select('*')
-                ->from($this->table)
-                ->queryAll();
-        if (isset($groups) && $groups) {
-
-            return $groups;
-        } else {
-            return false;
+        if (!is_object($instance)) {
+            $instance = new Group();
         }
+        return $instance;
+    } 
+
+    public function getItems() {
+        $obj_user = YiiUser::getInstance();
+        $groups = $obj_user->getGroups();
+        $arr_new = array();
+        foreach ($groups as $group) {
+            $arr_new[$group['id']] = $group;
+        }
+        $groups = $arr_new;
+        
+        return $groups;
+    }
+    
+    function getItem()
+    {
+        $cid = Request::getVar("cid", 0);
+        
+        if (is_array($cid))
+            $cid = $cid[0];
+        
+        $obj_user = YiiUser::getInstance();
+        $tbl_group = $obj_user->getGroup($cid);
+        return $tbl_group;
+    }
+    
+    function getListEdit($main_item)
+    {
+        $cid = Request::getVar("cid", 0);
+        $list = array();
+        
+        $items = array();
+ 
+        $obj_user = YiiUser::getInstance();
+        
+        $condition = "(`lft` <" . $main_item->lft . " OR `lft` > ". $main_item->rgt .")";
+        $results = $obj_user->getGroups($condition, 'id value, name text, level');
+        $items = array_merge($items, $results);      
+        $list['parentID'] = buildHtml::select($items, $main_item->parentID, "parentID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
+        
+        $items = array();
+        $condition = "parentID = ". $main_item->parentID;
+        $results = $obj_user->getGroups($condition, 'id value, name text, level');
+        $items = array_merge($items, $results);
+        $list['ordering'] = buildHtml::select($items, $cid, "ordering","","size=5");
+         return $list;
     }
 
     /**

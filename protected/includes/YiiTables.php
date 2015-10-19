@@ -33,19 +33,26 @@ class YiiTables{
         $this->_message = '';
     }
     
-    static function & getInstance($tbl_name, $primary = "id", $db = null) {
+    static function & getInstance($tbl_name, $primary = "id", $noCache = false, $db = null) {
         global $YII_all_tables;
         
-        $key_obj = md5($tbl_name . $primary);
-        if(isset($YII_all_tables[$key_obj])) return $YII_all_tables[$key_obj];
+        if($primary == null OR $primary == ""){
+            $primary = "id";
+        }
         
-        $obj_table = new YiiTables($tbl_name, $primary, $db);
-        $YII_all_tables[$key_obj] = $obj_table;
-
-        return $YII_all_tables[$key_obj];
+        if($noCache == false){
+            $key_obj = md5($tbl_name . $primary);
+            if(isset($YII_all_tables[$key_obj])) return $YII_all_tables[$key_obj];
+            $obj_table = new YiiTables($tbl_name, $primary, $db);
+            $YII_all_tables[$key_obj] = $obj_table;
+            return $YII_all_tables[$key_obj];
+        }else{
+            $obj_table = new YiiTables($tbl_name, $primary, $db);
+            return $obj_table;
+        }
     }    
     
-    function load($id, $field = "*"){ 
+    function load($id, $field = "*", $returnstd = false){ 
         if ($id === 0 || $id == "") {
             return $this;
         }
@@ -59,10 +66,18 @@ class YiiTables{
             $this->_message = "Something error to load row width value: $id";
             return $this;
         }
-        foreach($item as $field => $field_value){
-            $this->$field = $field_value;
+        if($returnstd == false){
+            foreach($item as $field => $field_value){
+                $this->$field = $field_value;
+            }
+            return $this;
+        }else{
+            $obj = new stdClass();
+            foreach($item as $field => $field_value){
+                $obj->$field = $field_value;
+            }
+            return $obj;
         }
-        return $this;
     }
     
     function loads($field = "*", $conditions = null, $orderBy = "", $limit = 10, $start = 0){
@@ -100,7 +115,7 @@ class YiiTables{
         return $results;
     }
     
-    function loadRow($field = "id", $conditions = null, $orderBy = "", $limit = 10, $start = 0){
+    function loadRow($field = "id", $conditions = null, $orderBy = "" ){
         if($orderBy == "" OR $orderBy == null){
             $pname = $this->_primary;
             if(isset($this->$pname))
@@ -111,7 +126,6 @@ class YiiTables{
 
         if($conditions != null) $command->where($conditions);
         if($orderBy != null AND $orderBy != "") $command->order($orderBy);
-        if($limit != null)$command->limit($limit, $start);
         
         $items = $command->queryRow();
         foreach($items as $field => $field_value){
@@ -138,6 +152,48 @@ class YiiTables{
     }
     
     function store(){
+        $id = $this->{$this->_primary};
+        if(isset($this->lft) AND isset($this->rgt) 
+                AND isset($this->_old_parent)  AND isset($this->parentID)){
+            $change_ordering = false;
+             if($this->parentID == 0){
+                $this->level = 1;            
+                $item_parent = $this->load("parentID = 0", "*", true );
+                $parent_rgt = $item_parent->rgt;
+            }else{
+                $item_parent = $this->load($this->parentID, "*", true);
+
+                $this->level = $item_parent->level +1;
+                $parent_rgt = $item_parent->rgt;           
+            }
+            
+            if($id == 0 OR $this->_old_parent != $this->parentID){ // tao moi hoac thay doi parent
+                $this->lft = $parent_rgt;
+                $this->rgt = $this->lft + 1;
+                $item_parent->rgt = $parent_rgt + 2;
+                $change_ordering = true;
+            }else if(isset ($this->_ordering) AND $this->_ordering != $id){ // xu ly thay doi trong khoi cua no
+                $tbl_item2 = $this->load($this->_ordering, "*", true);;
+                 
+                $change_type = $this->lft>$tbl_item2->lft?2:-2;
+                $min_lft = $this->lft<$tbl_item2->lft?$this->lft:$tbl_item2->lft;
+                $max_rgt = $this->rgt>$tbl_item2->rgt?$this->rgt:$tbl_item2->rgt;
+
+                $this->lft = $tbl_item2->lft;
+                $this->rgt = $tbl_item2->rgt;
+
+                $query = "UPDATE " . $this->_tablename
+                        . " SET `lft` = `lft` + $change_type, `rgt` = `rgt` + $change_type "
+                        . " WHERE `lft` >=  $min_lft AND `lft` < $max_rgt ";
+
+                $this->lft = $tbl_item2->lft;
+                $this->rgt = $tbl_item2->rgt;
+                $query_command = $this->_db->createCommand($query);
+                $query_command->execute();
+            }
+        }
+        
+        
         $insterted = array();
         foreach ($this as $field_name => $field_value) {
             if(strpos($field_name, "_") !== false) continue;
@@ -170,8 +226,39 @@ class YiiTables{
             $id = $this->_db->lastInsertID;
          
         $this->{$this->_primary} = $id;
+        
+        if(isset($this->lft) AND isset($this->rgt) 
+                AND isset($this->_old_parent)  AND isset($this->parentID)
+                AND $change_ordering == true){
+            $this->updateLftRgt($this->parentID);
+        }
+        
         return $this;
     }
+    
+    function updateLftRgt($id = 0)
+    {  
+         $obj_tbl = YiiTables::getInstance($this->_tablename,$this->_primary,true);
+
+        $item2 = $obj_tbl->load($id);
+        $itemParent = null;
+        if($item2->parentID != 0){
+            $obj_tbl = YiiTables::getInstance($this->_tablename,$this->_primary,true);
+            $itemParent = $obj_tbl->load($item2->parentID);
+        }
+ 
+        $query = "UPDATE ".$this->_tablename." SET `rgt` = `rgt` + 2 WHERE `$this->_primary` =  $id ";
+        $query_command = $this->_db->createCommand($query);
+        $query_command->execute();         
+        if($itemParent != null) {            
+            $query = "UPDATE ".$this->_tablename." SET `lft` = `lft` + 2, `rgt` = `rgt` + 2 "
+                        . " WHERE `lft`> " . $item2->rgt . " AND `lft` < " . $itemParent->rgt;
+            $query_command = $this->_db->createCommand($query);
+            $query_command->execute();                  
+            $this->updateLftRgt($item2->parentID);
+        }
+    }
+    
     
     function remove($id = null, $condition = "")
     {

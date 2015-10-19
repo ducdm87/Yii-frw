@@ -277,9 +277,16 @@ class MenusController extends BackEndController {
         global $mainframe, $db;
         $post = $_POST;
        
-        $id = Request::getVar("id", 0);        
-        $bool = true;
+        $id = Request::getVar("id", 0);  
+        $obj_menu = YiiMenu::getInstance();
+        $tbl_menu = $obj_menu->loadItem($id);        
+        $tbl_menu->_ordering = $post['ordering'];
+        $tbl_menu->_old_parent = $tbl_menu->parentID;
+        $tbl_menu->bind($post); 
+        $tbl_menu->store();        
+        return array($tbl_menu->menuID, $tbl_menu->id);
         
+        $bool = true;        
         $old_parent = 0;
         $change_ordering = false;
         if($id != 0){
@@ -329,7 +336,6 @@ class MenusController extends BackEndController {
             $this->item2["rgt"] = $item2['rgt'];
             $query_command = $db->createCommand($query);
             $query_command->execute();
-            echo "\$query1: ".$query; echo '<hr />';
         }
         
         YiiMessage::raseSuccess("Successfully saved changes to menu item: " . $this->item2['title']);
@@ -360,12 +366,7 @@ class MenusController extends BackEndController {
         $query_command = $db->createCommand($query);
         $query_command->execute();
         echo "\$query2-1: ".$query; echo '<hr />';
-        if($itemParent != null) {
-           // $query = "UPDATE $this->tbl_menuitem SET `rgt` = `rgt` + 2 WHERE id = ". $itemParent['id'];
-           // $query_command = $db->createCommand($query);
-           // $query_command->execute();
-           // echo "\$query2-2: ".$query; echo '<hr />';
-            
+        if($itemParent != null) {            
             $query = "UPDATE $this->tbl_menuitem SET `lft` = `lft` + 2, `rgt` = `rgt` + 2 "
                         . " WHERE `lft`> " . $item2['rgt'] . " AND `lft` < " . $itemParent['rgt'];
             $query_command = $db->createCommand($query);

@@ -49,7 +49,7 @@ class MainFrame {
     }
 
     function isAdmin() {
-        return $this->user ? ($this->user['lft'] >= 13 ? true : false) : false;
+        return $this->user ? ($this->user['backend'] == 1 ? true : false) : false;
     }
 
     function isBackEnd() {

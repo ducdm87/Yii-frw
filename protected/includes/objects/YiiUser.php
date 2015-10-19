@@ -52,11 +52,23 @@ class YiiUser{
     }
     
     function getGroup($cid, $field = "*"){ 
-        $tbl_group = YiiTables::getInstance(TBL_USERS_GROUP);
+        $tbl_group = YiiTables::getInstance(TBL_USERS_GROUP,"id",true);
         $tbl_group->load($cid, $field);
         return $tbl_group;
     }
     
+    function loadGroup($conditions,$field = "*", $orderby = "" ){
+        $tbl_group = YiiTables::getInstance(TBL_USERS_GROUP);
+        $item = $tbl_group->loadRow($field, $conditions, "", $orderby);
+        return $tbl_group;
+    }
+    
+    function loadUser($conditions,$field = "*", $orderby = "" ){
+        $tbl_user = YiiTables::getInstance(TBL_USERS);
+        $item = $tbl_user->loadRow($field, $conditions, "", $orderby);
+        return $tbl_user;
+    }
+            
     function login($username = "", $password = "", $remember = false){}
     
     function logout($cid){}
