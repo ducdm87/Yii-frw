@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2015 at 07:04 AM
+-- Generation Time: Oct 19, 2015 at 12:04 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -784,20 +784,20 @@ CREATE TABLE IF NOT EXISTS `tbl_menu_item` (
 --
 
 INSERT INTO `tbl_menu_item` (`id`, `title`, `alias`, `menuID`, `parentID`, `lft`, `rgt`, `type`, `default`, `link`, `controller`, `action`, `level`, `ordering`, `status`, `cdate`, `mdate`, `params`) VALUES
-(1, 'menu_root', 'root', 0, 0, 0, 39, 'app', 0, '', '', '', 0, 0, 0, '0000-00-00 00:00:00', '2015-08-17 10:15:59', ''),
-(23, 'tin trong nuoc', 'tin-trong-nuoc', 1, 17, 6, 7, 'app', 0, '', '', '', 2, 23, 1, '0000-00-00 00:00:00', '2015-10-12 09:05:41', '{"app":"article","controller":"category","action":"blog","catid":"10","menu_text":1}'),
+(1, 'menu_root', 'root', 0, 0, 0, 49, 'app', 0, '', '', '', 0, 0, 0, '0000-00-00 00:00:00', '2015-08-17 10:15:59', ''),
+(23, 'tin trong nuoc', 'tin-trong-nuoc', 1, 17, 38, 39, 'app', 0, '', '', '', 2, 23, 1, '0000-00-00 00:00:00', '2015-10-19 10:05:07', '{"app":"article","controller":"category","action":"blog","catid":"10","menu_text":1}'),
 (24, 'tin quoc te', 'tin-quoc-te', 1, 17, 8, 9, 'app', 0, '', '', '', 2, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:42:44', ''),
-(17, 'tin tuc', 'tin-tuc', 1, 1, 5, 32, 'app', 1, '', '', '', 1, 17, 1, '0000-00-00 00:00:00', '2015-10-16 05:41:14', '{"app":"article","controller":"category","action":"blog","catid":"10","menu_text":1}'),
-(18, 'menu 2', 'menu 1', 1, 1, 33, 36, 'app', 0, '', 'articles', 'category', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:33:03', ''),
-(19, 'menu 3', 'menu 1', 1, 1, 37, 38, 'app', 0, '', '', '', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:34:42', ''),
-(20, 'menu 4', '', 1, 1, 39, 40, 'app', 0, '', '', '', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:35:42', ''),
-(25, 'Tin Y học', 'tin-y-hoc', 1, 17, 10, 21, 'app', 0, '', '', '', 2, 25, 1, '0000-00-00 00:00:00', '2015-08-18 10:40:00', ''),
-(26, 'menu 1.4', '', 1, 17, 22, 23, 'app', 0, '', '', '', 2, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:43:48', ''),
-(27, 'menu 1.5', '', 1, 17, 24, 31, 'app', 0, '', '', '', 2, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:43:50', ''),
-(28, 'menu 1.3.1', '', 1, 25, 11, 12, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:56:04', ''),
-(29, 'menu 1.3.2', '', 1, 25, 13, 16, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:58:09', ''),
-(30, 'menu 1.5.1', '', 1, 27, 25, 28, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:59:03', ''),
-(31, 'menu 1.3.3', '', 1, 25, 15, 18, 'app', 0, '', '', '', 3, 29, 1, '0000-00-00 00:00:00', '2015-08-18 07:37:28', ''),
+(17, 'tin tuc', 'tin-tuc', 1, 1, 5, 40, 'app', 1, '', '', '', 1, 17, 1, '0000-00-00 00:00:00', '2015-10-16 05:41:14', '{"app":"article","controller":"category","action":"blog","catid":"10","menu_text":1}'),
+(18, 'menu 2', 'menu 1', 1, 1, 41, 44, 'app', 0, '', 'articles', 'category', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:33:03', ''),
+(19, 'menu 3', 'menu 1', 1, 1, 45, 46, 'app', 0, '', '', '', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:34:42', ''),
+(20, 'menu 4', '', 1, 1, 47, 48, 'app', 0, '', '', '', 1, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:35:42', ''),
+(25, 'Tin Y học', 'tin-y-hoc', 1, 17, 10, 25, 'app', 0, '', '', '', 2, 25, 1, '0000-00-00 00:00:00', '2015-08-18 10:40:00', ''),
+(26, 'tintuc 1.4', '', 1, 17, 26, 27, 'app', 0, '', '', '', 2, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:43:48', ''),
+(27, 'tintuc 1.5', '', 1, 17, 28, 35, 'app', 0, '', '', '', 2, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:43:50', ''),
+(28, 'Y học 1.3.1', '', 1, 25, 11, 12, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:56:04', ''),
+(29, 'Y học 1.3.2', '', 1, 25, 15, 16, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:58:09', ''),
+(30, 'tintuc 1.5.1', '', 1, 27, 29, 32, 'app', 0, '', '', '', 3, 0, 1, '0000-00-00 00:00:00', '2015-08-18 06:59:03', ''),
+(31, 'Y học 1.3.3', '', 1, 25, 17, 20, 'app', 0, '', '', '', 3, 29, 1, '0000-00-00 00:00:00', '2015-08-18 07:37:28', ''),
 (32, 'Trang chu', 'trang-chu', 1, 1, 3, 30, '', 0, '', '', '', 1, 32, 1, '0000-00-00 00:00:00', '2015-10-16 05:05:14', '');
 
 -- --------------------------------------------------------
@@ -1608,17 +1608,7 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `groupID`, `leader`, `mobile`, `home_phone`, `first_name`, `last_name`, `address`, `city`, `province_state`, `zip_code`, `country`, `suppliers`, `cdate`, `mdate`, `template_id`, `status`, `lastvisit`, `activeCode`, `params`) VALUES
-(28, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 25, 0, '', '', 'admin', 'admin', '', '', '', '', 0, '', 0, 2015, 0, 1, '2015-10-17 11:11:33', '', ''),
-(20, 'ducdm87@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ducdm87@gmail.com', 19, 0, '', '', 'ducdm87', '', '', '', '', '', 0, 'facebook', 1392186072, 2015, 0, 0, '2014-02-12 14:34:00', '', ''),
-(7, 'ducdm@binhhoang.com', '25f9e794323b453885f5181f1b624d0b', 'ducdm@binhhoang.com', 19, 0, '', '', 'ducdm', '', '', '', '', '', 0, '', 1389770555, 2014, 0, 1, '2014-01-16 10:04:50', '2ed194a21f0735a76ee4358192533784:1389840767', ''),
-(8, 'dinhbang19@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'dinhbang19@gmail.com', 19, 0, '', '', 'dinhbang19', '', '', '', '', '', 0, '', 1389841867, 1389841867, 0, 1, '2014-01-16 10:15:45', '17bb5d16f6e732bfddcc11d63a584a6a:1389841867', ''),
-(12, 'ducdm87@twitter.com', '', 'ducdm87@twitter.com', 19, 0, '', '', 'ducdm87', '', '', '', '', '', 0, 'twitter', 1389856370, 1389856370, 0, 1, '0000-00-00 00:00:00', '', ''),
-(16, 'bangtdadmin', '96e6fc55ef27cd6ee161ba7a062c3111', 'bangtdadmin@gmail.com', 24, 0, '', '', 'bangtdadmin', 'bangtdadmin', '', '', '', '', 0, '', 0, 2014, 0, 1, '2014-02-17 14:24:04', '', ''),
-(14, 'bangtd@binhhoang.com', 'e10adc3949ba59abbe56e057f20f883e', 'bangtd@binhhoang.com', 19, 0, '', '', 'bangtd', '', '', '', '', '', 0, '', 1390532686, 1390532686, 0, 1, '2014-01-24 10:14:08', '0ccf5da3b41dff684ee030f1b6f9894e:1390532686', ''),
-(15, 'hoangdaoxuan@yahoo.com.au', '', 'hoangdaoxuan@yahoo.com.au', 19, 0, '', '', 'hoangdaoxuan', '', '', '', '', '', 0, 'facebook', 1390536708, 1390536708, 0, 1, '0000-00-00 00:00:00', '', ''),
-(17, 'vuhien', 'c0f849c33cf98290c9bd976fb81eb6b0', 'vuhien@binhhoang.com', 23, 0, '', '', 'vuhien', 'vuhien', '', '', '', '', 0, '', 0, 2014, 0, 1, '2014-02-10 13:53:28', '', ''),
-(18, 'anhmantk@gmail.com', '', 'anhmantk@gmail.com', 19, 0, '', '', 'anhmantk', '', '', '', '', '', 0, 'facebook', 1392112877, 1392112877, 0, 1, '0000-00-00 00:00:00', '', ''),
-(19, 'ducdm871@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ducdm871@gmail.com', 19, 0, '', '', 'ducdm871', '', '', '', '', '', 0, '', 1392177110, 1392177110, 0, 1, '2014-02-12 13:14:56', '18f48748011eb544d6bbf7062d6042da:1392177110', '');
+(28, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 2, 0, '', '', 'admin', 'admin', '', '', '', '', 0, '', 0, 2015, 0, 1, '2015-10-19 14:32:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -1628,14 +1618,19 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `groupID`, `lead
 
 CREATE TABLE IF NOT EXISTS `tbl_users_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `parentID` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL DEFAULT '',
   `lft` int(11) NOT NULL DEFAULT '0',
+  `rgt` smallint(6) NOT NULL,
+  `level` tinyint(4) NOT NULL,
   `value` varchar(255) NOT NULL DEFAULT '',
   `isActive` varchar(1) NOT NULL,
+  `backend` tinyint(4) NOT NULL,
   `status` smallint(6) NOT NULL,
+  `cdate` datetime NOT NULL,
+  `mdate` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `matdep_gacl_parent_id_aro_groups` (`parent_id`),
+  KEY `matdep_gacl_parent_id_aro_groups` (`parentID`),
   KEY `matdep_gacl_lft_rgt_aro_groups` (`lft`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
@@ -1643,15 +1638,51 @@ CREATE TABLE IF NOT EXISTS `tbl_users_group` (
 -- Dumping data for table `tbl_users_group`
 --
 
-INSERT INTO `tbl_users_group` (`id`, `parent_id`, `name`, `lft`, `value`, `isActive`, `status`) VALUES
-(1, 0, 'ROOT', 1, 'ROOT', '', 1),
-(8, 1, 'Registered', 4, 'Registered', '', 1),
-(7, 6, 'Author', 5, 'Author', '', 1),
-(6, 5, 'Editor', 6, 'Editor', '', 1),
-(5, 1, 'Publisher', 7, 'Publisher', '', 1),
-(2, 1, 'Super Administrator', 16, 'Super Administrator', '', 1),
-(31, 2, 'quản lý khu vực 1', 3, 'quản lý khu vực 1', '1', 1),
-(32, 2, 'quản lý khu vực 2', 1, 'quản lý khu vực 2', '1', 1);
+INSERT INTO `tbl_users_group` (`id`, `parentID`, `name`, `lft`, `rgt`, `level`, `value`, `isActive`, `backend`, `status`, `cdate`, `mdate`) VALUES
+(1, 0, 'ROOT', 1, 22, 0, 'ROOT', '', -1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 1, 'Registered', 20, 21, 1, 'Registered', '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 6, 'Author', 12, 13, 3, 'Author', '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 5, 'Editor', 11, 16, 2, 'Editor', '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 1, 'Publisher', 10, 19, 1, 'Publisher', '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 'Super Administrator', 2, 9, 1, 'Super Administrator', '', 1, 1, '0000-00-00 00:00:00', '2015-10-19 10:19:24'),
+(31, 2, 'quản lý khu vực 1', 7, 8, 2, 'quản lý khu vực 1', '1', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, 2, 'quản lý khu vực 2', 5, 6, 2, 'quản lý khu vực 2', '1', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_users_group2`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_users_group2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parentID` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `lft` int(11) NOT NULL DEFAULT '0',
+  `rgt` smallint(6) NOT NULL,
+  `level` tinyint(4) NOT NULL,
+  `value` varchar(255) NOT NULL DEFAULT '',
+  `isActive` varchar(1) NOT NULL,
+  `backend` tinyint(4) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `matdep_gacl_parent_id_aro_groups` (`parentID`),
+  KEY `matdep_gacl_lft_rgt_aro_groups` (`lft`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+
+--
+-- Dumping data for table `tbl_users_group2`
+--
+
+INSERT INTO `tbl_users_group2` (`id`, `parentID`, `name`, `lft`, `rgt`, `level`, `value`, `isActive`, `backend`, `status`) VALUES
+(1, 0, 'ROOT', 1, 16, 1, 'ROOT', '', -1, 1),
+(8, 1, 'Registered', 14, 15, 1, 'Registered', '', 0, 1),
+(7, 6, 'Author', 11, 12, 3, 'Author', '', 0, 1),
+(6, 5, 'Editor', 9, 10, 2, 'Editor', '', 0, 1),
+(5, 1, 'Publisher', 8, 13, 1, 'Publisher', '', 0, 1),
+(2, 1, 'Super Administrator', 2, 7, 1, 'Super Administrator', '', 1, 1),
+(31, 2, 'quản lý khu vực 1', 3, 4, 3, 'quản lý khu vực 1', '1', 1, 1),
+(32, 2, 'quản lý khu vực 2', 5, 6, 3, 'quản lý khu vực 2', '1', 1, 1);
 
 -- --------------------------------------------------------
 
