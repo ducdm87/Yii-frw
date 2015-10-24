@@ -128,9 +128,7 @@ class YiiTables{
         if($orderBy != null AND $orderBy != "") $command->order($orderBy);
         
         $items = $command->queryRow();
-        foreach($items as $field => $field_value){
-            $this->$field = $field_value;
-        }
+        
         return $items;
     }
     
@@ -143,11 +141,14 @@ class YiiTables{
     }
     
     function bind($fromArray){
-        foreach ($this as $field_name => $field_value) {
-            if(strpos($field_name, "_") !== false) continue;
-            if (isset($fromArray[$field_name]) and $fromArray[$field_name] != "" and $fromArray[$field_name] != null)
+        foreach ($this as $field_name => $field_value) {            
+            if(strpos($field_name, "_") === 0) continue;
+           
+            if (isset($fromArray[$field_name]) and $fromArray[$field_name] != "" and $fromArray[$field_name] != null){
                 $this->$field_name = $fromArray[$field_name];
+            }
         }
+       
         return $fromArray;
     }
     
@@ -196,7 +197,7 @@ class YiiTables{
         
         $insterted = array();
         foreach ($this as $field_name => $field_value) {
-            if(strpos($field_name, "_") !== false) continue;
+            if(strpos($field_name, "_") === 0) continue;
             $insterted[] = "`$field_name`=:$field_name";
         }
         $insterted = implode(",", $insterted); 
@@ -216,11 +217,13 @@ class YiiTables{
             $query = "INSERT INTO $this->_tablename SET " . $insterted;
         }
         $query_command = $this->_db->createCommand($query);
+        //$current_query = $query;
         foreach ($this as $field_name => $field_value) {
-            if(strpos($field_name, "_") !== false) continue;
+            if(strpos($field_name, "_") === 0) continue;
             $query_command->bindParam(':' . $field_name, $this->$field_name);
-        } 
- 
+           // $current_query = str_replace(':' . $field_name, $this->$field_name, $current_query);
+        }
+        
         $query_command->execute();
         if ($id == 0)
             $id = $this->_db->lastInsertID;

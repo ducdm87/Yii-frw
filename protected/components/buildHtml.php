@@ -185,4 +185,22 @@ class buildHtml {
         $html .= "</select>";
         return $html;
     }
+    
+    static function renderField($type = "text", $name, $value = "", $title, $class = "form-control"){
+        
+        $html = '<div class="form-group row">';
+            $html .= '<label class="control-label left col-md-3">'.$title.'</label>';
+                $html .= '<div class="col-md-9">';
+                if($type == "text")
+                    $html .= '<input type="text" name="'.$name.'" class="'.$class.'" value="'.$value.'">';
+                else if($type == "textarea")
+                    $html .= '<textarea rows="2" name="'.$name.'" class="'.$class.'">'.$value.'</textarea>';
+                else if($type == "label")
+                    $html .= $value;
+            $html .= '</div>';
+        $html .= '</div>';
+         
+       
+        return $html;
+    }
 }

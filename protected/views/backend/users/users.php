@@ -19,7 +19,7 @@
             <?php
             $k = 0;
             foreach ($list_user as $i => $item) {
-                $link_edit = $this->createUrl("/user/edit")."?cid[]=" . $item['id'];
+                $link_edit = $this->createUrl("/users/edit")."?cid[]=" . $item['id'];
                 ?>
                 <tr class="row1">
                     <td><?php echo ($i + 1); ?></td>

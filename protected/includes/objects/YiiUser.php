@@ -34,7 +34,7 @@ class YiiUser{
     function getUsers($condition = null, $fields = "*")
     {
         $tbl_user = YiiTables::getInstance(TBL_USERS);
-        $items = $tbl_user->loads($fields, $condition, "lft asc ", null);
+        $items = $tbl_user->loads($fields, $condition, "ID DESC ", null);
         return $items;
     }
     
