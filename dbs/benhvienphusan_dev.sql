@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2015 at 12:04 PM
+-- Generation Time: Oct 24, 2015 at 06:58 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -1586,8 +1586,8 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   `zip_code` varchar(30) NOT NULL,
   `country` smallint(6) NOT NULL,
   `suppliers` varchar(32) NOT NULL,
-  `cdate` int(11) NOT NULL,
-  `mdate` int(11) NOT NULL,
+  `cdate` datetime NOT NULL,
+  `mdate` datetime NOT NULL,
   `template_id` smallint(6) NOT NULL,
   `status` smallint(6) NOT NULL,
   `lastvisit` datetime NOT NULL,
@@ -1608,7 +1608,7 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `groupID`, `leader`, `mobile`, `home_phone`, `first_name`, `last_name`, `address`, `city`, `province_state`, `zip_code`, `country`, `suppliers`, `cdate`, `mdate`, `template_id`, `status`, `lastvisit`, `activeCode`, `params`) VALUES
-(28, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 2, 0, '', '', 'admin', 'admin', '', '', '', '', 0, '', 0, 2015, 0, 1, '2015-10-19 14:32:00', '', '');
+(28, 'admin', '0192023a7bbd73250516f069df18b500', 'ducdm87@gmail.com', 2, 0, '0979390590', '', 'dam manh', 'duc', 'trung kinh', 'bhmedia', '', '', 0, '', '0000-00-00 00:00:00', '2015-10-24 06:27:50', 0, 1, '2015-10-24 09:38:25', '', '');
 
 -- --------------------------------------------------------
 
