@@ -1,6 +1,6 @@
 <div class="col-right">
     <?php
-    echo fnLoadModules($position = "colright", "benhvien");
+    echo YiiModule::loadModules($position = "colright", "benhvien");
     fnShowTienIch();
     
     if(getSysConfig("showMapsColumn", 1) == 1){

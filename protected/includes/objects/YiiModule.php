@@ -57,4 +57,48 @@ class YiiModule{
         return $obj_menuitem->loadColumn("menuID", "moduleID = $moduleID", null,null);
     }
     
+    static function loadModules($position = "top", $type = "Benvien")
+    {
+        global $datamodule;
+        if(!isset($datamodule)) $datamodule = array();
+        if(isset($datamodule[$position])) return $datamodule[$position];
+        $datamodule[$position] = array();
+        $menuID = Request::getVar('menuID',1);
+        $query = "SELECT E.* "
+                        . " FROM {{extensions}} E LEFT JOIN {{module_menuitem_ref}} MM ON E.id = MM.moduleID "
+                            . " LEFT JOIN {{modules}} M ON M.module = E.folder "
+                        . " WHERE  E.type = 'module' AND MM.menuID = $menuID AND M.position = '$position' AND E.status = 1 ";
+        $query_command = Yii::app()->db->createCommand($query);
+        $items = $query_command->queryAll();   
+        if(count($items)){
+            foreach($items as $item){
+                $str_module = Yii::fnLoadModule($item);
+                if($str_module!=""){
+                    $fn = "modYii_$type";
+                    if(function_exists($fn))
+                        $datamodule[$position][] = $fn($str_module, $item);
+                    else $datamodule[$position][] = $str_module;
+                }
+            }
+        }
+        return implode ("", $datamodule[$position]);
+    }
+    
+    static function fnLoadModule($module)
+    {
+        global $path_module;
+
+        $moduleName = $module['folder'];
+
+        if(file_exists(PATH_MODULES."/$moduleName/$moduleName.php")){
+            ob_start();
+            require_once PATH_MODULES."/$moduleName/$moduleName.php";
+            $str = ob_get_contents();
+            ob_end_clean();
+            return $str;
+        }
+        return "";
+    }
+
+    
 }
