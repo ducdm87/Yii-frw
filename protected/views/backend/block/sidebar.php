@@ -113,6 +113,7 @@ function showSideBarMenu($_controller, $_action, $title, $_class="fa-folder")
     $action = Yii::app()->controller->action->id;    
     $class = "";
     $_class = "fa " . $_class;
+    $link = Yii::app()->createUrl("$_controller/$_action");
     if($_action == "") $_action = "display";
     
     if(strpos($_action, "-") === 0){
@@ -126,8 +127,7 @@ function showSideBarMenu($_controller, $_action, $title, $_class="fa-folder")
         if($controll == $_controller AND $action == $_action){
             $class = "active current";
             $_class .= " fa-spin";
-        }
-        $link = Yii::app()->createUrl("$_controller/$_action");  
+        }        
     }
      
     
