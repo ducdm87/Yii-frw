@@ -17,7 +17,7 @@ class ModulesController extends BackEndController {
 
     function init() {
         parent::init();
-
+        yii::import('application.models.backend.module.*'); 
         $this->model = Module::getInstance();
     }
 

@@ -11,6 +11,7 @@ class UsergroupsController extends BackEndController {
     function init() {
         parent::init();
         $this->request = Yii::app()->getRequest();
+        yii::import('application.models.backend.users.*');
     }
 
     public function actionDisplay() {

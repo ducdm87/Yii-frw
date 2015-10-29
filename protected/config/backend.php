@@ -5,26 +5,19 @@ $settings = array(
     'components' => array(
         'urlManager' => array(
             'urlFormat' => 'path',
-          //  'showScriptName'=>false,
-            'rules' => array(
+                      'rules' => array(
                 'backend/ ' => 'cpanel/display',
                 'backend' => 'cpanel/display',
                 
-               // 'backend/<controller>' => '<backend>',
-               // 'backend/<controller>/<action>' => '<backend>',
-              //  'backend/<controller>/<subcontroller>/<action>' => '<backend>/<action>',                
-                   
+                                                               
                 'backend/<controller>' => '<controller>',
                 'backend/<controller>/<action>' => '<controller>/<action>',
-               // 'backend/<controller>/<subcontroller>/<action>' => '<controller>',
-                 
-               // 'backend/<action:\w+>\-<controller:\w+>' => '<controller>/<action>',
-              //  'backend/<folder>.<controller>/<action>' => '<controller>/<action>',               
-                
+                                
+                                             
             ),
         ),
         'user' => array(
-            'loginUrl' => array('user/login'),
+            'loginUrl' => array('users/login'),
         ),
         'session' => array(
             'class' => 'CHttpSession',

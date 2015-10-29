@@ -4,17 +4,11 @@ class UsersController extends BackEndController {
 
     var $primary = 'id';
     var $tablename = "{{users}}";
-    var $tbl_group = "{{users_group}}";
-    private $model_group;
-    private $model;
-    private $request;
+    var $tbl_group = "{{users_group}}"; 
 
     function init() {
         parent::init();
-
-        $this->model = new Users();
-        $this->model_group = new Group();
-        $this->request = Yii::app()->getRequest();
+        yii::import('application.models.backend.users.*');          
     }
 
     public function actionDisplay() {
@@ -53,13 +47,7 @@ class UsersController extends BackEndController {
 //        $this->pageTitle = "Home page Display";        
         $this->render('users', array("list_user" => $list_user, 'arr_group' => $arr_group));
     }
-
-    
-     public function actionLogout() {
-        Yii::app()->session['userbackend'] = null;
-//        Yii::app()->user->logout();
-        $this->redirect($this->createUrl('login'));
-    }
+ 
 
     function actionCancel() {
         $this->redirect($this->createUrl('users/'));
@@ -95,6 +83,7 @@ class UsersController extends BackEndController {
 
         $model = new Users();
         $item = $model->getItem($cid) ;       
+         
         $list = $model->getListEdit($item);
 
         $this->render('edit', array("item" => $item,"list" => $list));
@@ -150,6 +139,39 @@ class UsersController extends BackEndController {
             $item_user->store();
             return $item_user->id;
         }
+    }
+    
+    public function actionLogin() {
+        
+        $LoginForm = Request::getVar("LoginForm");
+        if (Request::getVar("LoginForm") and ($LoginForm['username'] == "" || $LoginForm['password'] == "")) {
+            YiiMessage::raseWarning("Type your username and password");
+            $this->redirect(Yii::app()->createUrl("users/login"));
+            return;
+        }
+        
+        $model = new UserForm();
+        // collect user input data
+        if (isset($_POST['LoginForm'])) {
+            $model->attributes = $_POST['LoginForm'];
+            $session_id = session_id();
+            // validate user input and redirect to the previous page if valid                    
+            if ($model->validate() && $model->login()) {
+                $this->afterLogin($session_id, session_id());
+                $this->redirect($this->createUrl('cpanel/display'));
+//                    $this->redirect("/backend/");
+            } else {
+                YiiMessage::raseWarning("Invalid your usename or password");
+            }
+        }
+        $this->pageTitle = "Page login";
+        $this->render('login');
+    }
+    
+     public function actionLogout() {
+        Yii::app()->session['userbackend'] = null;
+//        Yii::app()->user->logout();
+        $this->redirect($this->createUrl('login'));
     }
     
     

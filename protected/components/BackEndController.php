@@ -17,7 +17,6 @@ class BackEndController extends CController {
 
     function init() {        
         global $db, $user, $mainframe, $hideMenu;
-        Yii::app()->session->open();
         setSysConfig("sidebar.display", 1);
         $task = Request::getVar("task", "");        
 
@@ -29,7 +28,6 @@ class BackEndController extends CController {
         $db = $this->db = Yii::app()->db;
         Yii::app()->name = "Back end";
         $user = $this->user = Yii::app()->session['userbackend'];
-         
         $mainframe = MainFrame::getInstance($this->db, $this->user);
 
         parent::init();
@@ -68,15 +66,14 @@ class BackEndController extends CController {
 
         global $db, $user, $mainframe;
         $app = Yii::app();
-        
         if ($mainframe->isLogin()) {
             if (!$mainframe->isAdmin()) {
                 YiiMessage::raseWarning("Your account not have permission to visit backend page");
                 Yii::app()->session['userbackend'] = null;
-                $this->redirect(array('user/logout'));
+                $this->redirect(array('users/logout'));
                 return;
             }
-            if ($app->controller->id == "user" and $app->controller->action->id == "login") {
+            if ($app->controller->id == "users" and $app->controller->action->id == "login") {
                 $this->redirect(array('/cpanel'));
                 return;
             }
@@ -88,7 +85,7 @@ class BackEndController extends CController {
                 )
             );
             return $return;
-        } else if ($app->controller->id == "user" and $app->controller->action->id == "login") {
+        } else if ($app->controller->id == "users" and $app->controller->action->id == "login") {
 
             return array(
                 array('allow', // allow all users to access 'formlogin' and 'login' actions.
@@ -103,23 +100,21 @@ class BackEndController extends CController {
                 ),
             );
         } else {
-            $this->redirect(array('user/login'));
+            $this->redirect(array('users/login'));
 //            return array();
         }
     }
 
     public function redirect($url, $message = "", $terminate = true, $statusCode = 302) {
         if ($message != "") {
-               YiiMessage::raseSuccess($message);             
-           // Yii::app()->session['message'] = $message;
-            //Yii::app()->session['rasestatus'] = "notice";
+            Yii::app()->session['message'] = $message;
+            Yii::app()->session['rasestatus'] = "notice";
         }
         if (is_array($url)) {
             $route = isset($url[0]) ? $url[0] : '';
             $url = $this->createUrl($route, array_splice($url, 1));
         }
         Yii::app()->getRequest()->redirect($url, $terminate, $statusCode);
-        exit();
     }
 
     function addIconToolbar($title, $task, $class, $type = 1, $checkForm = 0, $alert = "Please select a item from the list to edit") {
@@ -142,7 +137,7 @@ class BackEndController extends CController {
                                 </td>';
     }
 
-    function addIconToolbarDelete($title = "Delete", $alert = "Please select a item from the list to delete") {
+    function addIconToolbarDelete($alert = "Please select a item from the list to delete") {
         $this->iconToolbar[] = ' <td id="toolbar-delete" class="button">
                                      <a class="toolbar" onclick="javascript:if (document.adminForm.boxchecked.value == 0) {
                                         alert(\'' . $alert . '\');
@@ -151,7 +146,7 @@ class BackEndController extends CController {
                                     }" href="#">
                                         <span title="delete" class="icon-32-delete">
                                         </span>
-                                        '.$title.'
+                                        delete
                                     </a>
                                 </td>';
     }
@@ -203,10 +198,10 @@ class BackEndController extends CController {
         if ($value === 0 || $value == "") {
             return $this->item;
         }
- 
+
         if ($fieldName == "")
             $fieldName = $this->primary;
-      
+        
         if ($tablename == "")
             $tablename = $this->tablename;
         $value = trim($value);
@@ -229,22 +224,16 @@ class BackEndController extends CController {
             $primary = $this->primary;
         
         $insterted = array();
-        $insterted2 = array();
         foreach ($item as $k => $val) {
-            $insterted[] = "`$k`=:$k";
-            $insterted2[] = "`$k`='$val'";
+            $insterted[] = "$k=:$k";
         }
         $insterted = implode(",", $insterted);
-        $insterted2 = implode(",", $insterted2);
         $query = "";
-        $query2 = "";
 
         if ($item[$primary] != 0) {
             if (isset($item['mdate']))
                 $item['mdate'] = date("Y-m-d H:i:s");
             $query = "UPDATE " . $tableName . " SET " . $insterted . " WHERE " . $primary . " = " . $item[$primary];
-            $query2 = "UPDATE " . $tableName . " SET " . $insterted2 . " WHERE " . $primary . " = " . $item[$primary];
-          //  echo $query2; die;
         } else {
             if (isset($item['cdate']))
                 $this->item['cdate'] = date("Y-m-d H:i:s");
@@ -346,8 +335,63 @@ class BackEndController extends CController {
         return $alias;
     }
 
-    function afterLogin($old_session_id, $new_session_id) {        
+    function afterLogin($old_session_id, $new_session_id) {
         return true;
     }
 
+    public function gen_pagination($pagination, $paged = 1, $get = false, $range = 4) {
+        if ($pagination['total'] > 0) {
+            $max_page = ceil($pagination['total'] / $pagination['limit']);
+
+            $return = '<ul class="pagination">';
+
+            // Previous Button
+            $return .= '<li class="paginate_button previous ' . ($paged <= 1 ? 'disabled' : '') . '">';
+            $return .= '<a href="' . ($paged <= 1 ? 'javascript:void(0)' : (($get ? '' : '/') . ($paged - 1))) . '">' . $this->lang->line('previous_text') . '</a>';
+            $return .= '</li>';
+
+            if ($max_page > $range) {
+                if ($paged < $range) {
+                    for ($i = 1; $i <= ($range + 1); $i++) {
+                        $current = $i == $paged ? 'active' : '';
+                        $return .= '<li class="paginate_button ' . $current . '">';
+                        $return .= '<a href="' . ($i == $paged ? 'javascript:void(0)' : $url . ($get ? '' : '/') . $i) . '">' . $i . '</a>';
+                        $return .= '</li>';
+                    }
+                } elseif ($paged >= ($max_page - ceil(($range / 2)))) {
+                    for ($i = $max_page - $range; $i <= $max_page; $i++) {
+                        $current = $i == $paged ? 'active' : '';
+                        $return .= '<li class="paginate_button ' . $current . '">';
+                        $return .= '<a href="' . ($i == $paged ? 'javascript:void(0)' : $url . ($get ? '' : '/') . $i) . '">' . $i . '</a>';
+                        $return .= '</li>';
+                    }
+                } elseif ($paged >= $range && $paged < ($max_page - ceil(($range / 2)))) {
+                    for ($i = ($paged - ceil($range / 2)); $i < ($paged + ceil(($range / 2))); $i++) {
+                        $current = $i == $paged ? 'active' : '';
+                        $return .= '<li class="paginate_button ' . $current . '">';
+                        $return .= '<a href="' . ($i == $paged ? 'javascript:void(0)' : $url . ($get ? '' : '/') . $i) . '">' . $i . '</a>';
+                        $return .= '</li>';
+                    }
+                }
+            } else {
+                for ($i = 1; $i <= $max_page; $i++) {
+                    $current = $i == $paged ? 'active' : '';
+                    $return .= '<li class="paginate_button ' . $current . '">';
+                    $return .= '<a href="' . ($i == $paged ? 'javascript:void(0)' : $url . ($get ? '' : '/') . $i) . '">' . $i . '</a>';
+                    $return .= '</li>';
+                }
+            }
+
+            $return .= '<li class="paginate_button next ' . ($paged >= $max_page ? 'disabled' : '') . '">';
+            $return .= '<a href="' . ($paged < $max_page ? ($url . ($get ? '' : '/') . ($paged + 1)) : 'javascript:void(0)') . '">' . $this->lang->line('next_text') . '</a>';
+            $return .= '</li>';
+
+            $return .= '</ul>';
+
+            return $return;
+        } else {
+            return '';
+        }
+    }
+    
 }

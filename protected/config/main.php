@@ -2,7 +2,7 @@
 
 define("TBL_MENU", "{{menus}}");
 define("TBL_MENU_ITEM", "{{menu_item}}");
-define("TBL_NEWS", "{{news_content}}");
+define("TBL_ARTICLES", "{{articles}}");
 define("TBL_CATEGORIES", "{{categories}}");
 define("TBL_EXTENSIONS", "{{extensions}}");
 define("TBL_MODULES", "{{modules}}");
@@ -10,8 +10,7 @@ define("TBL_MODULE_MENUITEM_REF", "{{module_menuitem_ref}}");
 define("TBL_SESSION", "{{session}}");
 define("TBL_USERS", "{{users}}");
 define("TBL_USERS_GROUP", "{{users_group}}");
-define("TBL_LOCATIONS", "{{locations}}");
-define("TBL_ADVISORY", "{{advisory}}");
+define("TBL_VIDEOS", "{{videos}}");
 
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
@@ -76,6 +75,6 @@ return array(
         ),
     ),
             'params' => array(
-                'adminEmail' => 'webmaster@example.com',
+                'adminEmail' => 'ducdm87@gmail.com',
     ),
 );
