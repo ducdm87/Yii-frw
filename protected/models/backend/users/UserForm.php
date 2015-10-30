@@ -22,7 +22,7 @@ class UserForm extends CFormModel {
             // username and password are required
             array('username, password', 'required'),
             // rememberMe needs to be a boolean
-            array('rememberMe', 'boolean'),
+            array('rememberMe', 'required'),
             // password needs to be authenticated
             array('password', 'authenticate'),
         );
@@ -54,11 +54,13 @@ class UserForm extends CFormModel {
      * @return boolean whether login is successful
      */
     public function login() {
+       
         $app = Yii::app();
         if ($this->_identity === null) {
             $this->_identity = new UserIdentity($this->username, $this->password);
             $this->_identity->authenticate();
         }
+        
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE) {
             if (isset($_POST['LoginForm']['rememberMe']) and $_POST['LoginForm']['rememberMe'] == 1) {
                 $duration = time() + 86400 * 30; // 30 days

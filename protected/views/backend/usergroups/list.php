@@ -36,7 +36,7 @@
                             foreach ($items as $i => $item) {
                                 if ($item['level'] == 0 OR $item['parentID'] == 0)
                                     continue;
-                                $link_edit = $this->createUrl('usergroups/edit?cid=' . $item['id']);
+                                $link_edit = $this->createUrl('usergroups/edit', array("cid" => $item['id']));
                                 $item['name'] = str_repeat("&nbsp; &nbsp; ", $item['level'] - 1) . " - " . $item['name'];
                                 ?>
                                 <tr>

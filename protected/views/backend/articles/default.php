@@ -17,7 +17,7 @@
             <?php
             $k = 0;
             foreach ($items as $i => $item) {
-                $link_edit = $this->createUrl('articles/edit?cid=' . $item['id']);   
+                $link_edit = $this->createUrl('articles/edit', array("cid" => $item['id']));   
                 $item['slug'] = $item['id']."-".$item['alias'];
                 $params = urlencode(json_encode( array("id"=>$item['slug']) ));
                  

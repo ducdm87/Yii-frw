@@ -17,7 +17,7 @@
             <?php
             $k = 0;
             foreach ($items as $i => $item) {
-                $link_edit = $this->createUrl('modules/edit?cid=' . $item['id']);   
+                $link_edit = $this->createUrl('modules/edit', array("cid" => $item['id']));   
                 ?>
                 <tr class="row1">
                     <td><?php echo ($i + 1); ?></td>

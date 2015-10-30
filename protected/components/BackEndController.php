@@ -35,7 +35,7 @@ class BackEndController extends CController {
         $app = Yii::app();
         if (!$mainframe->isLogin()) {            
             $duration = time() + 300; // 365 days            
-        } else {                                    
+        } else {
             $remember_admin = (isset($_COOKIE['remember_admin']) AND $_COOKIE['remember_admin'] == 1 )?1:0;
             if($remember_admin == 1)
                 $duration = time() + 86400*30; // 365 days
