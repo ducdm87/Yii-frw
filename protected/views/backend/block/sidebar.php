@@ -17,11 +17,11 @@
         if (getSysConfig("sidebar.display", 1) == 1) {
             ?>
             <ul class="nav navbar-nav side-nav">
-                <li class="<?php if ($controll == "" OR $controll == "cpanel") echo "active current"; ?>">
+                <li class="<?php if ($controll == "" OR $controll == "cpanel") echo "active"; ?>">
                     <a href="/backend/"><i class="fa fa-dashboard"></i> Dashboard</a>
                 </li>
 
-                <li class="dropdown <?php if ($controll == "system") echo "active current"; ?>"">
+                <li class="dropdown <?php if ($controll == "system") echo "active"; ?>"">
                     <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
                         <i class="fa fa-caret-square-o-down"></i> System <b class="caret"></b>
                     </a>
@@ -31,7 +31,7 @@
                     </ul>
                 </li>
 
-                <li class="dropdown <?php if ($controll == "users" OR $controll == "usergroups") echo "active current"; ?>">
+                <li class="dropdown <?php if ($controll == "users" OR $controll == "usergroups") echo "active"; ?>">
                     <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
                         <i class="fa fa-caret-square-o-down"></i> Users <b class="caret"></b>
                     </a>
@@ -56,7 +56,7 @@
                 </li> 
 
                 <?php echo showSideBarMenu("modules","", "Modules"); ?>
-                <li class="dropdown <?php if($controll == "installer") echo "active current"; ?>">            
+                <li class="dropdown <?php if($controll == "installer") echo "active"; ?>">            
                     <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
                         <i class="fa fa-caret-square-o-down"></i> Installer 
                         <b class="caret"></b></a>

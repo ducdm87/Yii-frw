@@ -285,95 +285,23 @@ class MenusController extends BackEndController {
         $tbl_menu->bind($post); 
         $tbl_menu->store();        
         return array($tbl_menu->menuID, $tbl_menu->id);
-        
-        $bool = true;        
-        $old_parent = 0;
-        $change_ordering = false;
-        if($id != 0){
-            $this->item2 = $this->loadItem($id,"", $this->tbl_menuitem); 
-            $old_parent = $this->item2['parentID'];
-        }
-       
-        $this->item2 = $mainframe->bind($this->item2, $post);
-        
-        if($this->item2['title'] == "" AND $this->item2['alias'] == "") return false;
-        
-        $this->item2["id"] = $id;
-        $parent_rgt = 0;
-        if($this->item2["parentID"] == 0){
-            $this->item2["level"] = 1;
-            $query = "SELECT * FROM " . $this->tbl_menuitem . " WHERE parentID = 0 LIMIT 1 ";
-            $query_command = $db->createCommand($query);
-            $item_parent = $query_command->queryRow();
-        }else{
-            $item_parent = $this->loadItem($this->item2["parentID"],"", $this->tbl_menuitem);
-        }
-         
-        $this->item2["level"] = $item_parent['level'] +1;
-        $this->item2["parentID"] = $item_parent['id'];
-        $parent_rgt = $item_parent['rgt'];
-
-        if($id == 0 OR $old_parent != $this->item2["parentID"]){ // tao moi hoac thay doi parent
-            $this->item2["lft"] = $parent_rgt;
-            $this->item2["rgt"] = $this->item2["lft"] + 1;
-            $item_parent['rgt'] = $parent_rgt + 2;
-            $change_ordering = true;
-        }else if($post['ordering'] != $id){ // xu ly thay doi trong khoi cua no
-            $item2 = $this->loadItem($post['ordering'],"", $this->tbl_menuitem);
-            
-            $change_type = $this->item2["lft"]>$item2['lft']?2:-2;
-            $min_lft = $this->item2["lft"]<$item2['lft']?$this->item2["lft"]:$item2['lft'];
-            $max_rgt = $this->item2["rgt"]>$item2['rgt']?$this->item2["rgt"]:$item2['rgt'];
-            
-            $this->item2["lft"] = $item2['lft'];
-            $this->item2["rgt"] = $item2['rgt'];
-             
-            $query = "UPDATE $this->tbl_menuitem "
-                    . " SET `lft` = `lft` + $change_type, `rgt` = `rgt` + $change_type "
-                    . " WHERE `lft` >=  $min_lft AND `lft` < $max_rgt ";
-             
-            $this->item2["lft"] = $item2['lft'];
-            $this->item2["rgt"] = $item2['rgt'];
-            $query_command = $db->createCommand($query);
-            $query_command->execute();
-        }
-        
-        YiiMessage::raseSuccess("Successfully saved changes to menu item: " . $this->item2['title']);
-        $this->item2["id"] = $this->storeItem($this->item2, $this->tbl_menuitem);
-         
-        if($change_ordering == true){
-          //  $this->storeItem($item_parent, $this->tbl_menuitem);
-                     
-            $this->updateLftRgt($item_parent['id'], $item_parent['parentID']);
-        }
-        return array($this->item2["menuID"], $this->item2["id"]);
-   
     }
     
-    function updateLftRgt($id = 0, $root_parent = 0)
+    function actionRemovemenuitem()
     {
-        global $mainframe, $db;
-        if($id == $root_parent){
-            echo "<br />cha con bang nhau: $root_parent <br />";
-            //return;
+        $menuID = Request::getInt('menu', "");
+        $cids = Request::getVar("cid", 0);
+        $table_menu = YiiTables::getInstance(TBL_MENU_ITEM);
+        if(count($cids) >0){
+            for($i=0;$i<count($cids);$i++){
+                $cid = $cids[$i];
+                //check item first
+                $table_menu->remove($cid);
+            }
         }
-        $item2 = $this->loadItem($id,"", $this->tbl_menuitem); 
-        $itemParent = null;
-        if($item2['parentID'] != 0)
-            $itemParent = $this->loadItem($item2['parentID'],"", $this->tbl_menuitem); 
- 
-        $query = "UPDATE $this->tbl_menuitem SET `rgt` = `rgt` + 2 WHERE `id` =  $id ";
-        $query_command = $db->createCommand($query);
-        $query_command->execute();
-        echo "\$query2-1: ".$query; echo '<hr />';
-        if($itemParent != null) {            
-            $query = "UPDATE $this->tbl_menuitem SET `lft` = `lft` + 2, `rgt` = `rgt` + 2 "
-                        . " WHERE `lft`> " . $item2['rgt'] . " AND `lft` < " . $itemParent['rgt'];
-            $query_command = $db->createCommand($query);
-            $query_command->execute();
-            echo "\$query2-3: ".$query; echo '<hr />';            
-            $this->updateLftRgt($item2['parentID'], $root_parent);
-        }
+        YiiMessage::raseSuccess("Successfully remove Menuitem(s)");
+        $this->redirect($this->createUrl('menus/menuitems?menu='.$menuID));
     }
+     
     
 }

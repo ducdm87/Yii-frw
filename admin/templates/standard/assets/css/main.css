@@ -534,6 +534,13 @@ fieldset.adminform {
     color: #FFFFFF;
 }
 
+.navbar-inverse .navbar-brand {
+    color: red;
+    font-family: monospace;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 8px 6px 4px #428bca;
+}
 
 .clr {
     clear: both;

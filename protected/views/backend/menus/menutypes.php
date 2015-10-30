@@ -32,7 +32,8 @@
                         <tbody>
                             <?php if (isset($items) && $items): ?>                                
                                 <?php foreach ($items as $i=> $item): 
-                                    $link_edit = $this->createUrl('menus/editmenutype?cid=' . $item['id']);                                
+                                    $link_edit = $this->createUrl('menus/editmenutype',array("cid" => $item['id'])); 
+                                    $link_items = $this->createUrl('menus/menuitems', array("menu" => $item['id']));
                                     ?>
                                     <tr>
                                         <td><?php echo $i + 1; ?></td>                                        
@@ -42,7 +43,7 @@
                                         <td>
                                             <a href="<?php echo $link_edit; ?>"><?php echo $item['title']; ?></a>
                                         </td>
-                                        <td><a href="<?php echo $this->createUrl('menus/menuitems?menu=' . $item['id']); ?>">Items</a></td>
+                                        <td><?php echo buildHtml::showBtnIcon("Items", $link_items,"mainmenu.png"); ?></td>                                        
                                         <td align="center"><?php echo buildHtml::status($i, $item['status']); ?></td>
                                         <td><?php echo $item['description'];  ?></td>
                                         <td><?php echo $item['mdate'];  ?></td>

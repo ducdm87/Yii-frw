@@ -40,8 +40,7 @@ class Users extends CFormModel {
     
     function getListEdit($main_item){
         $obj_user = YiiUser::getInstance();
-
-        
+ 
         $condition = "`level` >= 1 ";
         $items = $obj_user->getGroups($condition, 'id value, name text, level');
         $list['groupID'] = buildHtml::select($items, $main_item->groupID, "groupID","","size=10", "&nbsp;&nbsp;&nbsp;","-");

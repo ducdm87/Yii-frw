@@ -30,7 +30,7 @@
                         <tbody>
                              <?php if (isset($items) && $items): ?>                                
                                 <?php foreach ($items as $i=> $item): 
-                                    $link_edit = $this->createUrl('menus/editmenuitem?menu='.$item['menuID'].'&cid=' . $item['id']);  
+                                    $link_edit = $this->createUrl('menus/editmenuitem',array("menu"=>$item['menuID'],'cid'=>$item['id']) );  
                                     $item['title'] = str_repeat("&nbsp;&nbsp;", $item['level']) ." - " . $item['title'];
                                     ?>
                                     <tr>

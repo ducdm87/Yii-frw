@@ -39,6 +39,22 @@ class buildHtml {
         ob_end_clean();
         return $return;
     }
+    
+    static function showBtnIcon($title, $link, $icon)
+    {
+        $img_name = $icon;
+        ob_start();
+        ?>
+            <span class="editlinktip hasTip">
+                <a href="<?php echo $link; ?>">
+                    <img width="16" height="16" border="0" alt="<?php echo $title; ?>" src="/admin/templates/standard/assets/images/icons/<?php echo $img_name; ?>">
+                </a>
+            </span>
+        <?php
+        $return = ob_get_contents();
+        ob_end_clean();
+        return $return;
+    }
 
     static function choseStatus($name = "status", $value = 1, $show_default = 1) {
         ob_start();

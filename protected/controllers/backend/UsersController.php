@@ -13,10 +13,11 @@ class UsersController extends BackEndController {
 
     public function actionDisplay() {
 
-//        $this->addIconToolbar("logout", $this->createUrl("/user/logout"),"cancel");
-        $this->addIconToolbar("Edit", $this->createUrl("/user/edit"), "edit", 1, 1, "Please select a item from the list to edit");
-        $this->addIconToolbar("New", $this->createUrl("/user/new"), "new");
-        $this->addIconToolbarDelete();
+//        $this->addIconToolbar("logout", $this->createUrl("/users/logout"),"cancel");
+        $this->addIconToolbar("Edit", $this->createUrl("/users/edit"), "edit", 1, 1, "Please select a item from the list to edit");
+        $this->addIconToolbar("New", $this->createUrl("/users/new"), "new");
+//        $this->addIconToolbarDelete();
+        $this->addIconToolbar("Delete", $this->createUrl("/users/remove"), "trash", 1, 1, "Please select a item from the list to Remove");        
         $this->addBarTitle("User <small>[list]</small>", "user");
 
         $task = Request::getVar('task', "");
@@ -54,13 +55,7 @@ class UsersController extends BackEndController {
     }
 
     function actionNew() {
-        $this->addIconToolbar("Save", $this->createUrl("/user/save"), "save");
-        $this->addIconToolbar("Apply", $this->createUrl("/user/apply"), "apply");
-        $this->addIconToolbar("Cancel", $this->createUrl("/user/cancel"), "cancel");
-        $this->addBarTitle("User <small>[New]</small>", "user");
-        $model = new Users();
-        $arr_group = $model->getGroup();
-        $this->render('edit', array("item" => $this->item,'arr_group'=>$arr_group));
+        $this->actionEdit();
     }
 
     function actionEdit() {
@@ -69,17 +64,20 @@ class UsersController extends BackEndController {
         $cid = Request::getVar("cid", 0);
 
         if (is_array($cid))
-            $cid = $cid[0];
-
-        if ($cid == 0) {
-            $this->actionNew();
-            return;
-        }
+            $cid = $cid[0]; 
 
         $this->addIconToolbar("Save", $this->createUrl("/users/save"), "save");
         $this->addIconToolbar("Apply", $this->createUrl("/users/apply"), "apply");
-        $this->addIconToolbar("Close", $this->createUrl("/users/cancel"), "cancel");
-        $this->addBarTitle("User <small>[Edit]</small>", "user");
+  
+        if ($cid == 0) {
+            $this->addIconToolbar("Cancel", $this->createUrl("/users/cancel"), "cancel");
+            $this->addBarTitle("User <small>[New]</small>", "user");        
+            $this->pageTitle = "New User";
+        }else{
+            $this->addIconToolbar("Close", $this->createUrl("/users/cancel"), "cancel");
+            $this->addBarTitle("User <small>[Edit]</small>", "user");        
+            $this->pageTitle = "Edit User";           
+        }
 
         $model = new Users();
         $item = $model->getItem($cid) ;       
@@ -174,5 +172,17 @@ class UsersController extends BackEndController {
         $this->redirect($this->createUrl('login'));
     }
     
+    function actionRemove()
+    {
+        $cids = Request::getVar("cid", 0);
+        if(count($cids) >0){
+            $obj_table = YiiUser::getInstance();
+            for($i=0;$i<count($cids);$i++){
+               $obj_table->removeUser($cids[$i]);
+            }
+        }
+        YiiMessage::raseSuccess("Successfully delete User(s)");
+        $this->redirect($this->createUrl('users/'));
+    }
     
 }

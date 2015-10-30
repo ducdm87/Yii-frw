@@ -124,7 +124,7 @@ class UsergroupsController extends BackEndController {
                $obj_table->removeGroup($cids[$i]);
             }
         }
-        YiiMessage::raseSuccess("Successfully delete Article(s)");
+        YiiMessage::raseSuccess("Successfully delete GroupUser(s)");
         $this->redirect($this->createUrl('usergroups/'));
     }
     

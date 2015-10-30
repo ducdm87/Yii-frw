@@ -32,7 +32,7 @@
                     <td><?php echo $item['username'] ?></td>
                     <td>v</td>
                     <td><?php echo buildHtml::status($i, $item['status']); ?></td>
-                    <td><?php echo $arr_group[$item['groupID']]['name']; ?></td>
+                    <td><?php echo isset($arr_group[$item['groupID']])?$arr_group[$item['groupID']]['name']:""; ?></td>
                     <td><?php echo $item['email'] ?></td>
                     <td><?php echo $item['lastvisit'] ?></td>
                     <td><?php echo $item['id'] ?></td>
