@@ -82,4 +82,14 @@ class YiiUser{
     function isLeader($cid = null){ }
     
     function checkPermistion($arr_url){ }
+    
+    function removeGroup($id = null, $condition = ""){
+        $table = YiiTables::getInstance(TBL_USERS_GROUP);
+        $table->remove($id, $condition);
+    }
+    
+    function removeUser($id = null, $condition = ""){
+        $table = YiiTables::getInstance(TBL_USERS);
+        $table->remove($id, $condition);
+    }
 }

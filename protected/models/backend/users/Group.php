@@ -58,17 +58,26 @@ class Group extends CFormModel {
         $items = array();
  
         $obj_user = YiiUser::getInstance();
+        $condition = ""; 
+        if($cid != 0){
+            $condition = "(`lft` <" . $main_item->lft . " OR `lft` > ". $main_item->rgt .")";
+        }
         
-        $condition = "(`lft` <" . $main_item->lft . " OR `lft` > ". $main_item->rgt .")";
-        $results = $obj_user->getGroups($condition, 'id value, name text, level');
-        $items = array_merge($items, $results);      
-        $list['parentID'] = buildHtml::select($items, $main_item->parentID, "parentID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
+            $results = $obj_user->getGroups($condition, 'id value, name text, level');
+            $items = array_merge($items, $results);      
+            $list['parentID'] = buildHtml::select($items, $main_item->parentID, "parentID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
+        
         
         $items = array();
-        $condition = "parentID = ". $main_item->parentID;
-        $results = $obj_user->getGroups($condition, 'id value, name text, level');
-        $items = array_merge($items, $results);
-        $list['ordering'] = buildHtml::select($items, $cid, "ordering","","size=5");
+        if($cid != 0){
+            $condition = "parentID = ". $main_item->parentID;
+            $results = $obj_user->getGroups($condition, 'id value, name text, level');
+            $items = array_merge($items, $results);
+            $list['ordering'] = buildHtml::select($items, $cid, "ordering","","size=5");
+        }else{
+            $list['ordering'] = "Ordering this item after save first";
+        }
+        
          return $list;
     }
 

@@ -33,7 +33,8 @@ class UsergroupsController extends BackEndController {
         
         $this->addIconToolbar("Edit", $this->createUrl("/usergroups/edit"), "edit", 1, 1, "Please select a item from the list to edit");
         $this->addIconToolbar("New", $this->createUrl("/usergroups/new"), "new");
-        $this->addIconToolbarDelete();
+//        $this->addIconToolbarDelete();
+        $this->addIconToolbar("Delete", $this->createUrl("/usergroups/remove"), "trash", 1, 1, "Please select a item from the list to Remove");        
         $this->addBarTitle("Group <small>[list]</small>", "user");
 
         $model = Group::getInstance();
@@ -78,7 +79,7 @@ class UsergroupsController extends BackEndController {
         }
 
         $model = new Group();
-        $item = $model->getItem();
+        $item = $model->getItem(); 
         $list = $model->getListEdit($item);
        
         $this->render('edit', array("item"=>$item,"list"=>$list));
@@ -102,7 +103,7 @@ class UsergroupsController extends BackEndController {
         
         $obj_user = YiiUser::getInstance();
         $tbl_group = $obj_user->getGroup($id);        
-        $tbl_group->_ordering = $post['ordering'];
+        $tbl_group->_ordering = isset($post['ordering'])?$post['ordering']:null;
         $tbl_group->_old_parent = $tbl_group->parentID;
         $tbl_group->bind($post); 
         $tbl_group->store();
@@ -111,6 +112,19 @@ class UsergroupsController extends BackEndController {
     }
    
     function actionCancel(){
+        $this->redirect($this->createUrl('usergroups/'));
+    }
+    
+    function actionRemove()
+    {
+        $cids = Request::getVar("cid", 0);
+        if(count($cids) >0){
+            $obj_table = YiiUser::getInstance();
+            for($i=0;$i<count($cids);$i++){
+               $obj_table->removeGroup($cids[$i]);
+            }
+        }
+        YiiMessage::raseSuccess("Successfully delete Article(s)");
         $this->redirect($this->createUrl('usergroups/'));
     }
     
