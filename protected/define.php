@@ -14,21 +14,12 @@ $news_scope = "";
 if (ENABLE_MULTISITE == 1) {
     $domain = $_SERVER['HTTP_HOST'];
     switch ($domain) {
-        case "benhvienphusan.vn";
-        case "alpha.benhvienphusan.vn";
-        case "dev.benhvienphusan.vn";
-            $config_frontend = "benhvienphusan.php";
-            $news_scope = 'benhvienphusan';
-            $_GET['scope'] = 'benhvienphusan';
-            $_REQUEST['scope'] = 'benhvienphusan';
-            break;
+        case "yiiframework.com";
         default :
-        case "xang.vietbao.vn";
-        case "giaxang.vietbao.vn";
-            $config_frontend = "giaxang.php";
-            $news_scope = 'giaxang';
-            $_GET['scope'] = 'giaxang';
-            $_REQUEST['scope'] = 'giaxang';
+            $config_frontend = "frontend.php";
+            $news_scope = 'frontend';
+            $_GET['scope'] = 'frontend';
+            $_REQUEST['scope'] = 'frontend';
             break;
     }
 }

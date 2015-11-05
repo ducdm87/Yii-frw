@@ -65,7 +65,8 @@ function getListObjectID($type = "news", $format = "string", $sperator = ",") {
 }
 
 function fnCreateUrlNewsDetail($cid, $alias, $catid, $cat_alias) {
-    return Yii::app()->createUrl("news/detail", array("cid" => $cid, "alias" => $alias, "cat_alias" => $cat_alias));
+//    return Yii::app()->createUrl("news/detail", array("cid" => $cid, "alias" => $alias, "cat_alias" => $cat_alias));
+    return Yii::app()->createUrl("articles/detail", array("id" => $cid, "alias" => $alias));
 }
 
 function fnShowPagenation($link, $total, $limit, $currentPage) {
@@ -445,9 +446,35 @@ function fnShowTienIch() {
     <?php
 }
 
+function fnDisplayVideo($item){
+    $pl_id = "player-".$item['id'];   
+    $html = "";
+    if(isset($item['videocode']) AND $item['videocode'] != "" AND $item['videocode'] != null){
+        $html = "<div id='$pl_id' class='video-player'>";
+            $html .= $item['videocode'];
+        $html .= "</div>";
+    }else if(isset($item['videourl']) AND $item['videourl'] != "" AND $item['videourl'] != null){
+        $html = "<div id='$pl_id' class='video-player'></div>";
+        ob_start();
+        ?>
+            <script type="text/javascript">
+                jwplayer("<?php echo $pl_id; ?>").setup({
+                    width: "100%", height: "350px",
+                    aspectratio: "12:7",
+                    file: "<?php echo $item['videourl']; ?>",
+                    image: "<?php echo $item['image']; ?>"
+                });                
+            </script>
+        <?php
+        $str_script = ob_get_contents();
+        ob_end_clean();
+        $html .= $str_script;
+    }
+    
+    return $html;
+}
 
-
-function sysLoadXmlParam($xml_file, $values = null, $type = "Module"){
+function sysLoadXmlParama($xml_file, $values = null, $type = "Module"){
     global $mainframe;
         $obj_xml = simplexml_load_file($xml_file);
         

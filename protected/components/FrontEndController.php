@@ -7,7 +7,7 @@
 class FrontEndController extends CController {
 
     public $defaultAction = 'display';
-    public $layout = '//default';
+    public $layout = '//app_template';
     public $menu = array();
     public $breadcrumbs = array();
     public static $permission;
@@ -64,12 +64,16 @@ class FrontEndController extends CController {
     }
     
     function render($layout = "blog", $data = NULL, $return = false) {
-         $app = Request::getVar('app',"article");
+         $app = Request::getVar('app',NULL);
          $controller = Request::getVar('controller',"category");
           
-         if($app != null)
-             $view =  "//html/$app/$controller/$layout";
-          else $view =  "/tpl/$action";
+          global $pagetype;
+          
+          if($pagetype == 1){
+            if($app != null)
+                $view =  "//html/$app/$controller/$layout";
+             else $view =  "/tpl/$layout";
+          }else $view =  $layout;
  
         parent::render($view, $data, $return);
     }

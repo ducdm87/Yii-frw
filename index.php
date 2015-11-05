@@ -7,7 +7,7 @@ require_once dirname(__FILE__).'/protected/includes.php';
 
 $yii = dirname(__FILE__).'/framework/yii.php';
 $config = dirname(__FILE__)."/protected/config/$config_frontend";
-
+ 
 // Remove the following lines when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
@@ -16,16 +16,16 @@ require_once($yii);
 $app = Yii::createWebApplication($config);
 require_once dirname(__FILE__).'/protected/router.php';
 
-
 $params = Router::parseLink($_SERVER['REQUEST_URI']);
+ global $pagetype;
+$pagetype = 2;
 
-$cur_temp = "trangbenhvien"; 
-setSysConfig("sys.template",$cur_temp); 
-setSysConfig("sys.template.path",ROOT_PATH . "/themes/$cur_temp/"); 
-setSysConfig("sys.template.url","/themes/$cur_temp/"); 
+if(isset($params['controller']) AND isset($params['action']) AND $pagetype == 1){
+    $cur_temp = "trangbenhvien"; 
+    setSysConfig("sys.template",$cur_temp); 
+    setSysConfig("sys.template.path",ROOT_PATH . "/themes/$cur_temp/"); 
+    setSysConfig("sys.template.url","/themes/$cur_temp/"); 
 
-
-if(isset($params['controller']) AND isset($params['action'])){
     // thu tu uu tien: theme/$template => protected/apps/frontend/$app/views => /protected/views/frontend
     if(isset($params['app'])){
         $app->setControllerPath(ROOT_PATH.'/protected/apps/frontend/'.$params['app'].'/controllers/');
