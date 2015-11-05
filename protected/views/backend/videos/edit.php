@@ -37,7 +37,7 @@
                     <div class="form-group row">
                         <div class="col-md-3">Video url</div>
                         <div class="col-md-9">
-                            <input name="videourl" type="text" value="<?php echo $item->videourl; ?>" class="form-control" placeholder="Link to file video" />
+                            <input name="videourl" id="videourl" type="text" value="<?php echo $item->videourl; ?>" class="form-control" placeholder="Link to file video" />
                             Link trực tiếp đến video
                              <a href="javascript:void(0)" class="label label-primary" role="button" onclick="BrowseServerVideo();">Add video</a>
                         </div>

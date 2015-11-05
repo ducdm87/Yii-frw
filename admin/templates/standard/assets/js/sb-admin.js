@@ -103,3 +103,92 @@ function convertAliasUtf8(string)
     string = string.replace(re, '-');
     return string;
 }
+
+
+
+function BrowseServer()
+{
+    // You can use the "CKFinder" class to render CKFinder in a page:
+    var finder = new CKFinder();
+    finder.basePath = '../';	// The path for the installation of CKFinder (default = "/ckfinder/").
+    finder.selectActionFunction = SetFileField;
+    finder.popup();
+}
+function SetFileField(fileUrl)
+{
+    console.log(fileUrl);
+    document.getElementById('image_hiden').value = fileUrl;
+    document.getElementById('image_src').src = BASE_URL + fileUrl;
+    document.getElementById('video-src').src = BASE_URL + fileUrl;
+}
+
+function BrowseServerVideo() {
+
+    var finder = new CKFinder();
+    finder.basePath = '../';	// The path for the installation of CKFinder (default = "/ckfinder/").
+    finder.selectActionFunction = SetFileFieldVideo;
+    finder.popup();
+}
+
+function SetFileFieldVideo(fileUrl)
+{
+    $("#video-src").attr('disabled', true);
+    $('#checkYoutube').attr('checked', false);
+    console.log(fileUrl);
+    document.getElementById('videourl').value = fileUrl;
+//    document.getElementById('video_src').src = BASE_URL + fileUrl;
+}
+
+
+$(function () {
+    $('select[name="type"]').change(function (e) {
+        e.preventDefault();
+        var value = $(this).val();
+        if (value ==0) {
+            $('.catalog').hide();
+            $('.control-area').hide();
+            $('.control-year').hide();
+            $('.control-actor').hide();
+            $('.control-duration').hide();
+            $('.control-director').hide();
+            $('.episode-control').hide();
+            $('.video-control').hide();
+        } else {
+            $('.catalog').show();
+            $('.control-area').show();
+            $('.control-year').show();
+            $('.control-actor').show();
+            $('.control-duration').show();
+            $('.control-director').show();
+            $('.episode-control').show;
+            $('.video-control').show();
+        }
+
+    });
+
+    $('#checkYoutube').click(function () {
+        $("#video-src").removeAttr('disabled');
+//        $('#video_hiden').hide();
+    });
+
+
+});
+
+
+function GetURLParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+}
+
+$(function () {
+    $.post('categories/edit', {id: GetURLParameter('id')}, function (data) {
+
+    });
+});

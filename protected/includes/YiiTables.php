@@ -144,7 +144,7 @@ class YiiTables{
         foreach ($this as $field_name => $field_value) {            
             if(strpos($field_name, "_") === 0) continue;
            
-            if (isset($fromArray[$field_name]) and $fromArray[$field_name] != "" and $fromArray[$field_name] != null){
+            if (isset($fromArray[$field_name])){
                 $this->$field_name = $fromArray[$field_name];
             }
         }

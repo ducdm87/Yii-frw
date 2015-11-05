@@ -22,6 +22,7 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/admin/templates/standard/assets/js/imagePreview.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/admin/templates/standard/assets/js/bootstrap.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/admin/templates/standard/assets/js/jquery.form.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/admin/ckfinder/ckfinder.js" type="text/javascript"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/admin/templates/standard/assets/js/sb-admin.js"></script>
 
     <!-- Page Specific Plugins -->    
