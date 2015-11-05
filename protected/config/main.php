@@ -11,7 +11,7 @@ define("TBL_SESSION", "{{session}}");
 define("TBL_USERS", "{{users}}");
 define("TBL_USERS_GROUP", "{{users_group}}");
 define("TBL_VIDEOS", "{{videos}}");
-
+define("TBL_MODULE_POSITION", "{{module_position}}");
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'My Web Application',
@@ -44,7 +44,7 @@ return array(
             'class' => 'application.components.WebApplicationEndBehavior',
         ),
     ),
-        'components' => array(
+    'components' => array(
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => false,
@@ -53,7 +53,10 @@ return array(
         'user' => array(
                         'allowAutoLogin' => true,
         ), 
-                'db' => array(
+//            'db'=>array(
+//                    'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+//            ),
+            'db' => array(
             'connectionString' => 'mysql:dbname=benhvienphusan_dev;host=localhost',
             'emulatePrepare' => true,
             'username' => 'benhvienphusan',

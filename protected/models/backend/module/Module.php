@@ -137,6 +137,35 @@ class Module extends CFormModel {
         
         $str_html .= "</select>";
         $list['selection-menu'] = $str_html;
+//                position
+        $tbl_MP = YiiTables::getInstance(TBL_MODULE_POSITION);         
+        $items = $tbl_MP->loads("temp, position",null," temp DESC");
+        
+        $str_html = '<div style="position: relative;">';
+        $str_html .= '<select id="combobox-position" class="form-control" style="width: 180px; height: 25px;">'."\r\n";
+        $cur_temp = "";
+        foreach($items as $k=>$item){
+            if($cur_temp != $item['temp']){
+                if($cur_temp != "") $str_html .= '</optgroup>'."\r\n";
+                $str_html .= '<optgroup label="'.$item['temp'].'">' ."\r\n";
+                $cur_temp = $item['temp'];
+            }           
+            if($mainitem->position == $item['position'])
+                $str_html .= '<option value="'.$item['position'].'" selected ="">'.$item['position'].'</option>'."\r\n";
+            else $str_html .= '<option value="'.$item['position'].'">'.$item['position'].'</option>'."\r\n";
+            if($k == count($items) - 1)
+                 $str_html .= '</optgroup>'."\r\n";
+        }
+        $str_html .= "</select>";
+        $str_html .= '<input id="position" class="form-control" type="text" value="'.$mainitem->position.'" name="position" style="position: absolute; z-index: 1000; left: 0px; top: 0px; width: 162px; height: 25px; padding: 3px;">'."\r\n";
+        $str_html .= '</div>';
+        $str_html .= '<script> $(window).ready(function($) {
+                                $("#combobox-position").change(function(){
+                                    var cur_pos = $("#combobox-position").val();
+                                    $("#position").val(cur_pos);
+                                });
+                            });</script>';
+        $list['position'] = $str_html;
         return $list;
     }
 }
