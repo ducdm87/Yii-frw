@@ -22,7 +22,7 @@ class UserForm extends CFormModel {
             // username and password are required
             array('username, password', 'required'),
             // rememberMe needs to be a boolean
-            array('rememberMe', 'required'),
+            //array('rememberMe', 'authenticate'),
             // password needs to be authenticated
             array('password', 'authenticate'),
         );

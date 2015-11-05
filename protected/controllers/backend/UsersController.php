@@ -167,8 +167,8 @@ class UsersController extends BackEndController {
     }
     
      public function actionLogout() {
-        Yii::app()->session['userbackend'] = null;
-//        Yii::app()->user->logout();
+//        Yii::app()->session['userbackend'] = null;
+        Yii::app()->user->logout();
         $this->redirect($this->createUrl('login'));
     }
     
