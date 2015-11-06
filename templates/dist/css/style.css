@@ -92,8 +92,7 @@ and open the template in the editor.
 .navbar-brand img{ height: 80px; }
 .nav-main .navbar{
     background: url(../../../images/icons/nav.png) repeat-x;
-    height: 41px;     
-    overflow: hidden;
+    height: 41px;
     width: 100%;
     margin: 0px;
     min-height: auto;
@@ -104,6 +103,14 @@ and open the template in the editor.
 #wrapper .banner{ height: 200px; overflow: hidden; }
 #wrapper .banner img{ height: 200px; overflow: hidden;  width: 100%; }
 
+.navbar-nav li{
+    position: relative;
+}
+.navbar-nav li:hover,
+.navbar-nav li:hover>a{
+    color: red;
+    text-decoration: none;
+}
 .navbar-nav>li>a{
     font-weight: 600;
     font-size: 16px;
@@ -111,7 +118,12 @@ and open the template in the editor.
     padding: 5px 0;
 }
 .navbar-nav>li>a{
-    padding-right: 70px;
+    padding: 5px 50px;
+    text-transform: capitalize;
+}
+.navbar-nav li a{
+    display: block;
+    width: 100%;
 }
 .navbar-nav>li>a:last-child{
     padding-left: 50px;
@@ -120,6 +132,56 @@ and open the template in the editor.
     background: transparent;
 }
 
+.navbar-nav>li:hover{
+     overflow: visible;
+}
+.navbar-nav>li ul.children{   
+    height: auto;
+    left: -9999px;
+    margin: 0;
+    padding: 0;
+    position: absolute; 
+    width: 250px;
+    z-index: 10;
+    list-style-type: none;
+    box-shadow: 7px 5px 4px rgba(0, 0, 0, 0.6);
+}
+.navbar-nav>li ul li{
+    border-bottom: 1px solid #313131;
+     background: #1A1A1A;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 0 0 15px;
+    width: 100%;
+    text-transform: capitalize
+}
+.navbar-nav>li ul li a{ 
+    color: #fff; 
+}
+
+.navbar-nav>li ul.level-2{  
+    top: 36px;
+}
+.navbar-nav>li ul.level-2 ul{
+    padding: 0 0 0 5px;
+}
+ 
+
+.navbar-nav li:hover ul.level-2,
+.navbar-nav li.active ul.level-2{
+    left: -1px;
+}
+.navbar-nav ul.level-2 li:hover>ul,
+.navbar-nav ul.level-2 li.active>ul{
+    left: 250px;
+    top: 0px;
+} 
+
+.navbar-nav ul.level-3 li:hover>ul,
+.navbar-nav ul.level-3 li.active>ul{
+    left: 245px;
+    top: 0px;
+} 
 /*
 ===========Search==============*/
 .header-selction .container{

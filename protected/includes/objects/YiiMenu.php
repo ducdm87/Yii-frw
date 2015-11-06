@@ -11,6 +11,7 @@
 
 class YiiMenu{  
     private $items = array();
+    private $arr_menu = array();
     private $item = array();
     private $active = 0;
     
@@ -42,6 +43,7 @@ class YiiMenu{
         $query_command = Yii::app()->db->createCommand($query);
         $items = $query_command->queryAll();
         $arr_new = array();
+        $arr_menu = array();
         foreach ($items as $key => $item) {            
             if($item['alias'] == "") $item['alias'] = $item['title'];
             $item['path'] = $item['alias'];
@@ -70,18 +72,30 @@ class YiiMenu{
                 $item['url'] = '';
             }
             $arr_new[$key] = $item;
+            $arr_menu[$item['menuID']][] = $item;
         }
         
         $this->items = $arr_new;
+        $this->arr_menu = $arr_menu;
         return $this->items;
     }
     
     // lay 1 menu
-    function getItem($menuID = null)
+    function getItem($menuItemID = null)
     {
+        if($menuItemID == 0) return null;
+        $this->getItems();
+        if(isset($this->items[$menuItemID]))
+            return $this->items[$menuItemID];
+        return null;
+    }
+    
+    function getMenu($menuID = null){
         if($menuID == 0) return null;
         $this->getItems();
-        return $this->items[$menuID];
+        if(isset($this->arr_menu[$menuID]))
+            return $this->arr_menu[$menuID];
+        return null;
     }
     
     // lay menu active
