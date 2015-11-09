@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root type="app">
-    <name>article</name>
+    <name>homepage</name>
+    <title>Home Page</title>
     <author>BHmedia group php</author>
     <version>1.0.0</version>
     <creationDate>July 2006</creationDate>
@@ -16,23 +17,8 @@
     </params>
     
     <views>
-        <view name="Category">
+        <view name="homepage" title="Homepage">
              <params>
-                <param title="advance">
-                     <field type="text" name="id" label="Category" />
-                     <field type="text" name="limit" label="Limit" />
-                     <field type="text" name="col" label="Col" />
-                </param>
-                <param title="advance">
-                     <field type="text" name="catid" label="Category" />
-                     <field type="text" name="limit" label="Limit" />
-                     <field type="text" name="col" label="Col" />
-                </param>
-             </params>
-        </view>
-        
-        <view name="detail">
-            <params>
                 <param title="advance">
                      <field type="text" name="id" label="Category" />
                      <field type="text" name="limit" label="Limit" />

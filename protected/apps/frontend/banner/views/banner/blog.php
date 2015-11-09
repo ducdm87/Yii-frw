@@ -1,4 +1,4 @@
-trang blog, app
+trang blog
 
 
 <?php

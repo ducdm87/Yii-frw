@@ -11,14 +11,14 @@ $itemsmenu[] = array("Cây xăng gian lận", "news","category","cay-xang-gian-l
 fnSetMenuItems($itemsmenu, $type = "mainmenu");
 
 $settings = array(
-    'defaultController' => 'app',
+    'defaultController' => 'home',
     'components' => array(
         'urlManager' => array(
             'urlFormat' => 'path',
             'rules' => array(
                 // home page
-                '/' => array('app/display'),
-                '' => array('app/'),                             
+                '/' => array('home/display'),
+                '' => array('home/'),                             
 
                 'tin-tuc' => array('articles/', 'urlSuffix'=>'/'),                 
                 'tin-tuc/<alias:[\d\w-]+>/trang-<page:[0-9]+>' => array('articles/category', 'urlSuffix'=>'/'),

@@ -107,19 +107,24 @@ class MenuItem extends CFormModel {
         
         $items = array();
         $items[] = array("value" => "1", "text"=>"Top", "level"=>0);
+        $condition = null;
+        if($cid != 0){
+            $items = array();
+            $condition = "parentID = ". $main_item->parentID;
+            $results = $obj_menu->loadItems($menuID, 'id value, title text, level', $condition);
+            $items = array_merge($items, $results);
+            $list['ordering'] = buildHtml::select($items, $cid, "ordering","","size=5");
+            
+            $condition = "(`lft` <" . $main_item->lft . " OR `lft` > ". $main_item->rgt .")";
+        }else{
+            $list['ordering'] = " New Menu Items default to the last position. Ordering can be changed after this Menu Item is saved.";
+        }
         
-        $condition = "(`lft` <" . $main_item->lft . " OR `lft` > ". $main_item->rgt .")";
         $results = $obj_menu->loadItems($menuID, 'id value, title text, level', $condition);
         $items = array_merge($items, $results);      
         $list['parentID'] = buildHtml::select($items, $main_item->parentID, "parentID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
         
-        
-        $items = array();
-        $condition = "parentID = ". $main_item->parentID;
-        $results = $obj_menu->loadItems($menuID, 'id value, title text, level', $condition);
-        $items = array_merge($items, $results);
-        $list['ordering'] = buildHtml::select($items, $cid, "ordering","","size=5");
-        
+          
         // danh sach app
         $obj_ext = YiiTables::getInstance(TBL_EXTENSIONS);
         $list['apps'] = $obj_ext->loads("*", "type = 'app'", "ordering ASC");
@@ -136,7 +141,7 @@ class MenuItem extends CFormModel {
              foreach($xml->views->view as $view){
                  $views[] = (string) $view->attributes()->name;
              }
-             $app['views'] = $views;
+             $app['views'] = $views;             
              $list['apps'][$k] = $app;
          }
          

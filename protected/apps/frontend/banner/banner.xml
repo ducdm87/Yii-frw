@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root type="app">
     <name>banner</name>
+    <title>Banner</title>
     <author>BHmedia group php</author>
     <version>1.0.0</version>
     <creationDate>July 2006</creationDate>
@@ -16,7 +17,7 @@
     </params>
     
     <views>
-        <view name="Category">
+        <view name="banners" title="Banners">
              <params>
                 <param title="advance">
                      <field type="text" name="id" label="Category" />
@@ -31,7 +32,7 @@
              </params>
         </view>
         
-        <view name="detail">
+        <view name="banner" title="Banner">
             <params>
                 <param title="advance">
                      <field type="text" name="id" label="Category" />

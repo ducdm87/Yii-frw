@@ -289,3 +289,8 @@ panel-heading-controls>* {
     font-size: 14px;
     line-height: 20px;
 }
+
+.panel-items-app{ } 
+.panel-items-app .pannel-item{ } 
+.panel-items-app .pannel-item .panel-heading{ cursor: pointer; } 
+.panel-items-app .pannel-item .panel-body{ display: none; } 

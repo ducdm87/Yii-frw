@@ -191,4 +191,6 @@ $(function () {
     $.post('categories/edit', {id: GetURLParameter('id')}, function (data) {
 
     });
+    
+    $(".panel-items-app .pannel-item .panel-heading").click();
 });

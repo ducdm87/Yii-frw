@@ -25,6 +25,7 @@ return array(
         'application.includes.html.*',
         'application.includes.html.elements.*',         
         'application.includes.objects.*',
+        //'application.apps.frontend.homepage.models.*',
     ),
     'modules' => array(
             'gii' => array(

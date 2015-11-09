@@ -280,7 +280,7 @@ class MenusController extends BackEndController {
         $id = Request::getVar("id", 0);  
         $obj_menu = YiiMenu::getInstance();
         $tbl_menu = $obj_menu->loadItem($id);        
-        $tbl_menu->_ordering = $post['ordering'];
+        $tbl_menu->_ordering = isset($post['ordering'])?$post['ordering']:null;
         $tbl_menu->_old_parent = $tbl_menu->parentID;
         $tbl_menu->bind($post); 
         $tbl_menu->store();        

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class AppController extends FrontEndController {
+class HomeController extends FrontEndController {
 
     public $item = array();
     private $category;
@@ -17,7 +17,7 @@ class AppController extends FrontEndController {
         parent::init();
     }
 
-    public function actionDisplay() {
+    public function actionDisplay() {         
         $model_videos = Video::getInstance();
         $model_article = Article::getInstance();
          

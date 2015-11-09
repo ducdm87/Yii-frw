@@ -97,9 +97,8 @@
             <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1s">-->
             <div class="nav-main">
                 <div class="container-nav">
-                    <nav class="navbar navbar-static-top">
-                        <div id="nav"><?php echo YiiModule::loadModules($position = "menu-nav", "benhvien"); ?></div>
-                        <ul class="nav navbar-nav hide">
+                    <nav class="navbar navbar-static-top">                        
+                        <ul class="nav navbar-nav">
                             <li><a href="<?php echo $this->createUrl('app/') ?>" class="<?php if($controll == "app") echo 'active'; ?>">Home</a></li>
                             <li><a href="<?php echo $this->createUrl('articles/') ?>" class="<?php if($controll == "articles") echo 'active'; ?>">Tin Tức</a></li>
                             <li><a href="<?php echo $this->createUrl('videos/category',array('alias'=> "the-thao") ); ?>" class="<?php if($controll == "videos" AND $param_alias == "the-thao") echo 'active'; ?>">Thể Thao</a></li>

@@ -82,25 +82,26 @@
                 <h4 id="myModalLabel" class="modal-title">Choose Menu Type</h4>
             </div>
             <div class="modal-body">
-              
-                <ul class="nav nav-tabs nav-pills list-inline">
-                    <li class="active"><a data-toggle="tab" href="#param-sys">Parameters <small>(System)</small></a></li>
-                    <li><a data-toggle="tab" href="#param-advance">Advance<small>(Custome)</small></a></li>                        
-                  </ul>
-                  <div class="tab-content">
-                        <div id="param-sys" class="tab-pane fade in active">
-                            <h3>HOME</h3>
-                            <p>Some content.</p>
+                <div class="panel-group panel-items-app">
+                 <?php
+                $list_app = $list['apps'];
+                 foreach($list_app as $_item){
+                     ?>
+                        <div class="panel panel-primary pannel-item">
+                          <div class="panel-heading">
+                              <span><b><?php echo $_item['title']; ?></b></span>
+                              <div class="caption pull-right">
+                                <i class="fa fa-sm fa-chevron-down" type="button"></i>
+                            </div>
+                          </div>
+                          
+                          <div class="panel-body">Panel Content</div>
                         </div>
-                        <div id="param-advance" class="tab-pane fade">
-                            <h3>Menu 1</h3>
-                            <p>Some content in menu 1.</p>
-                        </div>
-                  </div>
-                 <?php 
-               var_dump($list['apps']);
+
+                     <?php
+                 }
                ?>
-                
+                </div>
             </div>
        </div>
     </div>

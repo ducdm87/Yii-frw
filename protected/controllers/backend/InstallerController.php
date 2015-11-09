@@ -93,7 +93,8 @@ class InstallerController extends BackEndController {
         $row_ext = YiiTables::getInstance(TBL_EXTENSIONS);
         
         $arr_info = array();
-        $arr_info['title'] = (string)$xml->name;
+        $arr_info['title'] = (string)$xml->title;
+        $arr_info['name'] = (string)$xml->name;
         $arr_info['alias'] = $this->convertalias($arr_info['title']);
         $arr_info['author'] = (string)$xml->author;
         $arr_info['version'] = (string)$xml->version;

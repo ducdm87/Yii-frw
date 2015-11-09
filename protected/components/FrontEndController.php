@@ -7,7 +7,7 @@
 class FrontEndController extends CController {
 
     public $defaultAction = 'display';
-    public $layout = '//app_template';
+    public $layout = '//default';
     public $menu = array();
     public $breadcrumbs = array();
     public static $permission;
@@ -67,14 +67,40 @@ class FrontEndController extends CController {
          $app = Request::getVar('app',NULL);
          $controller = Request::getVar('controller',"category");
           
-          global $pagetype;
+          global $pagetype, $cur_temp, $yiiapp, $cur_temp;
           
           if($pagetype == 1){
-            if($app != null)
-                $view =  "//html/$app/$controller/$layout";
-             else $view =  "/tpl/$layout";
+            $found = false;
+            if(is_dir(ROOT_PATH."themes/$cur_temp")){
+                $file_layout = $yiiapp->getViewPath()."/html/$app/$controller/$layout.php";
+                
+                if(file_exists($file_layout)){
+                    $found = true;
+                    $view =  "//html/$app/$controller/$layout"; 
+                }
+            }
+           
+            if($found == false){
+                $file_layout = $yiiapp->getViewPath()."/$controller/$layout.php";                
+                if(file_exists($file_layout)){
+                    $found = true;
+                    $view =  "/$controller/$layout";
+                }
+            }
+            if($found == false){                
+                $app_viewpath = PATH_APPS_FRONT . "/$app/views";
+                $file_layout = "$app_viewpath/$controller/$layout.php"; 
+                if(file_exists($file_layout)){
+                    $found = true;
+                    $yiiapp->setViewPath($app_viewpath);
+                    $view =  "/$controller/$layout";
+                }                
+            }
+            if($found == false){
+                die("Invalid view");
+            }
           }else $view =  $layout;
- 
+
         parent::render($view, $data, $return);
     }
     
