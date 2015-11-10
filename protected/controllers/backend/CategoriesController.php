@@ -50,6 +50,9 @@ class CategoriesController extends BackEndController {
         $this->render('default', array("items" => $items));
     }
  
+    public function actionNew() {
+        $this->actionEdit();
+    }
 
     public function actionEdit() {
         $cid = Request::getVar('cid', "");        
@@ -57,9 +60,16 @@ class CategoriesController extends BackEndController {
         
         $this->addIconToolbar("Save", $this->createUrl("/categories/save"), "save");
         $this->addIconToolbar("Apply", $this->createUrl("/categories/apply"), "apply");
-        $this->addBarTitle("Category <small>[Edit]</small>", "user");
-        $this->addIconToolbar("Close", $this->createUrl("/categories/cancel"), "cancel");
-        $this->pageTitle = "Edit category";           
+        
+        if ($cid == 0) {
+            $this->addBarTitle("Category <small>[New]</small>", "user");        
+            $this->pageTitle = "New menu item";
+            $this->addIconToolbar("Cancel", $this->createUrl("/categories/cancel"), "cancel");        
+        }else{
+            $this->addBarTitle("Category <small>[Edit]</small>", "user");        
+            $this->pageTitle = "Edit menu item";
+            $this->addIconToolbar("Close", $this->createUrl("/categories/cancel"), "cancel");
+        }
         
         $obj = YiiCategory::getInstance();        
         $item = $obj->loadItem($cid, "*", false);

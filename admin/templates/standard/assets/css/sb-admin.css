@@ -175,10 +175,10 @@ table.tablesorter thead tr th:hover {
     cursor: inherit;
     display: block;
 }
-input[readonly] {
+/*input[readonly] {
     background-color: white !important;
     cursor: text !important;
-}
+}*/
 .file-upload .form-control-feedback{
     right:60px !important;
 }
@@ -291,6 +291,25 @@ panel-heading-controls>* {
 }
 
 .panel-items-app{ } 
-.panel-items-app .pannel-item{ } 
-.panel-items-app .pannel-item .panel-heading{ cursor: pointer; } 
-.panel-items-app .pannel-item .panel-body{ display: none; } 
+.panel-items-app .panel-item{ } 
+.panel-items-app .panel-item .panel-heading{ cursor: pointer; } 
+.panel-items-app .panel-item .panel-body{ display: none; } 
+.panel-items-app .panel-item .panel-body ul{ 
+    line-height: 25px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+} 
+.panel-items-app .panel-item .panel-body ul li{ cursor: pointer; } 
+.panel-items-app .panel-item .panel-body ul li a{  text-decoration: none; } 
+.panel-items-app .panel-item .panel-body ul li .muted { color: #999; margin: 0 0 0 20px; } 
+.model-blind{
+    width: 100%; height: 100%; position: absolute; z-index: 9;
+}
+
+input[disabled],input[readonly]
+{
+     background-color: #eee;
+    cursor: not-allowed;
+}
+ 

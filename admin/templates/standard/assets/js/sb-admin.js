@@ -187,10 +187,60 @@ function GetURLParameter(sParam) {
     }
 }
 
-$(function () {
-    $.post('categories/edit', {id: GetURLParameter('id')}, function (data) {
-
+$(function () {  
+    
+    $(".panel-items-app .panel-item .panel-heading").click(function(){
+        var cur_btn = $(this).find(".btn-arrow");
+        if($(cur_btn).hasClass("fa-chevron-up") == true){ // dong cai hien tai
+            $(this).find("~ .panel-body").slideUp();
+            $(cur_btn).removeClass("fa-chevron-up");
+            $(cur_btn).addClass("fa-chevron-down");
+            $(this).removeClass("active");
+        }else{ // dong cai khac va mo cai hien tai            
+            $(".panel-items-app .panel-item .panel-body").slideUp();
+            $(".panel-items-app .panel-item .panel-heading .btn-arrow").addClass("fa-chevron-down");
+            $(".panel-items-app .panel-item .panel-heading .btn-arrow").removeClass("fa-chevron-up");
+            $(this).find("~ .panel-body").slideDown();
+            $(cur_btn).removeClass("fa-chevron-down");
+            $(cur_btn).addClass("fa-chevron-up");
+            $(this).addClass("active");
+        }
     });
     
-    $(".panel-items-app .pannel-item .panel-heading").click();
+    $(".model-blind").click(function(){
+         $(".modal-dialog .close").click();
+    });
+    
 });
+
+function setmenutype(app_name, view_name, layout_name){
+    $("#params_app").val(app_name);
+    $("#params_view").val(view_name);
+    $("#params_layout").val(layout_name);
+    document.adminForm.menu_type.value = app_name;
+    if(app_name == "System"){
+        $("#field_link").attr('readonly', false)
+    }else{
+        $("#field_link").attr('readonly', true)
+        var link = "index.php?app="+app_name+"&view="+view_name;
+        if(layout_name != undefined && layout_name != "")
+            link = link + "&layout="+layout_name;
+        $("#field_link").val(link);
+    }
+    loadConfigFile(app_name, view_name);
+    $(".modal-dialog .close").click();
+}
+
+function loadConfigFile(app_name, view_name){
+    menuID = document.adminForm.id.value;
+    $.ajax({
+        type: "POST",
+        url: link_load_config_menu,
+        data:{"menuID":menuID,"app":app_name, "view":view_name},
+        complete: function(event){
+            var data = JSON.parse(event.responseText);
+            $(".nav-tabs #title-param-custome").html(data[0]);
+            $("#param-advance").html(data[1]);
+        }
+    }).done(function() {  });
+}

@@ -247,6 +247,10 @@ class MenusController extends BackEndController {
         $model = MenuItem::getInstance();
         $list = $model->getListEdit($obj_tblMenuItem);
          
+        if($obj_tblMenuItem->params != "") $obj_tblMenuItem->params = json_decode($obj_tblMenuItem->params);
+        else $obj_tblMenuItem->params = null;
+    
+        
         $params = array("item"=>$obj_tblMenuItem, "list"=>$list);
         $this->render('editmenuitem', $params);
     }
@@ -278,13 +282,22 @@ class MenusController extends BackEndController {
         $post = $_POST;
        
         $id = Request::getVar("id", 0);  
+        $params = Request::getVar("params", array());  
         $obj_menu = YiiMenu::getInstance();
         $tbl_menu = $obj_menu->loadItem($id);        
         $tbl_menu->_ordering = isset($post['ordering'])?$post['ordering']:null;
         $tbl_menu->_old_parent = $tbl_menu->parentID;
-        $tbl_menu->bind($post); 
+        $tbl_menu->bind($post);         
+        $params = json_encode($params);        
+        $tbl_menu->params = $params;        
         $tbl_menu->store();        
         return array($tbl_menu->menuID, $tbl_menu->id);
+    }
+    
+    function actionLoadconfigmenuitem(){
+        $model = MenuItem::getInstance();
+        $out = $model->getListParamView();
+        echo json_encode($out);
     }
     
     function actionRemovemenuitem()

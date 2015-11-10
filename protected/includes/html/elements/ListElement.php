@@ -27,14 +27,20 @@ class ListElement
         $name = $prefix_name."[".$this->node['name']."]";
         $id = $prefix_name."-".$this->node['name']."-";
 
+        if(strpos($this->node['attr'], "multiple")){
+            $name = $name."[]";
+        }
+        
+        if(!is_array($this->value)) $this->value = array($this->value); 
+        
         $html = '<div class="form-group row"> '
                 . '<div class="col-md-'.$arr_size[0].'" title="'.$this->node['description'].'">'.$this->node['label'].'</div> '
                 . '<div class="col-md-'.$arr_size[1].'"> ';
                     $html .= '<select name="'.$name.'" id="'.$id.'" '.$this->node['attr'].'>';
                     foreach($items as $item){
                         $title = (string)$item;
-                        $item['value'] = (string) $item['value'];
-                        if($this->value == $item['value']){
+                        $item['value'] = (string) $item['value'];                        
+                        if(in_array($item['value'], $this->value)){
                             $html .= '<option value="'.$item['value'].'" selected="">'.$title.'</option> ';
                         }else $html .= '<option value="'.$item['value'].'">'.$title.'</option> ';
                     }

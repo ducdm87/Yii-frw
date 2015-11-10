@@ -17,19 +17,13 @@
     </params>
     
     <views>
-        <view name="homepage" title="Homepage">
-             <params>
-                <param title="advance">
-                     <field type="text" name="id" label="Category" />
-                     <field type="text" name="limit" label="Limit" />
-                     <field type="text" name="col" label="Col" />
-                </param>
-                <param title="advance">
-                     <field type="text" name="catid" label="Category" />
-                     <field type="text" name="limit" label="Limit" />
-                     <field type="text" name="col" label="Col" />
-                </param>
-             </params>
+        <view name="homepage" title="Home page" desc="Trang chủ">
+             <param title="advance">
+                 <field type="text" name="id" label="Category" />
+                 <field type="Menutype" name="Menutype" label="Menutype" />
+                 <field type="text" name="limit" label="Limit" />
+                 <field type="text" name="col" label="Col" />
+            </param>
         </view>
     </views>
     

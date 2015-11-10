@@ -139,13 +139,81 @@ class MenuItem extends CFormModel {
              $xml = simplexml_load_file($file_xml);
              $views = array();
              foreach($xml->views->view as $view){
-                 $views[] = (string) $view->attributes()->name;
+                 $obj_view = new stdClass();
+                 $obj_view->name = (string) $view->attributes()->name;
+                 $obj_view->title = (string) $view->attributes()->title;
+                 $obj_view->desc = (string) $view->attributes()->desc;
+                 if($view->layouts){
+                     $obj_view->layouts = array();
+                     foreach($view->layouts->layout as $layout){
+                         $obj_layout = new stdClass();
+                         $obj_layout->value = (string) $layout->attributes()->value;
+                         $obj_layout->desc = (string) $layout->attributes()->desc;
+                         $obj_layout->title = (string) $layout;
+                         $obj_view->layouts[] = $obj_layout;
+                     }
+                 }
+                 $views[] = $obj_view;
              }
              $app['views'] = $views;             
              $list['apps'][$k] = $app;
          }
+         $app = array();
+         $app['name'] = "System";
+         $app['title'] = "System Link";
+         $app['views'] = array();
+         $obj_view = new stdClass();
+         $obj_view->name = "ExternalURL";
+         $obj_view->title = "External URL";
+         $obj_view->desc = "An external or internal URL.";
+         $app['views'][] = $obj_view;
+         
+         $obj_view = new stdClass();
+         $obj_view->name = "MenuItemAlias";
+         $obj_view->title = "Menu Item Alias";
+         $obj_view->desc = "Create an alias to another menu item.";
+         $app['views'][] = $obj_view; 
+         $list['apps'][] = $app;
          
         return $list;
+    }
+    
+    function getListParamView()
+    {
+        $cid = Request::getVar("menuID", 0);  
+        $app_name = Request::getVar("app", "");  
+        $view_name = Request::getVar("view", "");
+       
+        $obj_menu = YiiMenu::getInstance();
+        $obj_tblMenuItem = $obj_menu->loadItem($cid);
+        $obj_tblMenuItem->params = json_decode($obj_tblMenuItem->params);
+        
+         $file_xml = PATH_APPS_FRONT."/".$app_name."/".$app_name.".xml";
+        if(!file_exists($file_xml)) 
+        {
+            YiiMessage::raseSuccess("Invalid xml: " . $app_name);
+            return null;
+        }
+        $xml = simplexml_load_file($file_xml);
+        $views = array();
+        $title_param = "Advance";
+        $arr_field = array();
+        $html_field = "";
+        foreach($xml->views->view as $view){
+            $_view = (string) $view->attributes()->name;
+            if($_view == $view_name){                
+                if(count($view->param->field))
+                    foreach($view->param->field as $field){
+                        $field_name = (string)$field['name'];
+                        $field_value = isset($obj_tblMenuItem->params->$field_name)?$obj_tblMenuItem->params->$field_name:null;
+                       // $arr_field[] = YiiElement::render($field, $field_value);
+                        
+                        $html_field .= YiiElement::render($field, $field_value,"params",3,9);
+                    }
+                  else $html_field = "No parameter";
+            }
+        }
+        return array($title_param, $html_field);
     }
     
 }
