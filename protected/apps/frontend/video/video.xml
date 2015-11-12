@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root type="app">
-    <name>article</name>
-    <title>Article</title>
+    <name>video</name>
+    <title>Video</title>
     <author>BHmedia group php</author>
     <version>1.0.0</version>
     <creationDate>July 2006</creationDate>
-    <description>Top hits article</description>
-    
-    <params>
-        <param title="advance" path="extensions/modules/tophits/element">
-            <field type="radio" name="show_link_title" default="1" label="Show Link Title" >
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </field>
-        </param>
-    </params>
-    
+    <description>Video</description> 
     <views>
-        <view name="home" title="Home" desc="Trang tin tức">
+        <view name="home" title="Home" desc="Trang video">
              <param title="advance">
                      <field type="text" name="id" label="Category" />
                      <field type="text" name="limit" label="Limit" />
                      <field type="text" name="col" label="Col" />
                 </param>
         </view>       
-        <view name="category" title="Category" desc="Danh mục bài viết">
+        <view name="category" title="Category" desc="Danh mục video">
             <layouts>
                 <layout value="blog" desc="Danh mục bài viết blog">Blog</layout>
                 <layout value="list" desc="Danh mục bài danh sach">List</layout>
@@ -36,7 +26,7 @@
             </param>
         </view>
         
-        <view name="detail" title="Detail" desc="Chi tiết bài viết">
+        <view name="detail" title="Detail" desc="Chi tiết video">
             <param title="advance">
                <field type="text" name="id" label="Category" />
             </param>

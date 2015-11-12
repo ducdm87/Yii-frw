@@ -104,9 +104,7 @@ class MenuItem extends CFormModel {
         $results = $obj_menu->loadMenus('id value, title text', false);
         $items = array_merge($items, $results);
         $list['menuID'] = buildHtml::select($items, $menuID, "menuID");
-        
-        $items = array();
-        $items[] = array("value" => "1", "text"=>"Top", "level"=>0);
+         
         $condition = null;
         if($cid != 0){
             $items = array();
@@ -120,6 +118,8 @@ class MenuItem extends CFormModel {
             $list['ordering'] = " New Menu Items default to the last position. Ordering can be changed after this Menu Item is saved.";
         }
         
+        $items = array();
+        $items[] = array("value" => "1", "text"=>"Top", "level"=>0);
         $results = $obj_menu->loadItems($menuID, 'id value, title text, level', $condition);
         $items = array_merge($items, $results);      
         $list['parentID'] = buildHtml::select($items, $main_item->parentID, "parentID","","size=10", "&nbsp;&nbsp;&nbsp;","-");

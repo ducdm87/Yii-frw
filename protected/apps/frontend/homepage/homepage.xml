@@ -17,7 +17,7 @@
     </params>
     
     <views>
-        <view name="homepage" title="Home page" desc="Trang chủ">
+        <view name="home" title="Home page" desc="Trang chủ">
              <param title="advance">
                  <field type="text" name="id" label="Category" />
                  <field type="Menutype" name="Menutype" label="Menutype" />

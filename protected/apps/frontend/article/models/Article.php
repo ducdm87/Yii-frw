@@ -46,7 +46,8 @@ class Article {
         
         if(count($items))
             foreach($items as &$item){
-                $item['link'] = fnCreateUrlNewsDetail($item['id'],$item['alias'],$item['catID'], $item['cat_alias'] );
+                $params = array("view" =>"detail", "id" => $item['id'], "alias"=>$item['alias'],"catID" => $item['catID'], "cat_alias"=>$item['cat_alias']) ;
+                $item['link'] = Router::buildLink('article', $params);                
                 addObjectID($item['id'], "article");
             }
         return $items;
@@ -56,7 +57,7 @@ class Article {
      * trang tin tuc goi den
      * $listid: danh sach id chuyen muc
 	*/
-    function getTinTuc($scope = "articles", $listid = "", $limit = 6){
+    function getTinTuc($scope = "article", $listid = "", $limit = 6){
         global $mainframe, $db;
         $where = array();
         $where[] = "status = 1";
@@ -79,7 +80,8 @@ class Article {
         $arr_new = array();
          for($i=0;$i<count($items);$i++){
              $item = $items[$i];
-             $item['link'] = Yii::app()->createUrl("articles/category",array("alias"=>$item['alias']));
+             $params = array("view" =>"category", "id" => $item['id'], "alias"=>$item['alias']) ;
+             $item['link'] = Router::buildLink('article', $params);             
              $item['items'] = $this->getArticlesCategoy($item['id'],0, $limit);
              $arr_new[$item['id']] = $item;
          }
@@ -123,7 +125,8 @@ class Article {
         
         if(count($items))
             foreach($items as &$item){
-                $item['link'] = fnCreateUrlNewsDetail($item['id'],$item['alias'],$item['catID'], $item['cat_alias'] );
+                $params = array("view" =>"detail", "id" => $item['id'], "alias"=>$item['alias'],"catID" => $item['catID'], "cat_alias"=>$item['cat_alias']) ;
+                $item['link'] = Router::buildLink('article', $params);
                 addObjectID($item['id'], "news");
             }
         
@@ -143,8 +146,9 @@ class Article {
         
        if($item)
        {
-           $item['link'] = Yii::app()->createUrl("articles/category",array("alias"=>$item['alias']));        
-            $item['total'] = $obj_content->getTotal(" status = 1 AND `catID` = ".$item['id']);
+           $params = array("view" =>"category", "id" => $item['id'], "alias"=>$item['alias']) ;
+           $item['link'] = Router::buildLink('article', $params);           
+           $item['total'] = $obj_content->getTotal(" status = 1 AND `catID` = ".$item['id']);
        }
         return $item;
     }
@@ -167,10 +171,12 @@ class Article {
                         ->where($where);
         
         $item = $query_command->queryRow();
-        if($item == FALSE) return false;
-        $item['slug'] = $item['id']."-".$item['alias'];
-         $item['cat_link'] = Yii::app()->createUrl("articles/category",array("alias"=>$item['cat_alias']));
-        $item['link'] = Yii::app()->createUrl("articles/detail",array("cid"=>$item['id'],"alias"=>$item['alias'], "cat"=>$item['cat_alias']));
+        if($item == FALSE) return false;        
+        $params = array("view" =>"category", "id" => $item['catID'], "alias"=>$item['cat_alias']) ;
+        $item['cat_link'] = Router::buildLink('article', $params);        
+       
+        $params = array("view" =>"detail", "id" => $item['id'], "alias"=>$item['alias'], "catID" => $item['catID'], "cat_alias"=>$item['cat_alias']) ;
+        $item['link'] = Router::buildLink('article', $params);
         addObjectID($item['id'], "article");
         return $item;
     } 

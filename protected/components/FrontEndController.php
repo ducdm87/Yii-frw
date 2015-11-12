@@ -65,8 +65,10 @@ class FrontEndController extends CController {
     
     function render($layout = "blog", $data = NULL, $return = false) {
          $app = Request::getVar('app',NULL);
-         $controller = Request::getVar('controller',"category");
-          
+         $controller = Request::getVar('controller',null);
+         $view = Request::getVar('view',"category");
+         $controller = $controller?$controller:$view;
+         
           global $pagetype, $cur_temp, $yiiapp, $cur_temp;
           
           if($pagetype == 1){

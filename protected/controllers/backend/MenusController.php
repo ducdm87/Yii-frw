@@ -176,20 +176,16 @@ class MenusController extends BackEndController {
         $task = Request::getVar('task', "");
         if ($task == "hidden" OR $task == 'publish' OR $task == "unpublish") {
             $cids = Request::getVar('cid');
+            $obj_menu = YiiMenu::getInstance();
             for ($i = 0; $i < count($cids); $i++) {
-                $cid = $cids[$i];
-                $item = $this->loadItem($cid, "id");
-
-                if ($item['status'] == 0)
-                    $item['status'] = 1;
-                else if ($item['status'] == 1)
-                    $item['status'] = 2;
-                else if ($item['status'] == 2)
-                    $item['status'] = 0;
-
-                $this->storeItem($item);
+                $cid = $cids[$i]; 
+                if ($task == "publish")
+                    $this->changeStatusMenuItem ($cid, 1);
+                else if ($task == "hidden")
+                    $this->changeStatusMenuItem ($cid, 2);
+                else $this->changeStatusMenuItem ($cid, 0);
             }
-            YiiMessage::raseSuccess("Successfully saved changes status for menu type");
+            YiiMessage::raseSuccess("Successfully saved changes status for menu item");
         }
         
         $this->addIconToolbar("Creat", $this->createUrl("/menus/newmenuitem?menu=$menuID"), "new");
@@ -255,6 +251,13 @@ class MenusController extends BackEndController {
         $this->render('editmenuitem', $params);
     }
      
+    function changeStatusMenuItem($cid, $value)
+    {
+        $obj_menu = YiiMenu::getInstance();        
+        $obj_tblMenu = $obj_menu->loadItem($cid, "*", false); 
+        $obj_tblMenu->status = $value;
+        $obj_tblMenu->store();
+    }
     
     function actionApplymenuitem() {
         list($menuID, $menuItemID) = $this->storeMenuItem();       
@@ -286,8 +289,9 @@ class MenusController extends BackEndController {
         $obj_menu = YiiMenu::getInstance();
         $tbl_menu = $obj_menu->loadItem($id);        
         $tbl_menu->_ordering = isset($post['ordering'])?$post['ordering']:null;
-        $tbl_menu->_old_parent = $tbl_menu->parentID;
-        $tbl_menu->bind($post);         
+        $tbl_menu->_old_parent = $tbl_menu->parentID;        
+        $tbl_menu->bind($post);
+        $tbl_menu->app = $params['app'];
         $params = json_encode($params);        
         $tbl_menu->params = $params;        
         $tbl_menu->store();        

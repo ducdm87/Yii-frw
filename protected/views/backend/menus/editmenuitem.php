@@ -35,7 +35,7 @@
                     <div class="form-group row">
                         <label class="control-label left col-md-3">Link</label>
                         <div class="col-md-9"> 
-                            <input <?php if($item->params->app !== "System") echo 'readonly="true"'; ?> id='field_link' type="text" name="link" class="form-control" value="<?php echo $item->link; ?>">
+                            <input <?php if(isset($item->params->app) AND $item->params->app !== "System") echo 'readonly="true"'; ?> id='field_link' type="text" name="link" class="form-control" value="<?php echo $item->link; ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -139,9 +139,10 @@
 <script type="text/javascript">
     var link_load_config_menu = "<?php echo Yii::app()->createUrl('menus/loadconfigmenuitem') ?>";
     <?php
-    if($item->id !=0 AND is_object($item->params)){ ?>
+    if($item->id !=0 AND is_object($item->params)){ 
+        if(isset($item->params->app) AND isset($item->params->view)){ ?>
         loadConfigFile('<?php echo $item->params->app; ?>', '<?php echo $item->params->view ?>');
-    <?php } ?>
+        <?php } } ?>
     
 </script>
  

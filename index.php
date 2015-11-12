@@ -23,17 +23,17 @@ $debug = isset($_REQUEST['debug'])?$_REQUEST['debug']:0;
 $pagetype = 1;
 if($debug == 0) $pagetype = 1;
 else $pagetype = 1;
-
-if(isset($params['controller']) AND isset($params['action']) AND $pagetype == 1){
+ 
+if(isset($params['app']) AND isset($params['view']) AND $pagetype == 1){
     
     $cur_temp = "trangbenhvien"; 
     setSysConfig("sys.template",$cur_temp); 
     setSysConfig("sys.template.path",ROOT_PATH . "themes/$cur_temp/"); 
     setSysConfig("sys.template.url","/themes/$cur_temp/"); 
-
+    
     // thu tu uu tien: theme/$template => protected/apps/frontend/$app/views => /protected/views/frontend
     if(isset($params['app'])){
-        $yiiapp->setControllerPath(ROOT_PATH.'protected/apps/frontend/'.$params['app'].'/controllers/');
+        $yiiapp->setControllerPath(ROOT_PATH.'protected/apps/frontend/'.$params['app'].'/controllers/');           
         if(is_dir(ROOT_PATH."themes/$cur_temp"))                  
           $yiiapp->setViewPath(ROOT_PATH."themes/$cur_temp");
         else $yiiapp->setViewPath(ROOT_PATH.'protected/apps/frontend/'.$params['app'].'/views/');
@@ -41,15 +41,13 @@ if(isset($params['controller']) AND isset($params['action']) AND $pagetype == 1)
         $yiiapp->setControllerPath(ROOT_PATH.'protected/controllers/frontend');
         $yiiapp->setViewPath(ROOT_PATH.'protected/views/frontend');
     }
-    $rt = $params['controller'] . "/".$params['action'];
+    
+//    $rt = $params['controller'] . "/".$params['action'];
+    if(!isset($params['layout'])) $params['layout'] = "display";
+    $rt = $params['view'] . "/".$params['layout'];
     
     yii::import('application.apps.frontend.'.$params['app'].'.models.*');
-    
-    foreach ($params as $key => $value) {
-        $_GET[$key] = $value;
-        $_REQUEST[$key] = $value;
-        $_POST[$key] = $value;
-    }
+   
     $yiiapp->runController($rt);
 }else{
     $yiiapp->runEnd('frontend');

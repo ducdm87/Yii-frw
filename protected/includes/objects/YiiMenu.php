@@ -44,13 +44,15 @@ class YiiMenu{
         $items = $query_command->queryAll();
         $arr_new = array();
         $arr_menu = array();
+         
         foreach ($items as $key => $item) {            
             if($item['alias'] == "") $item['alias'] = $item['title'];
             $item['path'] = $item['alias'];
             if($item['type'] == "app"){
-                $item['url'] = $item['alias'];
+                $item['url'] = "/".$item['alias'];
                 if($item['level'] >1 AND isset($arr_new[$item['parentID']])){
-                    $item['url'] = $arr_new[$item['parentID']]['path'] . "/". $item['url'];
+                    $path_parent = trim($arr_new[$item['parentID']]['path'],"/");
+                    $item['url'] = "/".$path_parent . $item['url'];
                     $item['path'] = $item['url'];
                 }
             }else if($item['type'] == "url"){
@@ -69,7 +71,7 @@ class YiiMenu{
              }
             if($this->active == 0 AND $item['default'] == 1){
                 $this->active = $item['id'];
-                $item['url'] = '';
+                $item['url'] = '/';
             }
             $arr_new[$key] = $item;
             $arr_menu[$item['menuID']][] = $item;
@@ -88,6 +90,18 @@ class YiiMenu{
         if(isset($this->items[$menuItemID]))
             return $this->items[$menuItemID];
         return null;
+    }
+    
+    function getMenuApp($app = 'article'){
+        $items = $this->getItems();
+        if(empty($items)) return array();
+        $arr_new = array();
+        foreach ($items as $item) {
+            if($item['app'] == $app){
+                $arr_new[] = $item;
+            }
+        }
+        return $arr_new;
     }
     
     function getMenu($menuID = null){

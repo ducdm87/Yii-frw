@@ -7,9 +7,7 @@
  */
 
 define("ENABLE_MULTISITE", 1);
-$domain = "vietbao.vn";
-
-$news_scope = "";
+$domain = "vietbao.vn"; 
 
 if (ENABLE_MULTISITE == 1) {
     $domain = $_SERVER['HTTP_HOST'];
@@ -17,9 +15,6 @@ if (ENABLE_MULTISITE == 1) {
         case "yiiframework.com";
         default :
             $config_frontend = "frontend.php";
-            $news_scope = 'frontend';
-            $_GET['scope'] = 'frontend';
-            $_REQUEST['scope'] = 'frontend';
             break;
     }
 }
@@ -41,8 +36,8 @@ define('PATH_APIFILE', ROOT_PATH . "tmp/apifile/");
 
 define('PATH_APPS', dirname(__FILE__) . "/apps/");
 define('PATH_MODULES', dirname(__FILE__) . "/extensions/modules/");
-define('PATH_APPS_BACKEND', dirname(__FILE__) . "/apps/backend");
-define('PATH_APPS_FRONT', dirname(__FILE__) . "/apps/frontend");
+define('PATH_APPS_BACKEND', dirname(__FILE__) . "/apps/backend/");
+define('PATH_APPS_FRONT', dirname(__FILE__) . "/apps/frontend/");
 
 $os = strtoupper(substr(PHP_OS, 0, 3));
 if (!defined('IS_WIN')) {
@@ -58,7 +53,6 @@ $sys_menu = $sys_config = array();
 
 setSysConfig("colright.display", true);
 setSysConfig("page.classSuffix", "");
-setSysConfig("news.scope", $news_scope);
 setSysConfig("news.detail.showpath", 1);
 setSysConfig("news.limit", 10);
 setSysConfig("pages.limit", 15);
