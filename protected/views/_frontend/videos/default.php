@@ -101,7 +101,7 @@
     
     <div class="entry-container">
         <div class="entry-header">
-            <div class="text-center more-page"><a href="../">Xem thêm</a></div>
+            <div class="text-center more-page"><a href="_frontend">Xem thêm</a></div>
         </div>
     </div>
     
