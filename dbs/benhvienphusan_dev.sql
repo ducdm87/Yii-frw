@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2015 at 11:03 AM
+-- Generation Time: Nov 13, 2015 at 11:22 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -886,14 +886,26 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   KEY `status` (`status`),
   KEY `template_id` (`template_id`),
   KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
 INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `groupID`, `leader`, `mobile`, `home_phone`, `first_name`, `last_name`, `address`, `city`, `province_state`, `zip_code`, `country`, `suppliers`, `cdate`, `mdate`, `template_id`, `status`, `lastvisit`, `activeCode`, `params`) VALUES
-(28, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'ducdm87@gmail.com', 2, 0, '0979390590', '', 'dam manh', 'duc', 'trung kinh', 'bhmedia', '', '', 0, '', '0000-00-00 00:00:00', '2015-10-29 09:25:56', 0, 1, '2015-11-09 09:32:17', '', '');
+(28, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'ducdm87@gmail.com', 2, 1, '0979390590', '', 'dam manh', 'duc', 'trung kinh', 'bhmedia', '', '', 0, '', '0000-00-00 00:00:00', '2015-11-13 20:38:16', 0, 1, '2015-11-13 20:18:47', '', ''),
+(31, 'giamdoc', '23db8f175879817eedc5b488d7b9113b', 'giamdoctrungtam@gmail.com', 39, 1, '0979390590', '', 'giamdoc', 'giamdoc', 'ad', '', '', '', 0, '', '2015-11-13 20:39:30', '2015-11-13 20:40:21', 0, 1, '0000-00-00 00:00:00', '', ''),
+(32, 'phogiamdoc', '23db8f175879817eedc5b488d7b9113b', 'phogiamdoc@gmail.com', 39, 0, '', '', 'pho giamdoc', 'pho giamdoc', '', '', '', '', 0, '', '2015-11-13 20:40:08', '2015-11-13 20:40:11', 0, 1, '0000-00-00 00:00:00', '', ''),
+(33, 'leader1', '2b1e3590458a6e6014c0141b8cd13fe4', 'leader1@gmail.com', 31, 1, '', '', 'leader1', 'leader1', '', '', '', '', 0, '', '2015-11-13 20:41:34', '2015-11-13 20:41:34', 0, 1, '0000-00-00 00:00:00', '', ''),
+(34, 'manager 1', '40d8d27458473fca5c990aaed69fdb26', 'manager1@gmail.com', 31, 0, '', '', 'quản lý khu vực 1', 'quản lý khu vực 1', '', '', '', '', 0, '', '2015-11-13 20:42:13', '2015-11-13 20:42:13', 0, 1, '0000-00-00 00:00:00', '', ''),
+(35, 'manager2', '3f862ef80e8a45b44c4f874a0598ee09', 'manager2@gmail.com', 31, 0, '', '', 'quản lý khu vực 2', 'quản lý khu vực 2', '', '', '', '', 0, '', '2015-11-13 20:42:45', '2015-11-13 20:42:45', 0, 1, '0000-00-00 00:00:00', '', ''),
+(36, 'leader2', '2e11722f670391d487f4c29183a3d099', 'leader2@gmail.com', 32, 0, '', '', 'leader2', 'leader2', '', '', '', '', 0, '', '2015-11-13 20:43:23', '2015-11-13 20:43:23', 0, 1, '0000-00-00 00:00:00', '', ''),
+(37, 'manager3', '2d3a5db4a2a9717b43698520a8de57d0', 'manager3@gmail.com', 32, 0, '', '', 'manager3', 'manager3', '', '', '', '', 0, '', '2015-11-13 20:43:53', '2015-11-13 20:43:53', 0, 1, '0000-00-00 00:00:00', '', ''),
+(38, 'leaderhanoi', '68ef4d991a45e48ab88890b98a620f33', 'leaderhanoi@gmail.com', 34, 1, '', '', 'leaderhanoi', 'leaderhanoi', '', '', '', '', 0, '', '2015-11-13 20:44:38', '2015-11-13 20:44:38', 0, 1, '0000-00-00 00:00:00', '', ''),
+(39, 'hotrovien-hanoi-1', '46eb45e315821d16a0e7cc7123d48cf1', 'hotrovien1@gmail.com', 34, 0, '', '', 'hotrovien1', 'hotrovien1', '', '', '', '', 0, '', '2015-11-13 20:45:20', '2015-11-13 20:46:08', 0, 1, '0000-00-00 00:00:00', '', ''),
+(40, 'hotrovien-hanoi-2', '204f63432e721cefd4bd32c45b014975', 'hotrovien2@gmail.com', 34, 0, '', '', 'hotrovien2', 'hotrovien2', '', '', '', '', 0, '', '2015-11-13 20:45:58', '2015-11-13 20:45:58', 0, 1, '0000-00-00 00:00:00', '', ''),
+(41, 'hotrovien-bacninh-1', '46c242473b887a4a743c79b0bba72c72', 'hotrovien-bacninh-1@gmail.com', 35, 0, '', '', 'hotrovien-bacninh-1', 'hotrovien-bacninh-1', '', '', '', '', 0, '', '2015-11-13 20:46:43', '2015-11-13 20:46:43', 0, 1, '0000-00-00 00:00:00', '', ''),
+(42, 'leader-bacninh', '883664902366803700ea02d0518ee428', 'leader-bacninh@gmail.com', 35, 1, '', '', 'leader-bacninh', 'leader-bacninh', '', '', '', '', 0, '', '2015-11-13 20:47:09', '2015-11-13 20:47:09', 0, 1, '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 

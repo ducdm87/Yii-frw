@@ -1,19 +1,49 @@
-<?php
-//session_start();
-//session_unset("user");
+<?php 
+//error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_STRICT);
+global $yiiapp; 
 error_reporting(E_ALL);
-require_once dirname(__FILE__).'/protected/includes/libs/request.php';
-$config_frontend = "frontend.php";
-require_once dirname(__FILE__).'/protected/functions.php';
-require_once dirname(__FILE__).'/protected/define.php';
+$config_backend = "backend.php";
+require_once dirname(__FILE__).'/protected/includes.php'; 
 
-$yii=dirname(__FILE__).'/framework/yii.php';
-$config = dirname(__FILE__).'/protected/config/backend.php';
- 
+$yii = dirname(__FILE__).'/framework/yii.php';
+$config = dirname(__FILE__)."/protected/config/$config_backend";
  
 // Remove the following lines when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
  
 require_once($yii);
-Yii::createWebApplication($config)->runEnd('backend');
+$yiiapp = Yii::createWebApplication($config);
+require_once dirname(__FILE__).'/protected/router.php';
+
+global $pagetype, $cur_temp;
+$debug = isset($_REQUEST['debug'])?$_REQUEST['debug']:0;
+$pagetype = 1;
+if($debug == 0) $pagetype = 1;
+else $pagetype = 2;
+ 
+$app = Request::getVar('app', "cpanel");
+$view = Request::getVar('view', "home");
+$layout = Request::getVar('layout', "display");
+if($app != null AND $pagetype == 1){
+    
+    $cur_temp = "standard"; 
+    setSysConfig("sys.template",$cur_temp); 
+    setSysConfig("sys.template.path",ROOT_PATH . "themes/$cur_temp/"); 
+    setSysConfig("sys.template.url","/themes/$cur_temp/"); 
+    
+    // thu tu uu tien: theme/$template => protected/apps/backend/$app/views
+     
+        $yiiapp->setControllerPath(ROOT_PATH.'protected/apps/backend/'.$app.'/controllers/');           
+        if(is_dir(ROOT_PATH."themes/$cur_temp"))                  
+          $yiiapp->setViewPath(ROOT_PATH."themes/$cur_temp");
+        else $yiiapp->setViewPath(ROOT_PATH.'protected/apps/backend/'.$app.'/views/');
+    
+    $rt = $view . "/".$layout;
+    
+    yii::import('application.apps.backend.'.$app.'.models.*');
+   
+    $yiiapp->runController($rt);
+}else{
+    $yiiapp->runEnd('backend');
+}

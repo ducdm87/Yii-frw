@@ -35,6 +35,7 @@
                     <label class="control-label left col-md-3">Status</label>
                     <div class="col-md-9"><?php echo buildHtml::choseStatus("status", $item->status); ?></div>
                 </div>
+                <?php echo buildHtml::renderList("radio","Leader", "leader", array(array(1,'Yes'), array(0,'No')), $item->leader); ?>
             </div>
         </div>
         
