@@ -26,7 +26,7 @@ else $pagetype = 2;
  
 if(isset($params['app']) AND isset($params['view']) AND $pagetype == 1){
     
-    $cur_temp = "trangbenhvien"; 
+    $cur_temp = "standard"; 
     setSysConfig("sys.template",$cur_temp); 
     setSysConfig("sys.template.path",ROOT_PATH . "themes/$cur_temp/"); 
     setSysConfig("sys.template.url","/themes/$cur_temp/"); 
