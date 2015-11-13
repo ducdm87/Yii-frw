@@ -46,7 +46,8 @@ class HomeModel {
         
         if(count($items))
             foreach($items as &$item){
-                $item['link'] = fnCreateUrlNewsDetail($item['id'],$item['alias'],$item['catID'], $item['cat_alias'] );
+                $params = array("view" =>"detail", "id" => $item['id'], "alias"=>$item['alias'],"catID" => $item['catID'], "cat_alias"=>$item['cat_alias']) ;
+                $item['link'] = Router::buildLink('article', $params);
                 addObjectID($item['id'], "article");
             }
         return $items;
@@ -67,11 +68,11 @@ class HomeModel {
         $query_command = $db->createCommand($query);
         $items = $query_command->queryAll();
           
-        
         $arr_new = array();
          for($i=0;$i<count($items);$i++){
              $item = $items[$i];
-             $item['link'] = Yii::app()->createUrl("videos/category",array("alias"=>$item['alias']));
+             $params = array("view"=> "category","id" =>$item['id'], "alias"=>$item['alias']);
+             $item['link'] = Router::buildLink('videos', $params);    
              $item['videos'] = $this->getVideoCategoy($item['id'],0, $limit);
              $arr_new[$item['id']] = $item;
          }
@@ -112,8 +113,9 @@ class HomeModel {
         
         if(count($items))
             foreach($items as &$item){
-                $item['link'] = Yii::app()->createUrl("videos/detail", array("id" => $item['id'], "alias" => $item['alias']));
-                addObjectID($item['id'], "videos");
+                $params = array("view"=> "detail","id" => $item['id'], "alias" => $item['alias'],"catID" => $item['catID'], "cat_alias"=>$item['cat_alias']);
+                $item['link'] = Router::buildLink('videos', $params);    
+                addObjectID($item['id'], "video");
             }
         
         return $items;

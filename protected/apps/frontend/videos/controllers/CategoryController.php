@@ -25,9 +25,9 @@ class CategoryController extends FrontEndController {
          
         $data['alias'] = $catAlias;
         $obj_category = $model->getCategory($catID, $catAlias);
-          
+        
         if($obj_category == false){
-            $this->redirect($this->createUrl("video/"));
+            $this->redirect($this->createUrl("videos/"));
         }
         if($currentPage == 1)
             $data['items'] = $model->getItems($obj_category['id'], true,5);
@@ -39,10 +39,8 @@ class CategoryController extends FrontEndController {
         }else $page = $currentPage - 1;
         $catAlias = $obj_category['alias'];
         
-        if($page>1){            
-            $obj_category['pagemore'] = Yii::app()->createUrl("video/category", array("alias"=>$catAlias, "page"=>$page));
-        }else if($page == 1)
-            $obj_category['pagemore'] = Yii::app()->createUrl("video/category", array("alias"=>$catAlias));
+        $params = array("view"=> "category","id" =>$obj_category['id'], "alias"=>$obj_category['alias'], "page"=>$page);
+        $obj_category['pagemore'] = Router::buildLink('videos', $params);
  
         $page_title = $obj_category['title'];
         if($currentPage > 1) $page_title = $page_title . " trang $currentPage";
@@ -54,6 +52,7 @@ class CategoryController extends FrontEndController {
         setSysConfig("seopage.description",$page_description);
         
         $data['category'] = $obj_category;
+        $this->render('blog', $data);
     }
     
     public function actionList() {

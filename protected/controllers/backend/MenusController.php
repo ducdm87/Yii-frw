@@ -293,7 +293,7 @@ class MenusController extends BackEndController {
         $tbl_menu->bind($post);
         $tbl_menu->app = $params['app'];
         $params = json_encode($params);        
-        $tbl_menu->params = $params;        
+        $tbl_menu->params = $params;  
         $tbl_menu->store();        
         return array($tbl_menu->menuID, $tbl_menu->id);
     }

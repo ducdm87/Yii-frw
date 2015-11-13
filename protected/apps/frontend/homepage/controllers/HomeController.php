@@ -17,7 +17,8 @@ class HomeController extends FrontEndController {
          
         $model = HomeModel::getInstance();
         
-        $data["items_videos"] = $model->getVideos(5);        
+        $data["items_videos"] = $model->getVideos(5);    
+         
         $data["items_news"] = $model->getLastNews(5); 
        // $data['news'] = $list_category;              
         

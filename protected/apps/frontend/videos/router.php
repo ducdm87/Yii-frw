@@ -15,9 +15,9 @@
  * tin-tuc/category-con/bai-viet
  */
 
-function fnHelperFindMenuDetail($cid) {
+function fnHelperFindVideosMenuDetail($cid) {
     $YiiMenu = YiiMenu::getInstance();
-    $menuItem = $YiiMenu->getMenuApp("article");
+    $menuItem = $YiiMenu->getMenuApp("videos");
     $found = false;
 
     foreach ($menuItem as $item) {
@@ -29,12 +29,12 @@ function fnHelperFindMenuDetail($cid) {
     return false;
 }
 
-function fnHelperFindMenuCategory($catID) {
+function fnHelperFindVideosMenuCategory($catID) {
     // tim menu chuyen muc
     // fnHelperFindMenuArticles()
     // =>  => menu-article/muc-con/
     $YiiMenu = YiiMenu::getInstance();
-    $menuItem = $YiiMenu->getMenuApp("article");
+    $menuItem = $YiiMenu->getMenuApp("videos");
     foreach ($menuItem as $item) {
         $params = $item['params'];
         if ($params->view == "category" AND $params->id == $catID) {
@@ -44,9 +44,9 @@ function fnHelperFindMenuCategory($catID) {
     return false;
 }
 
-function fnHelperFindMenuArticles() {
+function fnHelperFindVideosMenu() {
     $YiiMenu = YiiMenu::getInstance();
-    $menuItem = $YiiMenu->getMenuApp("article");
+    $menuItem = $YiiMenu->getMenuApp("videos");
     foreach ($menuItem as $item) {
         $params = $item['params'];
         if ($params->view == "home") {
@@ -58,34 +58,43 @@ function fnHelperFindMenuArticles() {
 
 // $query: array query [view:detail, id:10 ...]
 // build
-function VideoBuildRoute(& $query) {
+function VideosBuildRoute(& $query) {
     $segments = array();
     if (isset($query['view'])) {
         
         if ($query['view'] == "home") {
-            if($menuID = fnHelperFindMenuArticles()){
+            if($menuID = fnHelperFindVideosMenu()){
                 $query['menuID'] = $menuID;
             }
         } elseif ($query['view'] == "category") {
-            if($menuID = fnHelperFindMenuCategory($query['id'])){
+            
+            if($menuID = fnHelperFindVideosMenuCategory($query['id'])){
                  $query['menuID'] = $menuID;
             }else{
+                if($menuID = fnHelperFindVideosMenu()){
+                    $query['menuID'] = $menuID;
+                }
                 $segments[] = $query['alias'];                
             }
+            if(isset($query['page']) AND $query['page'] == 0) unset ($query['page']);
+            
         } elseif ($query['view'] == "detail") {
-            if($menuID = fnHelperFindMenuDetail($query['id'])){
+            if($menuID = fnHelperFindVideosMenuDetail($query['id'])){
                 $query['menuID'] = $menuID;
             }else{
-                 if($menuID = fnHelperFindMenuCategory($query['catID'])){
+                if($menuID = fnHelperFindVideosMenuCategory($query['catID'])){
                      $query['menuID'] = $menuID;
                  }else{
                      $segments[] = $query['cat_alias'];
                  }
+                 if($menuID = fnHelperFindVideosMenu()){
+                    $query['menuID'] = $menuID;
+                } 
                 $segments[] = $query['id']."-".$query['alias'];
                 $query['_suffix'] = ".html";
+                unset($query['catID']);
+                unset($query['cat_alias']);
             }
-            unset($query['catID']);
-            unset($query['cat_alias']);
         }
         
         unset($query['view']);
@@ -97,11 +106,11 @@ function VideoBuildRoute(& $query) {
 }
 
 // $segments: array path from url[0: tin-tuc,1:tin-lam-dep ... ]
-function VideoParseRoute($segments, $_params = null) {
+function VideosParseRoute($segments, $_params = null) {
     $n = count($segments);
     $params = array();
     $segment = array_pop($segments);
-
+ 
     if ($_params == null) {
         if ($n == 1) {
             $params['view'] = "category";

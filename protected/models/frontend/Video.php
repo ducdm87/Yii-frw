@@ -30,44 +30,7 @@ class Video extends CFormModel {
         }
         return $instance;
     } 
-    
-    /*
-     * trang chu
-     * $listid: danh sach id chuyen muc
-	*/
-    function getVideos($limit = 5, $listid = ""){
-        global $mainframe, $db;
-        $where = " "; 
-        if($listid != ""){ $where .= " AND id in($listid) "; }
-        
-        $query = "SELECT * FROM " . TBL_CATEGORIES 
-                    ." WHERE status = 1 AND `scope` ='videos' "
-                   ." ORDER BY ordering ASC";
-        $query_command = $db->createCommand($query);
-        $items = $query_command->queryAll();
-          
-        
-        $arr_new = array();
-         for($i=0;$i<count($items);$i++){
-             $item = $items[$i];
-             $item['link'] = Yii::app()->createUrl("videos/category",array("alias"=>$item['alias']));
-             $item['videos'] = $this->getNewCategoy($item['id'],0, $limit);
-             $arr_new[$item['id']] = $item;
-         }
-         $items = $arr_new;
-         
-         if($listid != ""){
-             $listid = explode(",", $listid);
-             $arr_new = array();
-             foreach ($listid as $k=>$id){
-                 if(isset($items[$id]))
-                    $arr_new[$id] = $items[$id];
-             }
-             $items = $arr_new;
-         }         
-        return $items;
-    }
-    
+     
     function getNewCategoy($catID, $start = 0, $limit = 10)
     {
         global $mainframe, $db;
@@ -115,15 +78,15 @@ class Video extends CFormModel {
             $where[] = "A.feature = 1";
         $command->where(implode(" AND ", $where));
         
-        $items = $command->select('A.*,B.title as name,B.alias as calias, B.id as cid')
+        $items = $command->select('A.*,B.title as cat_name,B.alias as cat_alias')
                 ->from("$this->table  A")
                 ->join("$this->table_categories B", 'A.catID=B.id')
                 ->queryAll(); 
          
         if(count($items))
             foreach($items as & $item){
-                $item['slug'] = $item['id']."-".$item['alias'];
-                $item['link'] = Yii::app()->createUrl("videos/detail", array("id"=> $item['id'], "alias"=>$item['alias']));                
+                $params = array("view"=> "detail","id" =>$item['id'], "alias"=>$item['alias'],"catID" => $item['catID'], "cat_alias"=>$item['cat_alias'] );
+                $item['link'] = Router::buildLink('videos', $params);
                 addObjectID($item['id'], "videos");
             }
         return $items;
@@ -139,7 +102,8 @@ class Video extends CFormModel {
             $item = $obj_table->loadRow("*", " status = 1 AND `alias` = '$alias'");
          
          if($item){
-            $item['link'] = Yii::app()->createUrl("videos/category",array("alias"=>$item['alias']));
+            $params = array("view"=> "category","id" =>$item['id'], "alias"=>$item['alias']);
+            $item['link'] = Router::buildLink('videos', $params);             
             $item['total'] = $obj_video->getTotal(" status = 1 AND `catID` = ".$item['id']);
          }
          

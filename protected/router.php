@@ -101,7 +101,7 @@ class Router{
     {
         $app_router =  PATH_APPS_FRONT."$app/router.php";
         $functionName = $app."BuildRoute";
-        
+         
         if(file_exists($app_router)){
             require_once $app_router;
             if(function_exists($functionName)){

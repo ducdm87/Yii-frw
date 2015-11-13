@@ -159,15 +159,17 @@ class YiiTables{
             $change_ordering = false;
              if($this->parentID == 0){
                 $this->level = 1;            
-                $item_parent = $this->load("parentID = 0", "*", true );
+                $item_parent = $this->loadRow("*","parentID = 0");
+                $item_parent = (object) $item_parent;
                 $parent_rgt = $item_parent->rgt;
+                $this->parentID = $item_parent->id;
             }else{
                 $item_parent = $this->load($this->parentID, "*", true);
 
                 $this->level = $item_parent->level +1;
                 $parent_rgt = $item_parent->rgt;           
             }
-            
+           
             if($id == 0 OR $this->_old_parent != $this->parentID){ // tao moi hoac thay doi parent
                 $this->lft = $parent_rgt;
                 $this->rgt = $this->lft + 1;
@@ -186,7 +188,7 @@ class YiiTables{
                 $query = "UPDATE " . $this->_tablename
                         . " SET `lft` = `lft` + $change_type, `rgt` = `rgt` + $change_type "
                         . " WHERE `lft` >=  $min_lft AND `lft` < $max_rgt ";
-
+ 
                 $this->lft = $tbl_item2->lft;
                 $this->rgt = $tbl_item2->rgt;
                 $query_command = $this->_db->createCommand($query);

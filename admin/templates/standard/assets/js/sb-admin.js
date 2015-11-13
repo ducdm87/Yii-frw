@@ -220,12 +220,14 @@ function setmenutype(app_name, view_name, layout_name){
     document.adminForm.menu_type.value = app_name;
     if(app_name == "System"){
         $("#field_link").attr('readonly', false)
+        $("#type").val("url");
     }else{
         $("#field_link").attr('readonly', true)
         var link = "index.php?app="+app_name+"&view="+view_name;
         if(layout_name != undefined && layout_name != "")
             link = link + "&layout="+layout_name;
         $("#field_link").val(link);
+        $("#type").val("app");
     }
     loadConfigFile(app_name, view_name);
     $(".modal-dialog .close").click();

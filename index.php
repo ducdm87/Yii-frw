@@ -22,7 +22,7 @@ global $pagetype, $cur_temp;
 $debug = isset($_REQUEST['debug'])?$_REQUEST['debug']:0;
 $pagetype = 1;
 if($debug == 0) $pagetype = 1;
-else $pagetype = 1;
+else $pagetype = 2;
  
 if(isset($params['app']) AND isset($params['view']) AND $pagetype == 1){
     

@@ -70,6 +70,9 @@ function articleBuildRoute(& $query) {
             if($menuID = fnHelperFindMenuCategory($query['id'])){
                  $query['menuID'] = $menuID;
             }else{
+                if($menuID = fnHelperFindMenuArticles()){
+                    $query['menuID'] = $menuID;
+                }
                 $segments[] = $query['alias'];                
             }
         } elseif ($query['view'] == "detail") {
@@ -81,6 +84,9 @@ function articleBuildRoute(& $query) {
                  }else{
                      $segments[] = $query['cat_alias'];
                  }
+                 if($menuID = fnHelperFindMenuArticles()){
+                    $query['menuID'] = $menuID;
+                }
                 $segments[] = $query['id']."-".$query['alias'];
                 $query['_suffix'] = ".html";
             }

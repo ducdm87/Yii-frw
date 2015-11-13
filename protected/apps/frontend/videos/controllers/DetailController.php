@@ -13,14 +13,28 @@ class DetailController extends FrontEndController {
     } 
 
     public function actionDisplay() {
-        $cid = Request::getVar('id',null);
+        $id = Request::getVar('id',null);
         $alias = Request::getVar('alias',null);
-        $model = Article::getInstance();
-        $obj_item = $model->getItem($cid, $alias);
+
+        $model =  Video::getInstance();
+        if($id == null OR $id == ""){
+            if($alias != null and $alias != ""){
+                $obj_item = $model->getItemByAlias($alias);
+            }else{
+                header("Location: /");
+            }
+        }else{
+            $obj_item = $model->getItem($id);
+        }
+        
+        $items = $model->getItems($obj_item['catID'], true,4);
+        $items2 = $model->getItems($obj_item['catID'], false,15);
         $obj_category = $model->getCategory($obj_item['catID']);
-       
+        
         $data['item'] = $obj_item;
-        $data['category'] = $obj_category; 
+        $data['items'] = $items;
+        $data['items2'] = $items2;
+        $data['category'] = $obj_category;
         
         $page_title = $obj_item['title'];        
         $page_keyword = $obj_item['metakey'] != ""?$obj_item['metakey']:$page_title;
@@ -29,6 +43,7 @@ class DetailController extends FrontEndController {
         setSysConfig("seopage.title",$page_title); 
         setSysConfig("seopage.keyword",$page_keyword); 
         setSysConfig("seopage.description",$page_description);
+        Request::setVar('alias',$obj_category['alias']);
         
         
         $this->render('default', $data);

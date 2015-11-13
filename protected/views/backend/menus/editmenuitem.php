@@ -77,6 +77,7 @@
     <input type="hidden" id='params_app' name="params[app]" value="<?php echo isset($item->params->app)?$item->params->app:""; ?>">    
     <input type="hidden" id='params_view' name="params[view]" value="<?php echo isset($item->params->view)?$item->params->view:""; ?>">    
     <input type="hidden" id='params_layout' name="params[layout]" value="<?php echo isset($item->params->layout)?$item->params->layout:""; ?>">    
+    <input type="hidden" id='type' name="type" value="<?php echo $item->type; ?>">    
     
     <input type="hidden" name="id" value="<?php echo $item->id; ?>">    
     <input type="hidden" name="cid[]" value="<?php echo $item->id; ?>">    
