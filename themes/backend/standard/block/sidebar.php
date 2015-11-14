@@ -23,9 +23,10 @@
             <ul class="nav navbar-nav side-nav">
                 <li class="dropdown <?php if ($app == "" OR $app == "cpanel") echo "active"; ?>">
                     <a href="/backend/" class="dropdown-toggle parent" data-toggle="dropdown">
-                        <i class="fa fa-dashboard"></i> Dashboard<b class="caret"></b>
+                        <i class="fa fa-dashboard"></i> System<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                        <?php echo showSideBarMenu("cpanel","", "Dashboard"); ?>
                         <?php echo showSideBarMenu("cpanel","sysconfig", "Config"); ?>
                     </ul>
                 </li> 
@@ -109,13 +110,13 @@
 function showSideBarMenu($_app, $_view, $title, $_class="fa-folder")
 {
     $app = Request::getVar('app',"cpanel");
-    $view = Request::getVar('view',null);
+    $view = Request::getVar('view',"");
     
     $class = "";
     $_class = "fa " . $_class;    
     $link = Router::buildLink($_app, array("view"=>$_view));
      
-    if($_view == "") $_view = "display";
+//    if($_view == "") $_view = "display";
     
     if(strpos($_view, "-") === 0){
         $_view = trim($_view,"-");
@@ -124,7 +125,7 @@ function showSideBarMenu($_app, $_view, $title, $_class="fa-folder")
             $_class .= " fa-spin";
         }        
     }else{
-        if($app == $_app AND $view == $_view){
+        if($app == $_app AND ($view == $_view OR ($view == "" AND $_view == 'display')) ){
             $class = "active current";
             $_class .= " fa-spin";
         }        

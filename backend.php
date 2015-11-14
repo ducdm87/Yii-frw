@@ -21,8 +21,6 @@ $params = Router::parseLink($_SERVER['REQUEST_URI']);
 global $pagetype, $cur_temp;
 $debug = isset($_REQUEST['debug'])?$_REQUEST['debug']:0;
 $pagetype = 1;
-if($debug == 1) $pagetype = 2;
-else $pagetype = 1;
  
 $app = Request::getVar('app', "cpanel");
 $view = Request::getVar('view', "home");

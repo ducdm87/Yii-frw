@@ -5,7 +5,7 @@
             <span><i class="fa fa-bars"></i> Upload & Install Extension</span>
         </div>
         <div class="panel-body">
-            <form action="<?php echo $this->createUrl('installer/uploadext') ?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo Router::buildLink("installer", array("view"=>"home", "layout"=>"uploadext")); ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group row">
                         <label class="control-label left col-md-3">Extension package file</label>
                         <div class="col-md-9">

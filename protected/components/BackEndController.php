@@ -180,7 +180,7 @@ class BackEndController extends CController {
                                 </td>';
     }
 
-    function addIconToolbarDelete($alert = "Please select a item from the list to delete") {
+    function addIconToolbarDelete($alert = "Please select a item from the list to delete", $title = "delete") {
         $this->iconToolbar[] = ' <td id="toolbar-delete" class="button">
                                      <a class="toolbar" onclick="javascript:if (document.adminForm.boxchecked.value == 0) {
                                         alert(\'' . $alert . '\');
@@ -189,7 +189,7 @@ class BackEndController extends CController {
                                     }" href="#">
                                         <span title="delete" class="icon-32-delete">
                                         </span>
-                                        delete
+                                        '.$title.'
                                     </a>
                                 </td>';
     }
