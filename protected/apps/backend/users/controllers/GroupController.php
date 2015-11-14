@@ -2,89 +2,136 @@
 
 class GroupController extends BackEndController {
 
-    public $item = array();
-    public $tablename = "{{gx_info}}";
-    public $primary = "id";
-    public $scopenews = "tin-kinh-te";
+    var $primary = 'id';
+    var $tablename = "{{users_group}}";
+    private $model;
 
     function init() {
-//        $this->layout = "//benhvienphusan/default";
         parent::init();
-    } 
-
-    function actionDisplay(){
-        $this->actionBlog();
     }
-    public function actionBlog() {
-        $model = Article::getInstance();
-         
-        $catAlias = Request::getVar('alias',null);
-        $currentPage = Request::getVar('page',1);
+
+    public function actionDisplay() {
         
-        $limit = 12;
-        
-        $data['alias'] = $catAlias;
-        $catID = Request::getVar("id");
-        
-        $obj_category = $model->getCategory($catID, $catAlias);
-         
-        if($obj_category == false){ 
-            $this->redirect($this->createUrl("articles/"));
+         $task = Request::getVar('task', "");
+         if ($task == "hidden" OR $task == 'publish' OR $task == "unpublish") {
+            $cids = Request::getVar('cid');            
+            for ($i = 0; $i < count($cids); $i++) {
+                $cid = $cids[$i];
+                if ($task == "publish")
+                    $this->changeStatus ($cid, 1);
+                else if ($task == "hidden")
+                    $this->changeStatus ($cid, 2);
+                else $this->changeStatus ($cid, 0);
+            }
+            YiiMessage::raseSuccess("Successfully saved changes status for user group");
         }
         
-        $start = ($currentPage - 1)*$limit;
-        $obj_category['items'] = $model->getArticlesCategoy($obj_category['id'],$start, $limit);
-        if($obj_category['total'] > $start  + $limit ){            
-            $page = $currentPage + 1;
-        }else $page = $currentPage - 1;
-        $catAlias = $obj_category['alias'];
+        
+        $this->addIconToolbar("Edit", Router::buildLink("users", array("view"=>"group", "layout"=>"edit")), "edit", 1, 1, "Please select a item from the list to edit");        
+        $this->addIconToolbar("New", Router::buildLink("users", array("view"=>"group", "layout"=>"new")), "new");
+//        $this->addIconToolbarDelete();
+        $this->addIconToolbar("Delete", Router::buildLink("users", array("view"=>"group", "layout"=>"remove")), "trash", 1, 1, "Please select a item from the list to Remove");        
+        $this->addBarTitle("Group <small>[list]</small>", "user");
 
-        if($page>1){
-            
-            $obj_category['pagemore'] = Yii::app()->createUrl("articles/category", array("alias"=>$catAlias, "page"=>$page));
-        }elseif($page == 1)
-            $obj_category['pagemore'] = Yii::app()->createUrl("articles/category", array("alias"=>$catAlias));
-        
-        $page_title = $obj_category['title'];
-        if($currentPage > 1) $page_title = $page_title . " trang $currentPage";
-        $page_keyword = $obj_category['metakey'] != ""?$obj_category['metakey']:$page_title;
-        $page_description = $obj_category['metadesc'] != ""?$obj_category['metadesc']:$page_title;
-        
-        setSysConfig("seopage.title",$page_title); 
-        setSysConfig("seopage.keyword",$page_keyword); 
-        setSysConfig("seopage.description",$page_description);
-        
-        $data['category'] = $obj_category;
-         
-        $this->render('default', $data);
+        $model = Group::getInstance();
+        $items = $model->getItems();
+
+        $this->render('list', array('items' => $items));
     }
     
-    public function actionList() {
-        global $classSuffix;
-        $classSuffix = "homepage";
-        $this->pageTitle = "Giá xăng dầu hôm nay, gia xang dau";
-        $this->metaKey = "giá xăng hôm nay, gia xang, gia xang dau, giá xăng, giá xăng hiện tại, giá xăng dầu hôm nay, gia xang hom nay, giá xăng dầu, giá xăng a92";
-        $this->metaDesc = "Giá xăng hôm nay, cập nhật nhanh nhất bảng gia xang dau mới nhất, chính xác nhất, giá xăng hiện tại, giá xăng a92";
-        $params = array();
-        $model = Benhvienphusan::getInstance();
-       
-        $modelNews = News::getInstance();
-         
-        $params['giabanle'] = $model->getGiaBanLe();
-        $params['giathegioi'] = $model->getGiaTheGioi();
-//        $arrNews = $modelNews->getTinTuc($this->scopenews);
-        $arrNews = $modelNews->getTinTuc("*", "1,8,19,3");
-        $str_tintuc = "";
-        $k=0;
-        foreach ($arrNews as $dataCart) {
-            if($k == 0) $str_tintuc .= "<div style='overflow: hidden;'>";
-            $str_tintuc .= $modelNews->buildHtmlHome($dataCart);
-            if($k == 1) $str_tintuc .= "</div>";
-            $k = 1 - $k;
-        }
-        $params['tintuc'] = $str_tintuc;
-        $this->render('list', $params);
+    function changeStatus($cid, $value)
+    {
+        $obj_user = YiiUser::getInstance();
+        $tbl_group = $obj_user->getGroup($cid);
+        $tbl_group->status = $value;
+        $tbl_group->store();
     }
- 
+    
+    
+    public function actionNew() {   
+        $this->actionEdit();
+    }
+    
+    public function actionEdit() {   
+        setSysConfig("sidebar.display", 0); 
+        
+        $this->addIconToolbar("Save", Router::buildLink("users", array("view"=>"group", "layout"=>"save")), "save");
+        $this->addIconToolbar("Apply", Router::buildLink("users", array("view"=>"group", "layout"=>"apply")), "apply");
+        $items = array();
+        
+        $cid = Request::getVar("cid", 0);
+        
+        if (is_array($cid))
+            $cid = $cid[0];
+
+        if ($cid == 0) {
+            $this->addIconToolbar("Cancel", Router::buildLink("users", array("view"=>"group", "layout"=>"cancel")), "cancel");
+            $this->addBarTitle("User group <small>[New]</small>", "user");        
+            $this->pageTitle = "New group";
+        }else{
+            $this->addIconToolbar("Close", Router::buildLink("users", array("view"=>"group", "layout"=>"cancel")), "cancel");
+            $this->addBarTitle("User group <small>[Edit]</small>", "user");        
+            $this->pageTitle = "Edit group";           
+        }
+
+        $model = new Group();
+        $item = $model->getItem(); 
+        $list = $model->getListEdit($item);
+       
+        $this->render('edit', array("item"=>$item,"list"=>$list));
+    }
+    
+    function actionApply(){         
+        $cid = $this->store();       
+        $this->redirect(Router::buildLink("users", array("view"=>"group", "layout"=>"edit", 'cid'=> $cid)));
+    }
+    
+    function actionSave(){
+        $cid = $this->store();   
+        $this->redirect(Router::buildLink("users", array("view"=>"group")));
+    }
+    
+    function store(){
+        global $mainframe, $db;
+        $post = $_POST;
+       
+        $id = Request::getVar("id", 0);
+        
+        $obj_user = YiiUser::getInstance();
+        $tbl_group = $obj_user->getGroup($id);        
+        $tbl_group->_ordering = isset($post['ordering'])?$post['ordering']:null;
+        $tbl_group->_old_parent = $tbl_group->parentID;        
+        
+        $tbl_group->bind($post); 
+        $tbl_group->parentID = intval($tbl_group->parentID);
+        if($tbl_group->parentID >0){
+            $tbl_group_parent = $obj_user->getGroup($tbl_group->parentID);
+            $tbl_group->backend = $tbl_group_parent->backend;
+        }else{
+            $tbl_group->backend = 0;
+        }
+        
+        $tbl_group->store();
+       
+        return $tbl_group->id; 
+    }
+   
+    function actionCancel(){
+        $this->redirect(Router::buildLink("users", array("view"=>"group")));
+    }
+    
+    function actionRemove()
+    {
+        $cids = Request::getVar("cid", 0);
+        if(count($cids) >0){
+            $obj_table = YiiUser::getInstance();
+            for($i=0;$i<count($cids);$i++){
+               $obj_table->removeGroup($cids[$i]);
+            }
+        }
+        YiiMessage::raseSuccess("Successfully delete GroupUser(s)");
+        $this->redirect(Router::buildLink("users", array("view"=>"group")));
+    }
+    
 
 }

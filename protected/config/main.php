@@ -25,8 +25,7 @@ return array(
         'application.includes.html.*',
         'application.includes.html.elements.*',         
         'application.includes.objects.*',
-        //'application.apps.frontend.homepage.models.*',
-    ),
+            ),
     'modules' => array(
             'gii' => array(
             'class' => 'system.gii.GiiModule',
@@ -54,9 +53,6 @@ return array(
         'user' => array(
                         'allowAutoLogin' => true,
         ), 
-//            'db'=>array(
-//                    'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-//            ),
             'db' => array(
             'connectionString' => 'mysql:dbname=benhvienphusan_dev;host=localhost',
             'emulatePrepare' => true,

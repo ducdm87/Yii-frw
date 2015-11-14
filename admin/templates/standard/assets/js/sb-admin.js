@@ -238,7 +238,7 @@ function loadConfigFile(app_name, view_name){
     $.ajax({
         type: "POST",
         url: link_load_config_menu,
-        data:{"menuID":menuID,"app":app_name, "view":view_name},
+        data:{"menuID":menuID,"pr_app":app_name, "pr_view":view_name},
         complete: function(event){
             var data = JSON.parse(event.responseText);
             $(".nav-tabs #title-param-custome").html(data[0]);
