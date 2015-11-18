@@ -94,14 +94,18 @@ class HomeController extends BackEndController {
     }
     
     public function store() {
-        global $mainframe;
+        global $mainframe, $user;
         
         $cid = Request::getVar("id", 0); 
         
         $obj_category = YiiCategory::getInstance();        
         $obj_category = $obj_category->loadItem($cid, "*", false); 
          
-        $obj_category->bind($_POST);           
+        $obj_category->bind($_POST);
+        if($obj_category->id == 0){
+            $obj_category->created_by = $user->id;
+        }
+        $obj_category->modified_by = $user->id;
         $obj_category->store(); 
  
         YiiMessage::raseSuccess("Successfully save Category");
