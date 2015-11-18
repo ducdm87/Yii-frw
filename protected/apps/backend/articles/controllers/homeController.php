@@ -83,13 +83,13 @@ class HomeController extends BackendController {
     
     function actionApply() {
         $cid = $this->store();
-        YiiMessage::raseSuccess("User save succesfully");
+        YiiMessage::raseSuccess("Successfully save Article");
         $this->redirect(Router::buildLink("articles",array('layout'=>'edit','cid'=>$cid)));
     }
     
     function actionSave() {
         $cid = $this->store();
-        YiiMessage::raseSuccess("User save succesfully");
+        YiiMessage::raseSuccess("Successfully save Article");
         $this->redirect(Router::buildLink("articles"));
     }
     
@@ -156,11 +156,23 @@ class HomeController extends BackendController {
     
     function actionRemove()
     {
+        global $user;
         $cids = Request::getVar("cid", 0);
         if(count($cids) >0){
-            for($i=0;$i<count($cids);$i++){                
-               $obj_table = YiiArticle::getInstance();
-               $obj_table->remove($cids[$i]);
+            for($i=0;$i<count($cids);$i++){
+               $cid = $cids[$i];
+               $obj_article = YiiArticle::getInstance();               
+               $obj_table = $obj_article->loadItem($cid);
+ 
+                if(!$bool = $user->modifyChecking($obj_table->created_by)){
+                    $obj_users = YiiUser::getInstance();
+                    $item_user = $obj_users->getUser($obj_table->created_by);
+                    YiiMessage::raseNotice("Your account not have permission to delete article: $obj_table->title");
+                    $this->redirect(Router::buildLink("articles"));
+                    return false;
+                }
+               
+               $obj_table->remove($cid);
             }
         }
         YiiMessage::raseSuccess("Successfully delete Article(s)");

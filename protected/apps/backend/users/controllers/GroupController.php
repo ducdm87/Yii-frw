@@ -172,7 +172,7 @@ class GroupController extends BackEndController {
                 {
                     $obj_table->removeGroup($cid);
                 }else{
-                    YiiMessage::raseNotice("Group user have somthong account/sub group");
+                    YiiMessage::raseNotice("Group user have something account/sub group");
                     $this->redirect(Router::buildLink("users", array('view'=>'group'))); 
                     return false;
                 }

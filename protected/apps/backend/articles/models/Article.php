@@ -29,7 +29,7 @@ class Article extends CFormModel {
         return $instance;
     }
     
-    function getItems($limit = 10, $start = 0, $where = array()){
+    function getItems($limit = 20, $start = 0, $where = array()){
         global $user;
         $obj_table = YiiArticle::getInstance();
         
