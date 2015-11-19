@@ -76,7 +76,7 @@ class BackEndController extends CController {
                 }
             }
             if($found == false){                
-                $YiiApp_viewpath = PATH_APPS_FRONT . "/$YiiApp/views";
+                $YiiApp_viewpath = PATH_APPS_BACKEND . "/$YiiApp/views";
                 $file_layout = "$YiiApp_viewpath/$controller/$layout.php"; 
                 if(file_exists($file_layout)){
                     $found = true;

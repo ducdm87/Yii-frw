@@ -21,6 +21,12 @@ class MenuitemController extends BackEndController {
      * For menu type
      */
     public function actionDisplay() {
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to view menu item");
+            $this->redirect(Router::buildLink("menus", array("view"=>'menutype')));
+        }
+        
         $this->pageTitle = "Menu item";
         $model = MenuItem::getInstance();  
         $menuID = Request::getInt('menu', "");
@@ -64,6 +70,12 @@ class MenuitemController extends BackEndController {
     }
     
     public function actionEdit() {
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to edit menu item");
+            $this->redirect(Router::buildLink("menus", array("view"=>'menutype')));
+        }
+        
         $menuID = Request::getInt('menu', "");
         if($menuID<=0){
             YiiMessage::raseWarning("Invalid menu id");
@@ -109,6 +121,12 @@ class MenuitemController extends BackEndController {
      
     function changeStatus($cid, $value)
     {
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to modify menu item");
+            $this->redirect(Router::buildLink("menus", array("view"=>'menutype')));
+        }
+        
         $obj_menu = YiiMenu::getInstance();        
         $obj_tblMenu = $obj_menu->loadItem($cid, "*", false); 
         $obj_tblMenu->status = $value;
@@ -116,12 +134,14 @@ class MenuitemController extends BackEndController {
     }
     
     function actionApply() {
-        list($menuID, $menuItemID) = $this->store();       
+        list($menuID, $menuItemID) = $this->store();
+        YiiMessage::raseSuccess("Successfully save Menu Item");
         $this->redirect(Router::buildLink('menus', array("view"=>"menuitem",'menu'=>$menuID, 'layout'=>'edit','cid'=>$menuItemID)));
     }
     
     function actionSave() {
-        list($menuID, $menuItemID) = $this->store();        
+        list($menuID, $menuItemID) = $this->store();  
+        YiiMessage::raseSuccess("Successfully save Menu Item");
         $this->redirect(Router::buildLink('menus', array("view"=>"menuitem",'menu'=>$menuID)));
     }
     
@@ -137,7 +157,12 @@ class MenuitemController extends BackEndController {
    
     
     function store() {
-        global $mainframe, $db;
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to modify menu item");
+            $this->redirect(Router::buildLink("menus", array("view"=>'menutype')));
+        }
+        
         $post = $_POST;
        
         $id = Request::getVar("id", 0);  
@@ -150,7 +175,8 @@ class MenuitemController extends BackEndController {
         $tbl_menu->app = $params['app'];
         $params = json_encode($params);        
         $tbl_menu->params = $params;  
-        $tbl_menu->store();        
+        $tbl_menu->store();
+        YiiMessage::raseSuccess("Successfully save Menu Item");
         return array($tbl_menu->menuID, $tbl_menu->id);
     }
     
@@ -162,6 +188,12 @@ class MenuitemController extends BackEndController {
     
     function actionRemove()
     {
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to remove menu item");
+            $this->redirect(Router::buildLink("menus", array("view"=>'menutype')));
+        }
+        
         $menuID = Request::getInt('menu', "");
         $cids = Request::getVar("cid", 0);
         $table_menu = YiiTables::getInstance(TBL_MENU_ITEM);

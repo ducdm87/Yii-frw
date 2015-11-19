@@ -21,6 +21,12 @@ class MenutypeController extends BackEndController {
      * For menu type
      */
     public function actionDisplay() {
+         global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to view menu");
+            $this->redirect(Router::buildLink("cpanel"));
+        }
+        
         $this->pageTitle = "Menu manager";        
         $model = MenuType::getInstance();  
         $obj_menu = YiiMenu::getInstance();
@@ -53,7 +59,12 @@ class MenutypeController extends BackEndController {
         $this->actionEdit();
     }
     
-    public function actionEdit() {   
+    public function actionEdit() {  
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to add/edit menu");
+            $this->redirect(Router::buildLink("cpanel"));
+        }
         setSysConfig("sidebar.display", 0);
         $obj_menu = YiiMenu::getInstance();
         
@@ -97,7 +108,12 @@ class MenutypeController extends BackEndController {
    
     
     function store() {
-        global $mainframe;
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to modify menu");
+            $this->redirect(Router::buildLink("cpanel"));
+        }
+        
         $post = $_POST;
        
         $id = Request::getInt("id", 0);
@@ -113,6 +129,12 @@ class MenutypeController extends BackEndController {
     }
     
     function actionRemove() {
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission remove menu");
+            $this->redirect(Router::buildLink("cpanel"));
+        }
+        
         $cids = Request::getVar("cid", 0);
         
         if(count($cids) >0){
@@ -162,6 +184,12 @@ class MenutypeController extends BackEndController {
     
     function changeStatus($cid, $value)
     {
+        global $mainframe, $user;
+        if (!$user->isSuperAdmin()) {
+            YiiMessage::raseNotice("Your account not have permission to modify menu");
+            $this->redirect(Router::buildLink("cpanel"));
+        }
+        
         $obj_menu = YiiMenu::getInstance();        
         $obj_tblMenu = $obj_menu->loadMenu($cid, "*", false); 
         $obj_tblMenu->status = $value;
