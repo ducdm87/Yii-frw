@@ -21,7 +21,7 @@
 {
     $class = $level >1?"line":"";
     echo '<ul class="'.$class.'">';    
-        $k = 0;
+        $k = 0; 
         foreach($items as $item){
             $_class = $k==0?"first":($k==count($items)-1?"last":"");
             $img_type = " <img src='/images/icons/affected_$item->affected.png' style='height: 16px;' />";
