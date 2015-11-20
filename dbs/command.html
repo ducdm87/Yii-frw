@@ -48,3 +48,12 @@ ALTER TABLE `tbl_rsm_resources` ADD `lft` INT NOT NULL AFTER `status`, ADD `rgt`
 ALTER TABLE `tbl_rsm_resources` CHANGE `message` `redirect_msg` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
 ALTER TABLE `tbl_rsm_resources` ADD `level` TINYINT NOT NULL AFTER `parentID`;
+
+
+INSERT INTO `tbl_rsm_resources` (`id`, `title`, `affected`, `parentID`, `level`, `type`, `app`, `params`, `redirect_url`, `redirect_msg`, `created_by`, `modified_by`, `cdate`, `mdate`, `status`, `lft`, `rgt`, `ordering`, `description`) VALUES
+(1, 'ROOT', 'BF', 0, 0, '0', '', '', '', '', 28, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 12, 0, ''),
+(2, 'Admin', 'B', 1, 1, '0', '', '', '', '', 28, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 2, 7, 0, ''),
+(3, 'Article', 'B', 2, 2, '1', 'article', 'view=home&layout=edit', '?app=cpanel', 'ban khong co quyen', 28, 28, '0000-00-00 00:00:00', '2015-11-20 04:57:49', 1, 3, 4, 1, 'abc'),
+(4, 'Module', 'B', 2, 2, '1', 'modules', '', '', '', 28, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 5, 6, 2, ''),
+(5, 'Seo', 'BF', 1, 1, '0', '0', '', '', '', 28, 28, '2015-11-20 08:14:53', '2015-11-20 08:14:53', 1, 8, 11, 0, ''),
+(6, 'Article', 'BF', 5, 2, '1', 'article', '', '', '', 28, 28, '2015-11-20 08:16:38', '2015-11-20 08:16:38', 0, 9, 10, 0, '');
