@@ -36,8 +36,18 @@ class UserController extends BackEndController {
             
             $groupID = $user->groupID;
             $group = $modelGroup->getItem($user->groupID);
-            if($group->parentID == 1){ $list_user = $model->getUsers(null, null, true); }
-            else $list_user = $model->getUsers($groupID,null, true);
+            if($group->parentID == 1){ 
+                $groupID = Request::getVar('filter_group', 0);
+                if($groupID == 0)
+                    $list_user = $model->getUsers(null, null, true);
+                else $list_user = $model->getUsers($groupID);
+            }else{
+                $_groupID = Request::getVar('filter_group', 0);
+                 
+                if($_groupID == 0 OR $user->groupChecking($_groupID) == false)
+                    $list_user = $model->getUsers($groupID,null, true);
+                else $list_user = $model->getUsers($_groupID);
+            }
             $lists = $model->getList();
             
             $arr_group = $model->getGroups();

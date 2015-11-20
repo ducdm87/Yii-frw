@@ -25,16 +25,21 @@
         foreach($items as $item){
             $_class = $k==0?"first":($k==count($items)-1?"last":"");
             $img_type = " <img src='/images/icons/affected_$item->affected.png' style='height: 16px;' />";
-            if($item->status == 1)
+            $str_title = '';
+            $link_edit = Router::buildLink('permission', array("view"=>"resource","layout"=>"edit",'cid'=>$item->id));
+            if($item->status == 1){
                 $img_status = " <img src='/images/icons/jicon/tick.png' style='height: 16px;' />";
-            else
+                $str_title = ' <a href="'.$link_edit.'">'.$item->title.'</a>' . $img_type . $img_status;
+            }else{
                 $img_status = " <img src='/images/icons/jicon/publish_x.png' style='height: 16px;' />";
+                $str_title = ' <a href="'.$link_edit.'" style="text-decoration: line-through; color: #999;">'.$item->title.'</a>' . $img_type . $img_status;
+            }
             if(isset($item->data_child) AND count($item->data_child)>0){                
                     if($level != 0){
                         echo '<li class="folder parent '.$_class.'">';
                         echo '<i class="folder-btn btn-open" rel=""></i>';
                         echo '<input id="cb'.$item->id.'" type="checkbox" value="'.$item->id.'" name="cid[]" onclick="isChecked(this.checked);" />';
-                        echo ' <a>'.$item->title.'</a>' . $img_type . $img_status;
+                        echo $str_title;
                     }else{                        
                         echo '<li>';                        
                         echo ' <a>'.$item->title.'</a>';
@@ -46,7 +51,7 @@
             }else{
                 echo '<li class="file '.$_class.'">';
                     echo '<input id="cb'.$item->id.'" type="checkbox" value="'.$item->id.'" name="cid[]" onclick="isChecked(this.checked);" />';
-                    echo ' <a>'.$item->title.'</a>' . $img_type . $img_status;
+                    echo $str_title;
                 echo '</li>';
             }
             $k++;
