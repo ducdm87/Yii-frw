@@ -12,27 +12,31 @@ define("TBL_USERS", "{{users}}");
 define("TBL_USERS_GROUP", "{{users_group}}");
 define("TBL_VIDEOS", "{{videos}}");
 define("TBL_MODULE_POSITION", "{{module_position}}");
+define("TBL_RSM_RESOURCES", "{{rsm_resources}}");
+define("TBL_RSM_ROLE", "{{rsm_role}}");
+define("TBL_RSM_ROLE_XREF", "{{_rsm_role_xref}}");
+
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'My Web Application',
-        'preload' => array('log'),
-        'import' => array(
+    'preload' => array('log'),
+    'import' => array(
         'application.models.*',
         'application.components.*',
-        'application.includes.*',        
-        'application.includes.jui.*',        
+        'application.includes.*',
+        'application.includes.jui.*',
         'application.includes.libs.*',
         'application.includes.html.*',
-        'application.includes.html.elements.*',         
+        'application.includes.html.elements.*',
         'application.includes.objects.*',
-            ),
+    ),
     'modules' => array(
-            'gii' => array(
+        'gii' => array(
             'class' => 'system.gii.GiiModule',
             'password' => 'admin',
             'generatorPaths' => array(
-                'ext.gtc'             ),
-                        'ipFilters' => array('127.0.0.1', '::1'),
+                'ext.gtc'),
+            'ipFilters' => array('127.0.0.1', '::1'),
             'newFileMode' => 0666,
             'newDirMode' => 0777,
         ),
@@ -51,18 +55,18 @@ return array(
             'caseSensitive' => false,
         ),
         'user' => array(
-                        'allowAutoLogin' => true,
-        ), 
-            'db' => array(
-            'connectionString' => 'mysql:dbname=benhvienphusan_dev;host=localhost',
+            'allowAutoLogin' => true,
+        ),
+        'db' => array(
+            'connectionString' => 'mysql:dbname=yiiframework;host=localhost',
             'emulatePrepare' => true,
-            'username' => 'benhvienphusan',
-            'password' => 'em6DLztP5Hr',
+            'username' => 'yiiframework',
+            'password' => 'yiiframework',
             'charset' => 'utf8',
             'tablePrefix' => 'tbl_',
         ),
         'errorHandler' => array(
-             'errorAction'=>'site/error',
+            'errorAction' => 'site/error',
         ),
         'log' => array(
             'class' => 'CLogRouter',
@@ -74,7 +78,7 @@ return array(
             ),
         ),
     ),
-            'params' => array(
-                'adminEmail' => 'ducdm87@gmail.com',
+    'params' => array(
+        'adminEmail' => 'ducdm87@gmail.com',
     ),
 );

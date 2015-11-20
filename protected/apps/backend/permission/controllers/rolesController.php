@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BackEndController {
+class RolesController extends BackEndController {
 
     var $primary = 'id';
     var $tablename = "{{menus}}";
@@ -21,7 +21,7 @@ class HomeController extends BackEndController {
             YiiMessage::raseNotice("Your account not have permission to visit page");
             $this->redirect(Router::buildLink("cpanel"));
         }
-         $this->addBarTitle("Resource <small>[manager]</small>", "user"); 
+         $this->addBarTitle("Roles <small>[list]</small>", "user"); 
         $this->render('default');
     } 
     
