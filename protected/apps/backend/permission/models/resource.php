@@ -21,11 +21,11 @@ class Resource extends CFormModel {
         return $instance;
     }
     
-    function getItems(){
+    function getItems($build_tree = true){
         $obj_table_resource = YiiTables::getInstance(TBL_RSM_RESOURCES);
         $items = $obj_table_resource->loads("*",null, " lft ASC ");
         
-        if(is_array($items) AND count($items)){
+        if(is_array($items) AND count($items) AND $build_tree == true){
             // thuat toan nay chi ap dung cho mang cac doi tuong
             $items = json_encode($items);
             $items = json_decode($items);
@@ -43,7 +43,6 @@ class Resource extends CFormModel {
             $items = $childs[0]; 
         }        
         return $items;
-        
     }
     
     function getItem($cid = null){ 

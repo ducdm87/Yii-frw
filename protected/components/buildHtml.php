@@ -37,7 +37,7 @@ class buildHtml {
         $fldName = $fldName . "$cid";
         ?>
         <span class="editlinktip hasTip"><a onclick="return listItemTask('<?php echo $fldName; ?>', '<?php echo $task; ?>')" href="javascript:void(0);">
-                <img width="16" height="16" border="0" alt="<?php echo $title; ?>" src="/images/icons/jicon/<?php echo $img_name; ?>"></a></span>
+                <img width="16" height="16" border="0" alt="<?php echo $title; ?>" src="/images/jassets/icons/<?php echo $img_name; ?>"></a></span>
         <?php
         $return = ob_get_contents();
         ob_end_clean();
@@ -50,10 +50,39 @@ class buildHtml {
         ?>
         <span class="editlinktip hasTip">
             <a href="<?php echo $link; ?>">
-                <img width="16" height="16" border="0" alt="<?php echo $title; ?>" src="/images/icons/jicon/<?php echo $img_name; ?>">
+                <img width="16" height="16" border="0" alt="<?php echo $title; ?>" src="/images/jassets/icons/<?php echo $img_name; ?>">
             </a>
         </span>
         <?php
+        $return = ob_get_contents();
+        ob_end_clean();
+        return $return;
+    }
+    
+    /*
+     * $items aray(array(value, text, type));
+     * active btn-success btn-danger
+     */
+    static function showBtnGroup($name, $items = array(), $selected = 1) {
+        if(!is_array($items) OR count($items)==0) return false;        
+        ob_start();
+        ?>
+        <fieldset class="radio btn-group" id="form_<?php echo $name; ?>">
+            <?php foreach($items as $item){ 
+                $value = isset($item->value)?$item->value:$item[0];
+                $text = isset($item->text)?$item->text:$item[1];
+                $type = isset($item->type)?$item->type:$item[2];
+                $class = "btn-default";
+                if($value == $selected){
+                    $class = "active btn-$type";
+                }
+                $str_input = '<input type="radio" value="-1" name="form['.$name.']" id="form_'.$name.$value.'">';
+                ?>                
+                <label for="form_<?php echo $name.$value; ?>" class="btn <?php echo $class; ?>" aria-invalid="false"><?php echo $text; ?></label>
+            <?php } ?>
+        </fieldset>
+        <?php
+        echo $str_input;
         $return = ob_get_contents();
         ob_end_clean();
         return $return;
@@ -230,7 +259,7 @@ class buildHtml {
             $fldName = $fldName . "$cid";
             ?>
             <span class="editlinktip hasTip"><a onclick="return listItemTask('<?php echo $fldName; ?>', '<?php echo $task; ?>')" href="javascript:void(0);">
-                    <img width="16" height="16" border="0" alt="<?php echo $title; ?>" src="/images/icons/jicon/<?php echo $img_name; ?>"></a></span>
+                    <img width="16" height="16" border="0" alt="<?php echo $title; ?>" src="/images/jassets/icons/<?php echo $img_name; ?>"></a></span>
             <?php
             $return = ob_get_contents();
             ob_end_clean();

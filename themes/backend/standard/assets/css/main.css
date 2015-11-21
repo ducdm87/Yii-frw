@@ -60,24 +60,24 @@ div.m {
 
 
 div#toolbar-box div.t, div#element-box div.section-box div.t {
-    background: url("../images/j_border.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/j_border.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 div#toolbar-box div.t div.t, div#element-box div.section-box div.t div.t {
-    background: url("../images/j_crn_tr_med.png") no-repeat scroll 100% 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/j_crn_tr_med.png") no-repeat scroll 100% 0 rgba(0, 0, 0, 0);
 }
 div#toolbar-box div.t div.t div.t, div#element-box div.section-box div.t div.t div.t {
-    background: url("../images/j_crn_tl_med.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/j_crn_tl_med.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 div#toolbar-box div.b, div#element-box div.section-box div.b {
-    background: url("../images/j_border.png") repeat-x scroll 0 100% rgba(0, 0, 0, 0);
+    background: url("/images/jassets/j_border.png") repeat-x scroll 0 100% rgba(0, 0, 0, 0);
 }
 div#toolbar-box div.b div.b, div#element-box div.section-box div.b div.b {
-    background: url("../images/j_crn_br_med.png") no-repeat scroll 100% 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/j_crn_br_med.png") no-repeat scroll 100% 0 rgba(0, 0, 0, 0);
 }
 div#toolbar-box div.b div.b div.b, div#element-box div.section-box div.b div.b div.b {
-    background: url("../images/j_crn_bl_med.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/j_crn_bl_med.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 table.toolbar td {
@@ -246,11 +246,11 @@ fieldset.adminform {
     width: 12px;
 }
 .btn-delete{
-    background: url("../images/item_delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/item_delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 .btn-edit{
-    background: url("../images/item_edit.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/item_edit.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .btn-controls-16{
     cursor: pointer;
@@ -260,25 +260,25 @@ fieldset.adminform {
     width: 16px;
 }
 .btn-trash-16{
-    background: url("../images/trash-icon-16.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/trash-icon-16.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .btn-delete-16{
-    background: url("../images/icon-16-delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/icon-16-delete.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .btn-edit-16{
-    background: url("../images/edit-icon-16.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/edit-icon-16.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 .btn-revert-16{
-    background: url("../images/revert-icon-16.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/revert-icon-16.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 .btn-preview-16{
-    background: url("../images/preview-icon-16.png") no-repeat scroll 0 0px rgba(0, 0, 0, 0);
+    background: url("/images/jassets/preview-icon-16.png") no-repeat scroll 0 0px rgba(0, 0, 0, 0);
 }
 
 #add-record{
-    background: url("../images/item_add.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/item_add.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     cursor: pointer;
     float: left;
     height: 32px;
@@ -345,7 +345,7 @@ fieldset.adminform {
 
 }
 #edit-template .listfield .arrow {
-    background: url("../images/arrow_left.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/arrow_left.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     display: none;
     height: 18px;
     left: 301px;
@@ -400,7 +400,7 @@ fieldset.adminform {
     width: 100%;
 }
 #sbox-btn-close {
-    background: url("../images/closebox.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+    background: url("/images/jassets/closebox.png") no-repeat scroll left top rgba(0, 0, 0, 0);
     border: medium none;
     height: 30px;
     position: absolute;
@@ -419,11 +419,11 @@ fieldset.adminform {
     z-index: 9999;
 }
 #control-slide .control-back {
-    background: url("../images/button-back.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/button-back.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     left: 0;
 }
 #control-slide .control-next {
-    background: url("../images/button-next.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/jassets/button-next.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     right: 0;
 }
 
@@ -520,7 +520,7 @@ fieldset.adminform {
 }
 
 .paging .pagenav-inactive {
-    background: url("../images/pagenavi-bg.jpg") repeat-x scroll 0 0 #FFFFFF;
+    background: url("/images/jassets/pagenavi-bg.jpg") repeat-x scroll 0 0 #FFFFFF;
 }
 .paging ul li a, .paging ul li span {
     padding: 3px 10px;

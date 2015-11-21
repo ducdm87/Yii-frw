@@ -13,8 +13,8 @@ define("TBL_USERS_GROUP", "{{users_group}}");
 define("TBL_VIDEOS", "{{videos}}");
 define("TBL_MODULE_POSITION", "{{module_position}}");
 define("TBL_RSM_RESOURCES", "{{rsm_resources}}");
-define("TBL_RSM_ROLE", "{{rsm_role}}");
-define("TBL_RSM_ROLE_XREF", "{{_rsm_role_xref}}");
+define("TBL_RSM_RESOURCE_XREF", "{{rsm_resource_xref}}");
+ 
 
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',

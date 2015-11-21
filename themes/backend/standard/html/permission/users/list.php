@@ -22,13 +22,22 @@
             <?php
             $k = 0;
             foreach ($list_user as $i => $item) {
-                $link_edit = Router::buildLink("users", array("view"=>"user", "layout"=>"edit",'cid'=>$item['id']));
+                $link_grant = Router::buildLink("permission", array("view"=>"users", "layout"=>"grant",'cid'=>$item['id']));
+                $link_grant_group = Router::buildLink("permission", array("view"=>"groups", "layout"=>"grant",'cid'=>$item['groupID']));
                 ?>
                 <tr class="row1">
                     <td><?php echo ($i + 1); ?></td>
                     <td><input type="checkbox" onclick="isChecked(this.checked);" value="<?php echo $item['id'] ?>" name="cid[]" id="cb<?php echo ($i); ?>"></td>
-                    <td><?php echo $item['username'] ?></td>
-                    <td><?php echo isset($arr_group[$item['groupID']])?$arr_group[$item['groupID']]['name']:""; ?></td>
+                    <td>
+                        <a href="<?php echo $link_grant; ?>">
+                            <?php echo $item['username'] ?>
+                        <a>
+                    </td>
+                    <td>
+                        <a href="<?php echo $link_grant_group; ?>">
+                            <?php echo isset($arr_group[$item['groupID']])?$arr_group[$item['groupID']]['name']:""; ?>
+                        <a>
+                    </td>                    
                     <td><?php echo $item['id'] ?></td>
                 </tr>
                 <?php $k = 1 - $k;

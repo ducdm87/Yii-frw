@@ -10,6 +10,14 @@ class Users extends CFormModel {
     public $tablename = "{{users}}";
     public $table_group = "{{users_group}}";
 
+    static function getInstance() {
+        static $instance;
+
+        if (!is_object($instance)) {
+            $instance = new Users();
+        }
+        return $instance;
+    }
     /**
      * Logs in the user using the given username and password in the model.
      * @return boolean whether login is successful
@@ -42,7 +50,7 @@ class Users extends CFormModel {
         $items = $obj_users->getUsers($cond, '*', $order);
         return $items;
     }
-
+    
     function getGroups($parentID = null, $getAll = true) {
         $obj_user = YiiUser::getInstance();
         $cond = "";
@@ -89,36 +97,28 @@ class Users extends CFormModel {
         return $lists;
     }
     
-    function getItem($cid){
-        $obj_users = YiiUser::getInstance();
-        $item = $obj_users->getUser($cid);
-        return $item;
+    
+    function getResources(){
+        
     }
     
-    function getListEdit($main_item){
-        global $user;
-        $modelGroup = new Group();
-        
-        $obj_user = YiiUser::getInstance();
-        $group = $modelGroup->getItem($user->groupID);
-        $condition = "";
-        if($group->parentID != 1){
-            $condition = "`lft` >= $group->lft AND `rgt` <= $group->rgt ";
+    function getGranted(){
+        $cid = Request::getVar('cid',0);
+        $obj_res_xref = YiiTables::getInstance(TBL_RSM_RESOURCE_XREF);
+        $items = $obj_res_xref->loads("*"," object_type = 1 AND objectID = $cid");
+        if(count($items)){
+            $arr_new = array();
+            $arr_new['allow'] = array();
+            $arr_new['deny'] = array();
+            foreach($items as $item){
+                if($item->value == 1)
+                    $arr_new['allow'][$item->resourceID] = $item->resourceID;
+                else $arr_new['deny'][$item->resourceID] = $item->resourceID;
+            }
+            $items = $arr_new;
         }
-
-        $items = $obj_user->getGroups($condition, 'id value, name text, level');
-        $list['groupID'] = buildHtml::select($items, $main_item->groupID, "groupID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
-         
-        $items = array();
-        $items[] = array("value"=>-2, "text"=>"- Select status -");
-        $items[] = array("value"=>0, "text"=>"Unpublish");
-        $items[] = array("value"=>1, "text"=>"Publish");
-        $items[] = array("value"=>-1, "text"=>"Block");
-       
-        $list['status'] = buildHtml::select($items, $main_item->status, "status", "status");
-         
-                
-        return $list;
+        return $items;
     }
+     
 
 }
