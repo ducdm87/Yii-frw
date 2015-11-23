@@ -57,3 +57,7 @@ INSERT INTO `tbl_rsm_resources` (`id`, `title`, `affected`, `parentID`, `level`,
 (4, 'Module', 'B', 2, 2, '1', 'modules', '', '', '', 28, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 5, 6, 2, ''),
 (5, 'Seo', 'BF', 1, 1, '0', '0', '', '', '', 28, 28, '2015-11-20 08:14:53', '2015-11-20 08:14:53', 1, 8, 11, 0, ''),
 (6, 'Article', 'BF', 5, 2, '1', 'article', '', '', '', 28, 28, '2015-11-20 08:16:38', '2015-11-20 08:16:38', 0, 9, 10, 0, '');
+
+
+===
+ALTER TABLE `tbl_rsm_resources` ADD `view` VARCHAR(64) NOT NULL AFTER `app`;
