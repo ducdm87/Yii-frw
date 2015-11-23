@@ -5,7 +5,7 @@
  * LoginForm is the data structure for keeping
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
-class Users extends CFormModel {
+class Groups extends CFormModel {
 
     public $tablename = "{{users}}";
     public $table_group = "{{users_group}}";
@@ -14,7 +14,7 @@ class Users extends CFormModel {
         static $instance;
 
         if (!is_object($instance)) {
-            $instance = new Users();
+            $instance = new Groups();
         }
         return $instance;
     }
@@ -102,7 +102,7 @@ class Users extends CFormModel {
     function getGranted(){
         $cid = Request::getVar('cid',0);
         $obj_res_xref = YiiTables::getInstance(TBL_RSM_RESOURCE_XREF);
-        $items = $obj_res_xref->loads("*"," object_type = 1 AND objectID = $cid");        
+        $items = $obj_res_xref->loads("*"," object_type = 2 AND objectID = $cid");        
         if(count($items)){
             $arr_new = array();
             $arr_new['allow'] = array();

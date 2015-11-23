@@ -609,7 +609,7 @@ function loadConfigFile(app_name, view_name){
 }
 
 
-// form-resource-edit
+// form-resource-edit: hien thi chu thich huong dan tung truong 1
 $(function () {
     $(".form-resource-edit .node_introduct_fields .node_introduct_field").hide();
     $(".form-resource-edit .node_introduct_fields .node_introduct_field:first").show();
@@ -620,5 +620,18 @@ $(function () {
             $(".form-resource-edit .node_introduct_fields .node_introduct_field").hide();
             $(el).show();
         }
+    });
+});
+
+$(function(){
+    $(".btn-group-action .btn").click(function(){
+        var v_for = $(this).attr('for');
+        var v_type = $(this).attr('aria-checked');
+        var v_value = $(this).attr('aria-value');
+        $(this).parent().find(".btn").each(function(stt,el){
+            $(el).removeClass("btn-"+ $(el).attr('aria-checked'));
+        });
+        $(this).addClass("btn-"+v_type);
+        $("#"+v_for).val(v_value);
     });
 });

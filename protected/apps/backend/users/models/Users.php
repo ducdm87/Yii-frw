@@ -10,10 +10,7 @@ class Users extends CFormModel {
     public $tablename = "{{users}}";
     public $table_group = "{{users_group}}";
 
-    /**
-     * Logs in the user using the given username and password in the model.
-     * @return boolean whether login is successful
-     */
+ 
     public function getUsers($groupID = null, $order = null, $geAllChild = false) {
         $filter_state = Request::getVar('filter_state', -2);
         $filter_group = Request::getVar('filter_group', 0);

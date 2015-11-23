@@ -573,6 +573,12 @@ fieldset.adminform {
     outline: 0 none;
 }
 
+.btn-vsm{
+  font-size: 12px;
+    line-height: 0.6;
+    padding: 4px 10px;
+}
+
 
 .clr {
     clear: both;

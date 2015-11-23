@@ -66,23 +66,24 @@ class buildHtml {
     static function showBtnGroup($name, $items = array(), $selected = 1) {
         if(!is_array($items) OR count($items)==0) return false;        
         ob_start();
-        ?>
-        <fieldset class="radio btn-group" id="form_<?php echo $name; ?>">
-            <?php foreach($items as $item){ 
-                $value = isset($item->value)?$item->value:$item[0];
-                $text = isset($item->text)?$item->text:$item[1];
-                $type = isset($item->type)?$item->type:$item[2];
-                $class = "btn-default";
-                if($value == $selected){
-                    $class = "active btn-$type";
-                }
-                $str_input = '<input type="radio" value="-1" name="form['.$name.']" id="form_'.$name.$value.'">';
-                ?>                
-                <label for="form_<?php echo $name.$value; ?>" class="btn <?php echo $class; ?>" aria-invalid="false"><?php echo $text; ?></label>
-            <?php } ?>
-        </fieldset>
-        <?php
-        echo $str_input;
+            ?>
+            <fieldset class="btn-group btn-group-action">
+                <?php foreach($items as $item){ 
+                        $value = isset($item->value)?$item->value:$item[0];
+                        $text = isset($item->text)?$item->text:$item[1];
+                        $type = isset($item->type)?$item->type:$item[2];
+                        $class = "btn-default";
+                        if($value == $selected){
+                            $class = "btn-default btn-$type";
+                        }
+                        ?>                
+                        <label for="form_<?php echo $name; ?>" class="btn btn-vsm <?php echo $class; ?>" aria-checked="<?php echo $type; ?>" aria-value="<?php echo $value;?>">
+                            <?php echo $text; ?>
+                        </label>
+                <?php } ?>
+            </fieldset>
+            <?php
+            echo '<input type="hidden" value="'.$selected.'" name="form['.$name.']" id="form_'.$name.'">';
         $return = ob_get_contents();
         ob_end_clean();
         return $return;

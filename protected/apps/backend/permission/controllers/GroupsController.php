@@ -1,6 +1,6 @@
 <?php
 
-class UsersController extends BackEndController {
+class GroupsController extends BackEndController {
 
     var $primary = 'id';
     var $tablename = "{{menus}}";
@@ -23,7 +23,7 @@ class UsersController extends BackEndController {
             YiiMessage::raseNotice("Your account not have permission to visit page");
             $this->redirect(Router::buildLink("cpanel"));
         }
-        $this->addBarTitle("Grant user <small>[list]</small>", "user");
+        $this->addBarTitle("Grant group <small>[list]</small>", "user");
 
         global $user;
 
@@ -94,7 +94,7 @@ class UsersController extends BackEndController {
         
         $u_id = Request::getInt("id", 0);
         
-        $query = "DELETE FROM " . TBL_RSM_RESOURCE_XREF ." WHERE objectID = $u_id AND object_type = 1";
+        $query = "DELETE FROM " . TBL_RSM_RESOURCE_XREF ." WHERE objectID = $u_id AND object_type = 2";
         Yii::app()->db->createCommand($query)->execute();
         if(count($_POST['form'])){
             foreach($_POST['form'] as $key =>$value){
@@ -102,7 +102,7 @@ class UsersController extends BackEndController {
                 $obj_table = YiiTables::getInstance(TBL_RSM_RESOURCE_XREF);
                 $query = "INSERT INTO ".TBL_RSM_RESOURCE_XREF." "
                             . "SET objectID = $u_id"
-                                . ", object_type = 1"
+                                . ", object_type = 2"
                                 . ", resourceID = $key"
                                 . ", value = $value";
                 Yii::app()->db->createCommand($query)->execute();
