@@ -67,7 +67,7 @@ class buildHtml {
         if(!is_array($items) OR count($items)==0) return false;        
         ob_start();
             ?>
-            <fieldset class="btn-group btn-group-action">
+            <fieldset class="btn-group btn-group-action" for='btnform_<?php echo $name;?>'>
                 <?php foreach($items as $item){ 
                         $value = isset($item->value)?$item->value:$item[0];
                         $text = isset($item->text)?$item->text:$item[1];
@@ -77,13 +77,13 @@ class buildHtml {
                             $class = "btn-default btn-$type";
                         }
                         ?>                
-                        <label for="form_<?php echo $name; ?>" class="btn btn-vsm <?php echo $class; ?>" aria-checked="<?php echo $type; ?>" aria-value="<?php echo $value;?>">
+                        <label for="btnform_<?php echo $name; ?>" class="btn btn-vsm <?php echo $class; ?>" aria-checked="<?php echo $type; ?>" aria-value="<?php echo $value;?>">
                             <?php echo $text; ?>
                         </label>
                 <?php } ?>
             </fieldset>
             <?php
-            echo '<input type="hidden" value="'.$selected.'" name="form['.$name.']" id="form_'.$name.'">';
+            echo '<input type="hidden" value="'.$selected.'" name="btnform['.$name.']" id="btnform_'.$name.'">';
         $return = ob_get_contents();
         ob_end_clean();
         return $return;

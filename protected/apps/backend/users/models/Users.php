@@ -39,6 +39,24 @@ class Users extends CFormModel {
         $items = $obj_users->getUsers($cond, '*', $order);
         return $items;
     }
+    
+    function getGranted(){
+        $cid = Request::getVar('cid',0);
+        $obj_res_xref = YiiTables::getInstance(TBL_RSM_RESOURCE_XREF);
+        $items = $obj_res_xref->loads("*"," object_type = 1 AND objectID = $cid");        
+        if(count($items)){
+            $arr_new = array();
+            $arr_new['allow'] = array();
+            $arr_new['deny'] = array();
+            foreach($items as $item){
+                if($item['value'] == 1)
+                    $arr_new['allow'][$item['resourceID']] = $item['resourceID'];
+                else $arr_new['deny'][$item['resourceID']] = $item['resourceID'];
+            }
+            $items = $arr_new;
+        }
+        return $items;
+    }
 
     function getGroups($parentID = null, $getAll = true) {
         $obj_user = YiiUser::getInstance();
@@ -82,7 +100,7 @@ class Users extends CFormModel {
         $groups = $obj_user->getGroups($condition, 'id value, name text, level');
         array_unshift($groups, array("value"=>0, 'text'=>'-- Select group --'));
         $lists['filter_group'] = buildHtml::select($groups, $filter_group, "filter_group","","onchange=\"document.adminForm.submit();\"", "&nbsp;&nbsp;&nbsp;","");
-         
+        
         return $lists;
     }
     
@@ -104,7 +122,7 @@ class Users extends CFormModel {
         }
 
         $items = $obj_user->getGroups($condition, 'id value, name text, level');
-        $list['groupID'] = buildHtml::select($items, $main_item->groupID, "groupID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
+        $lists['groupID'] = buildHtml::select($items, $main_item->groupID, "groupID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
          
         $items = array();
         $items[] = array("value"=>-2, "text"=>"- Select status -");
@@ -112,10 +130,15 @@ class Users extends CFormModel {
         $items[] = array("value"=>1, "text"=>"Publish");
         $items[] = array("value"=>-1, "text"=>"Block");
        
-        $list['status'] = buildHtml::select($items, $main_item->status, "status", "status");
+        $lists['status'] = buildHtml::select($items, $main_item->status, "status", "status");
          
+        $items_status = array();
+        $items_status[] = array(-1,'Default','danger');
+        $items_status[] = array(1,'Allow','success');
+        $items_status[] = array(0,'Deny','danger');
+        $lists['item_status'] = $items_status;
                 
-        return $list;
+        return $lists;
     }
 
 }

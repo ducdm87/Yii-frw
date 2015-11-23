@@ -32,16 +32,7 @@
                     </ul>
                 </li> 
 
-                <li class="dropdown <?php if ($app == "users") echo "active"; ?>">
-                    <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
-                        <i class="fa fa-caret-square-o-down"></i> Users <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu"> 
-                        <?php echo showSideBarMenu("users","group", "Group", "fa-folder"); ?>
-                        <?php echo showSideBarMenu("users","user", "User", "fa-file"); ?>
-                    </ul>
-                </li>
-
+                <?php echo showSideBarMenu("users","", "Users", "fa-folder"); ?>
                 <?php echo showSideBarMenu("menus","menutype", "Menus", "fa-file"); ?>
                  
 
@@ -57,9 +48,7 @@
                 </li> 
 
                 <?php echo showSideBarMenu("modules","", "Modules"); ?>
-                <?php
-                if ($user->isSuperAdmin()) {
-                ?>
+                
                     <li class="dropdown <?php if($app == "installer") echo "active"; ?>">            
                         <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
                             <i class="fa fa-caret-square-o-down"></i> Installer 
@@ -69,10 +58,8 @@
                                 <?php echo showSideBarMenu("installer","manager", "Manager"); ?>
                             </ul> 
                     </li> 
-                    <?php echo showSideBarMenu("permission","", "Permission"); ?>
-                <?php 
+                    <?php //echo showSideBarMenu("permission","", "Permission"); ?>
                 
-                } ?>
 
             </ul>
         <?php } ?>
@@ -119,10 +106,10 @@ function showSideBarMenu($_app, $_view, $title, $_class="fa-folder")
     global $user;
     $arr_ignore = array("menus", 'modules','installer');
     if(!$user->isSuperAdmin() AND in_array($_app, $arr_ignore)){
-        return false;
+        //return false;
     }
     if(!$user->isSuperAdmin() AND $_app == 'cpanel' AND $_view == "sysconfig"){
-        return false;
+        //return false;
     }
     
     $app = Request::getVar('app',"cpanel");
@@ -141,7 +128,7 @@ function showSideBarMenu($_app, $_view, $title, $_class="fa-folder")
             $_class .= " fa-spin";
         }        
     }else{
-        if($app == $_app AND ($view == $_view OR ($view == "" AND $_view == 'display')) ){
+        if($app == $_app AND ($view == $_view OR ($view == "" AND $_view == 'display') OR $_view == "" ) ){
             $class = "active current";
             $_class .= " fa-spin";
         }        

@@ -60,10 +60,28 @@ class Group extends CFormModel {
         return $tbl_group;
     }
     
+    function getGranted(){
+        $cid = Request::getVar('cid',0);
+        $obj_res_xref = YiiTables::getInstance(TBL_RSM_RESOURCE_XREF);
+        $items = $obj_res_xref->loads("*"," object_type = 2 AND objectID = $cid");        
+        if(count($items)){
+            $arr_new = array();
+            $arr_new['allow'] = array();
+            $arr_new['deny'] = array();
+            foreach($items as $item){
+                if($item['value'] == 1)
+                    $arr_new['allow'][$item['resourceID']] = $item['resourceID'];
+                else $arr_new['deny'][$item['resourceID']] = $item['resourceID'];
+            }
+            $items = $arr_new;
+        }
+        return $items;
+    }
+    
     function getListEdit($main_item)
     {
         $cid = Request::getVar("cid", 0);
-        $list = array();
+        $lists = array();
         
         $items = array();
  
@@ -75,7 +93,7 @@ class Group extends CFormModel {
         
             $results = $obj_user->getGroups($condition, 'id value, name text, level');
             $items = array_merge($items, $results);      
-            $list['parentID'] = buildHtml::select($items, $main_item->parentID, "parentID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
+            $lists['parentID'] = buildHtml::select($items, $main_item->parentID, "parentID","","size=10", "&nbsp;&nbsp;&nbsp;","-");
         
         
         $items = array();
@@ -83,12 +101,18 @@ class Group extends CFormModel {
             $condition = "parentID = ". $main_item->parentID;
             $results = $obj_user->getGroups($condition, 'id value, name text, level');
             $items = array_merge($items, $results);
-            $list['ordering'] = buildHtml::select($items, $cid, "ordering","","size=5");
+            $lists['ordering'] = buildHtml::select($items, $cid, "ordering","","size=5");
         }else{
-            $list['ordering'] = "Ordering this item after save first";
+            $lists['ordering'] = "Ordering this item after save first";
         }
         
-         return $list;
+        $items_status = array();
+        $items_status[] = array(-1,'Default','danger');
+        $items_status[] = array(1,'Allow','success');
+        $items_status[] = array(0,'Deny','danger');
+        $lists['item_status'] = $items_status;
+        
+         return $lists;
     }
 
     /**

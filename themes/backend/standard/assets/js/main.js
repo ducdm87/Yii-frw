@@ -543,8 +543,23 @@ $(function () {
         }
     });
     
-    $(".model-blind").click(function(){
-         $(".modal-dialog .close").click();
+    $(".model-blind").click(function(){         
+         $("#changePermission").modal('hide');      
+    });
+    
+    $("#changePermission .apply-form").click(function(){
+        var per_ck = {};
+        per_ck.allow = [];
+        per_ck.deny = [];
+        $(".btn-group-action").each(function(stt,el){
+            var v_for = $(el).attr('for');
+            key = v_for.replace('btnform_resource-',"");
+            var v_value = parseInt($("#"+v_for).val());
+            if(v_value == 1) per_ck.allow.push(key);
+            else if(v_value == 0) per_ck.deny.push(key);
+        });         
+         $("#formPsermission").val(JSON.stringify(per_ck));
+          $("#changePermission").modal('hide');
     });
     
      $(document).delegate(".user-tree ul li.folder .folder-btn", "click", function() {

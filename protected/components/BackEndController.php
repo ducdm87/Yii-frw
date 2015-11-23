@@ -30,7 +30,7 @@ class BackEndController extends CController {
         $user = $this->user = Yii::app()->session['userbackend'];
         if(is_object($user))
             $user->reloaUserLogin();  
-         
+        
         $mainframe = MainFrame::getInstance($this->db, $user);
 
         parent::init();
@@ -44,6 +44,8 @@ class BackEndController extends CController {
                 $duration = time() + 86400*30; // 365 days
             else $duration = time() + 900; // 15 minutes            
         }
+        
+        CheckPerMission::checking();
         
         $cookie = new CHttpCookie(session_name(), session_id(), array("expire" => $duration));
         $YiiApp->getRequest()->getCookies()->add($cookie->name, $cookie);
