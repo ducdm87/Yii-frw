@@ -37,15 +37,14 @@ class BackEndController extends CController {
 
         $YiiApp = Yii::app();
         if (!$mainframe->isLogin()) {            
-            $duration = time() + 300; // 365 days            
+            $duration = time() + 300; // 365 days
         } else {
+            CheckPerMission::checking();
             $remember_admin = (isset($_COOKIE['remember_admin']) AND $_COOKIE['remember_admin'] == 1 )?1:0;
             if($remember_admin == 1)
                 $duration = time() + 86400*30; // 365 days
             else $duration = time() + 900; // 15 minutes            
         }
-        
-        CheckPerMission::checking();
         
         $cookie = new CHttpCookie(session_name(), session_id(), array("expire" => $duration));
         $YiiApp->getRequest()->getCookies()->add($cookie->name, $cookie);
