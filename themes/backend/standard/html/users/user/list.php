@@ -4,7 +4,6 @@
         <div class="col-lg-7">            
         </div>
         <div class="col-lg-5">
-            <?php echo $lists['filter_group']; ?>
             <?php echo $lists['filter_state']; ?>
         </div>
     </div>

@@ -6,8 +6,10 @@ $settings = array(
         'urlManager' => array(
             'urlFormat' => 'path',
             'rules' => array(
-                                '/' => array('home/display'),
-                '' => array('home/'),                             
+                // home page
+                '/' => array('home/display'),
+                '/dang-ky/captcha/<v:.*>' => array('home/captcha'),
+                '/dang-ky/re-captcha/<refresh:.*>' => array('home/captcha'),
 
             ),
         ),
@@ -16,9 +18,15 @@ $settings = array(
             'loginUrl' => array('user/login'),
         ),
         'session' => array(
-            'class' => 'CHttpSession',
+            //'class' => 'CHttpSession',
+            'class' => 'CDbHttpSession',
             'sessionName' => md5("front-end-yii:193jjo2ue"),
-        ),
+            'connectionID' => "db",
+            'sessionTableName' => "tbl_yiisession",
+            'timeout'=> 30*24*60*60 ,
+//            'autoCreateSessionTable' => false,
+        ), 
+        
     ),
     'import' => array(
         'application.models.*',
@@ -28,10 +36,16 @@ $settings = array(
         'application.components.widget.*',        
     ),
     'params' => array(
-                'timeout' => '60', 
-         'adminEmail' => 'ducdm@binhhoang.com',
+        // time out minute
+        'timeout' => 30*60, 
+        'timeout2' => 30*24*60*60, 
+        'adminEmail' => 'ducdm@binhhoang.com',        
+        'sef' => 1,
+        'sef_suffix' => 0,
+        'sef_urlsuffix' => ".html",
         'siteoffline' => 0,
-        'offlineMessage' => 'This site is down for maintenance. Please check back again soon.',
+        'offlineMessage' => "This site is down for maintenance. Please check back again soon.",
+//        'defaultApp' => 'news',
     ),
 );
 return CMap::mergeArray(

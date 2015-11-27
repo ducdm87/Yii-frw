@@ -25,7 +25,15 @@
                     <img alt="Resource" src="/images/icons/database.png">					
                     <span>Resource Manager</span>
                 </a>
-            </div>            
+            </div>
+            
+            <div class="icon">
+                <a href="<?php echo Router::buildLink('users', array("view"=>'settings')) ?>">
+                    <img alt="Resource" src="/images/icons/setting.png">					
+                    <span>Settings</span>
+                </a>
+            </div> 
+            
             <div class="icon">
                 <a href="<?php echo Router::buildLink('users', array("view"=>'about')) ?>">
                     <img alt="Role" src="/images/icons/about.png">					

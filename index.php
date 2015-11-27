@@ -16,15 +16,23 @@ require_once($yii);
 $yiiapp = Yii::createWebApplication($config);
 require_once dirname(__FILE__).'/protected/router.php';
 
-$params = Router::parseLink($_SERVER['REQUEST_URI']);
+$site_offline = isset(Yii::app()->params->siteoffline) ? Yii::app()->params->siteoffline : 0;
+if($site_offline != 0){
+    $offlineMessage = isset(Yii::app()->params->offlineMessage) ? Yii::app()->params->offlineMessage : "Please check back again soon.";
+    echo $offlineMessage; die;
+}
+
+$params = Router::parseLink();
 
 global $pagetype, $cur_temp;
 $debug = isset($_REQUEST['debug'])?$_REQUEST['debug']:0;
 $pagetype = 1;
+if($debug == 0) $pagetype = 1;
+else $pagetype = 2;
  
 if(isset($params['app']) AND isset($params['view']) AND $pagetype == 1){
     
-    $cur_temp = "standard"; 
+    $cur_temp = "wapsite"; 
     setSysConfig("sys.template",$cur_temp); 
     setSysConfig("sys.template.path",ROOT_PATH . "themes/$cur_temp/"); 
     setSysConfig("sys.template.url","/themes/$cur_temp/"); 
