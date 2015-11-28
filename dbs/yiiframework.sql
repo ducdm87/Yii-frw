@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2015 at 11:02 AM
+-- Generation Time: Nov 28, 2015 at 06:01 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -554,6 +554,7 @@ CREATE TABLE IF NOT EXISTS `tbl_extensions` (
   `params` text NOT NULL,
   `cdate` datetime NOT NULL,
   `mdate` datetime NOT NULL,
+  `required` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
@@ -561,15 +562,15 @@ CREATE TABLE IF NOT EXISTS `tbl_extensions` (
 -- Dumping data for table `tbl_extensions`
 --
 
-INSERT INTO `tbl_extensions` (`id`, `title`, `name`, `alias`, `author`, `version`, `description`, `creationDate`, `ordering`, `type`, `folder`, `client`, `status`, `params`, `cdate`, `mdate`) VALUES
-(1, 'Article', 'article', 'article', 'ducdm87', '1.0', 'bai viet', '', 4, 'app', 'article', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'Banner', 'banner', 'banner', 'ducdm87', '', 'banner', '', 2, 'app', 'banner', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'tophits', 'tophits', '', 'BHmedia group php', '', 'Top hits article', 'July 2006', 1, 'module', 'tophits', 'site', 1, '{"param":{"attr":{"title":{"0":"advance"},"path":{"0":"extensions\\/modules\\/tophits\\/element"}},"field":[{"@attributes":{"type":"text","name":"","default":"","label":"","description":""}},{"@attributes":{"type":"textarea","name":"","default":"","label":"","description":"","cols":"10","rows":"10"}},{"@attributes":{"type":"radio","name":"","default":"","label":"","description":""},"option":["On","Off"]},{"@attributes":{"type":"select","name":"layout","default":"","label":"","description":""},"option":["tin moi","tin noi bat"]},{"@attributes":{"type":"category","name":"catID","label":"","description":"","scope":"","parent":"","maxlevel":"2"}},{"@attributes":{"type":"date","name":"date","label":"","description":""}}]}}', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 'main menu', 'mainmenu', 'main-menu', 'ducdm87', '1.0', '', 'January 1', 0, 'module', 'mainmenu', '1', 1, '{"menutype":"1","menu_style":"horiz_flat","showAllChildren":"1","moduleclass_sfx":"sdf -aasd","header":"as","footer":"dsa","cache":"1","cache_time":"600"}', '2015-10-02 10:37:49', '2015-10-16 04:59:40'),
-(5, 'Home Page', 'homepage', 'home-page', 'ducdm87', '1.0', '', '', 1, 'app', 'homepage', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 'Videos', 'videos', 'videos', 'ducdm87', '1.0', '', '', 5, 'app', 'videos', '', 1, '', '0000-00-00 00:00:00', '2015-11-19 03:15:02'),
-(7, 'User', 'user', 'user', 'ducdm87', '1.0', '', '', 3, 'app', 'user', '', 0, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(8, 'Cpanel', 'cpanel', 'cpanel', 'ducdm87', '1.2', '', '', 0, 'app', 'cpanel', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `tbl_extensions` (`id`, `title`, `name`, `alias`, `author`, `version`, `description`, `creationDate`, `ordering`, `type`, `folder`, `client`, `status`, `params`, `cdate`, `mdate`, `required`) VALUES
+(1, 'Article', 'article', 'article', 'ducdm87', '1.0', 'bai viet', '', 4, 'app', 'article', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(2, 'Banner', 'banner', 'banner', 'ducdm87', '', 'banner', '', 2, 'app', 'banner', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(3, 'tophits', 'tophits', '', 'BHmedia group php', '', 'Top hits article', 'July 2006', 1, 'module', 'tophits', 'site', 1, '{"param":{"attr":{"title":{"0":"advance"},"path":{"0":"extensions\\/modules\\/tophits\\/element"}},"field":[{"@attributes":{"type":"text","name":"","default":"","label":"","description":""}},{"@attributes":{"type":"textarea","name":"","default":"","label":"","description":"","cols":"10","rows":"10"}},{"@attributes":{"type":"radio","name":"","default":"","label":"","description":""},"option":["On","Off"]},{"@attributes":{"type":"select","name":"layout","default":"","label":"","description":""},"option":["tin moi","tin noi bat"]},{"@attributes":{"type":"category","name":"catID","label":"","description":"","scope":"","parent":"","maxlevel":"2"}},{"@attributes":{"type":"date","name":"date","label":"","description":""}}]}}', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(4, 'main menu', 'mainmenu', 'main-menu', 'ducdm87', '1.0', '', 'January 1', 0, 'module', 'mainmenu', '1', 1, '{"menutype":"1","menu_style":"horiz_flat","showAllChildren":"1","moduleclass_sfx":"sdf -aasd","header":"as","footer":"dsa","cache":"1","cache_time":"600"}', '2015-10-02 10:37:49', '2015-10-16 04:59:40', 1),
+(5, 'Home Page', 'homepage', 'home-page', 'ducdm87', '1.0', '', '', 1, 'app', 'homepage', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(6, 'Videos', 'videos', 'videos', 'ducdm87', '1.0', '', '', 5, 'app', 'videos', '', 1, '', '0000-00-00 00:00:00', '2015-11-19 03:15:02', 1),
+(7, 'Users', 'users', 'users', 'ducdm87', '1.0', '', '', 3, 'app', 'users', '', 0, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(8, 'Cpanel', 'cpanel', 'cpanel', 'ducdm87', '1.2', '', '', 0, 'app', 'cpanel', '', 1, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -722,11 +723,11 @@ CREATE TABLE IF NOT EXISTS `tbl_menu_item` (
 
 INSERT INTO `tbl_menu_item` (`id`, `title`, `alias`, `menuID`, `parentID`, `lft`, `rgt`, `type`, `default`, `link`, `app`, `action`, `level`, `ordering`, `status`, `cdate`, `mdate`, `params`) VALUES
 (1, 'menu_root', 'root', 0, 0, 0, 55, 'app', 0, '', '', '', 0, 0, 0, '0000-00-00 00:00:00', '2015-08-17 10:15:59', ''),
-(24, 'Tin tức-Làm đẹp', 'tin-tuc-lam-dep', 1, 17, 8, 9, 'app', 0, 'index.php?app=article&view=category&layout=blog', 'article', '', 2, 24, 1, '0000-00-00 00:00:00', '2015-11-11 10:18:24', '{"id":"31","limit":"","col":"","app":"article","view":"category","layout":"blog"}'),
-(17, 'Tin tức', 'tin-tuc', 1, 1, 5, 42, 'app', 0, 'index.php?app=article&view=home', 'article', '', 1, 17, 1, '0000-00-00 00:00:00', '2015-11-14 05:00:08', '{"id":"","limit":"","col":"","app":"article","view":"home","layout":""}'),
-(19, 'Hài hước', 'hai-huoc', 1, 1, 49, 50, 'app', 0, 'index.php?app=videos&view=category&layout=blog', 'videos', '', 1, 19, 1, '0000-00-00 00:00:00', '2015-11-13 03:32:32', '{"id":"27","limit":"","col":"","app":"videos","view":"category","layout":"blog"}'),
-(25, 'Tin tức - sao việt', 'tin-tuc-sao-viet', 1, 17, 10, 27, 'app', 0, 'index.php?app=article&view=category&layout=blog', 'article', '', 2, 25, 1, '0000-00-00 00:00:00', '2015-11-11 09:37:25', '{"id":"30","limit":"","col":"","app":"article","view":"category","layout":"blog"}'),
-(32, 'Trang chủ', 'trang-chu', 1, 1, 3, 30, 'app', 1, 'index.php?app=homepage&view=home', 'homepage', 'display', 1, 32, 1, '0000-00-00 00:00:00', '2015-11-12 09:37:46', '{"id":"","Menutype":"3","limit":"","col":"","app":"homepage","view":"home","layout":""}'),
+(24, 'Tin tức-Làm đẹp', 'tin-tuc-lam-dep', 1, 17, 8, 9, 'app', 0, '/index.php?app=article&view=category&layout=blog&id=31', 'article', '', 2, 24, 1, '0000-00-00 00:00:00', '2015-11-27 08:48:29', '{"id":"31","app":"article","view":"category","layout":"blog"}'),
+(17, 'Tin tức', 'tin-tuc', 1, 1, 5, 42, 'app', 0, '/index.php?app=article', 'article', '', 1, 17, 1, '0000-00-00 00:00:00', '2015-11-27 08:48:58', '{"app":"article","view":"home"}'),
+(19, 'Hài hước', 'hai-huoc', 1, 1, 49, 50, 'app', 0, '/index.php?app=videos&view=category&layout=blog&id=27', 'videos', '', 1, 19, 1, '0000-00-00 00:00:00', '2015-11-27 08:48:47', '{"id":"27","app":"videos","view":"category","layout":"blog"}'),
+(25, 'Tin tức - sao việt', 'tin-tuc-sao-viet', 1, 17, 10, 27, 'app', 0, '/index.php?app=article&view=category&layout=blog&id=30', 'article', '', 2, 25, 1, '0000-00-00 00:00:00', '2015-11-27 08:48:40', '{"id":"30","app":"article","view":"category","layout":"blog"}'),
+(32, 'Trang chủ', 'trang-chu', 1, 1, 3, 30, 'app', 1, '/index.php?app=homepage', 'homepage', 'display', 1, 32, 1, '0000-00-00 00:00:00', '2015-11-27 08:49:13', '{"Menutype":"3","app":"homepage","view":"home"}'),
 (40, 'videos', 'videos', 6, 1, 53, 54, 'app', 0, 'index.php?app=videos&view=home', 'videos', '', 1, 0, 1, '2015-11-13 03:50:01', '2015-11-18 10:52:31', '{"id":"","limit":"","col":"","app":"videos","view":"home","layout":""}');
 
 -- --------------------------------------------------------
@@ -996,7 +997,7 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `groupID`, `leader`, `mobile`, `home_phone`, `first_name`, `last_name`, `address`, `city`, `province_state`, `zip_code`, `country`, `suppliers`, `cdate`, `mdate`, `template_id`, `status`, `lastvisit`, `isBlock`, `activeCode`, `params`) VALUES
-(28, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'ducdm87@gmail.com', 2, 1, '0979390590', '', 'dam manh', 'duc', 'trung kinh', 'bhmedia', '', '', 0, '', '0000-00-00 00:00:00', '2015-11-13 20:38:16', 0, 1, '2015-11-24 15:37:14', 0, '', ''),
+(28, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'ducdm87@gmail.com', 2, 1, '0979390590', '', 'dam manh', 'duc', 'trung kinh', 'bhmedia', '', '', 0, '', '0000-00-00 00:00:00', '2015-11-27 08:57:30', 0, 1, '2015-11-27 14:57:48', 0, '', ''),
 (31, 'giamdoc', '23db8f175879817eedc5b488d7b9113b', 'giamdoctrungtam@gmail.com', 39, 1, '0979390590', '', 'giamdoc', 'giamdoc', 'ad', '', '', '', 0, '', '2015-11-13 20:39:30', '2015-11-23 08:37:17', 0, 1, '2015-11-23 16:53:31', 0, '', ''),
 (32, 'phogiamdoc', '6a346a4e3cbef1ac14023a7ded34c81c', 'phogiamdoc@gmail.com', 39, 0, '', '', 'pho giamdoc', 'pho giamdoc', '', '', '', '', 0, '', '2015-11-13 20:40:08', '2015-11-16 09:17:11', 0, 1, '2015-11-17 11:30:17', 0, '', ''),
 (33, 'leader1', '2b1e3590458a6e6014c0141b8cd13fe4', 'leader1@gmail.com', 31, 1, '', '', 'leader1', 'leader1', '', '', '', '', 0, '', '2015-11-13 20:41:34', '2015-11-17 10:57:29', 0, 1, '2015-11-17 16:57:44', 0, '', ''),
@@ -1125,6 +1126,26 @@ INSERT INTO `tbl_videos` (`id`, `title`, `alias`, `image`, `actor`, `info`, `lin
 (61, 'Asia 77 - Liên Khúc Nhạc Vàng Hay Nhất | Dòng Nhạc Anh Bằng - Lam Phương - Disc 1', 'asia-77-lien-khuc-nhac-vang-hay-nhat-dong-nhac-anh-bang-lam-phuong-disc-1', '', '', 'Asia 77 - Liên Khúc Nhạc Vàng Hay Nhất | Dòng Nhạc Anh Bằng - Lam Phương - Disc 1', '', '', '', '1:33:35', 1, 0, 27, NULL, NULL, '2015-08-31 04:10:51', '2015-11-18 10:14:14', 28, 0, 1, 0, '4', '', ''),
 (62, 'Quy trình Kỹ xảo điện ảnh trong các phim nổi tiếng', 'quy-trinh-ky-xao-dien-anh-trong-cac-phim-noi-tieng', '/uploads/images/21/10/2015/duong-ve-nha.jpg', '', 'Quy trình Kỹ xảo điện ảnh trong các phim nổi tiếng', '', 'a', 'http://clip.vietbao.vn/wp-content/uploads/2015/04/20150424-motor-oil-chug-challenge-3988.mp4', '3:17', 2, 2, 29, NULL, NULL, '2015-08-31 04:12:51', '2015-11-18 10:19:04', 28, 28, 1, 0, '4', 'dád', 'ad'),
 (63, 'Một khi anh đã cứng thì phải cứng như thế này', 'mot-khi-anh-da-cung-thi-phai-cung-nhu-the-nay', '', '', 'Một khi anh đã "cứng" thì phải "cứng" như thế này :3', '', '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/EtReC_NDE2U" frameborder="0" allowfullscreen></iframe>', 'http://clip.vietbao.vn/wp-content/uploads/2015/04/20150424-motor-oil-chug-challenge-3988.mp4', '0:24', 14, 7, 29, NULL, NULL, '2015-08-31 04:13:36', '2015-10-22 03:38:30', 33, 0, 1, 1, '4', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_yiisession`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_yiisession` (
+  `id` char(40) NOT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `data` mediumtext,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_yiisession`
+--
+
+INSERT INTO `tbl_yiisession` (`id`, `expire`, `data`) VALUES
+('a0c0fnccah50e4rdu3t4soie97', 1451203068, 'userfront|O:7:"YiiUser":33:{s:14:"\0YiiUser\0items";a:0:{}s:13:"\0YiiUser\0item";a:0:{}s:15:"\0YiiUser\0active";i:0;s:13:"\0YiiUser\0user";N;s:18:"\0YiiUser\0arr_group";a:0:{}s:14:"\0YiiUser\0table";s:9:"{{users}}";s:2:"id";s:2:"28";s:8:"username";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:17:"ducdm87@gmail.com";s:7:"groupID";s:1:"2";s:6:"leader";s:1:"1";s:6:"mobile";s:10:"0979390590";s:10:"home_phone";s:0:"";s:10:"first_name";s:8:"dam manh";s:9:"last_name";s:3:"duc";s:7:"address";s:10:"trung kinh";s:4:"city";s:7:"bhmedia";s:14:"province_state";s:0:"";s:8:"zip_code";s:0:"";s:7:"country";s:1:"0";s:9:"suppliers";s:0:"";s:5:"cdate";s:19:"0000-00-00 00:00:00";s:5:"mdate";s:19:"2015-11-27 08:57:30";s:11:"template_id";s:1:"0";s:6:"status";s:1:"1";s:9:"lastvisit";s:19:"2015-11-27 14:57:48";s:7:"isBlock";s:1:"0";s:10:"activeCode";s:0:"";s:6:"params";s:0:"";s:3:"lft";s:1:"2";s:9:"groupname";s:19:"Super Administrator";s:7:"backend";s:1:"1";}userbackend|r:1;afterLogin|i:1;message|N;rasestatuscode|N;');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
