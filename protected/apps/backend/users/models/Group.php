@@ -112,6 +112,8 @@ class Group extends CFormModel {
         $items_status[] = array(0,'Deny','danger');
         $lists['item_status'] = $items_status;
         
+        $table_ext = YiiTables::getInstance(TBL_EXTENSIONS);                
+        $lists['ext_default_1'] = $table_ext->loadColumn("name", "allowall = 1 ");
          return $lists;
     }
 

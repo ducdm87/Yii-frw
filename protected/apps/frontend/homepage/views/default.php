@@ -87,7 +87,7 @@
             <div class="hidden-lg hidden-md">
                  <div class="collapse navbar-collapse " id="navbar-collapse-mobile">
                     <ul class="nav navbar-nav">
-                            <li><a href="<?php echo $this->createUrl('articles/') ?>" class="<?php if($controll == "articles") echo 'active'; ?>">Tin Tức</a></li>
+                            <li><a href="<?php echo $this->createUrl('article/') ?>" class="<?php if($controll == "article") echo 'active'; ?>">Tin Tức</a></li>
                             <li><a href="<?php echo $this->createUrl('videos/category',array('alias'=> "the-thao") ); ?>" class="<?php if($controll == "videos" AND $param_alias == "the-thao") echo 'active'; ?>">Thể Thao</a></li>
                             <li><a href="<?php echo $this->createUrl('videos/category',array('alias'=> "hai-huoc") ); ?>" class="<?php if($controll == "videos" AND $param_alias == "hai-huoc") echo 'active'; ?>">Hài hước</a></li>
                             <li><a href="<?php echo $this->createUrl('videos/category',array('alias'=> "vui-nhon") ); ?>"  class="<?php if($controll == "videos" AND $param_alias == "vui-nhon") echo 'active'; ?>">Vui nhộn</a></li>

@@ -30,7 +30,9 @@ $settings = array(
         'application.includes.*',
     ),
     'params' => array(
-        'timeout' => '60',       
+        'timeout' => '86400',       
+        'timeout2' => '8640000',
+        'permission' => '0',
     ),
 );
 return CMap::mergeArray(

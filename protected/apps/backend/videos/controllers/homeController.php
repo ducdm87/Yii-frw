@@ -73,7 +73,7 @@ class HomeController extends BackEndController {
             $obj_users = YiiUser::getInstance();
             $item_user = $obj_users->getUser($item->created_by);
             YiiMessage::raseNotice("Your account not have permission to edit resource of: $item_user->username");
-            $this->redirect(Router::buildLink("articles"));
+            $this->redirect(Router::buildLink("article"));
             return false;
         }
         
@@ -118,7 +118,7 @@ class HomeController extends BackEndController {
                $obj_users = YiiUser::getInstance();
                $item_user = $obj_users->getUser($obj_table->created_by);
                YiiMessage::raseNotice("Your account not have permission to modify resource of: $item_user->username");
-               $this->redirect(Router::buildLink("articles"));
+               $this->redirect(Router::buildLink("article"));
                return false;
            }
         }
@@ -166,7 +166,7 @@ class HomeController extends BackEndController {
            $item_user = $obj_users->getUser($obj_table->created_by);
  
            YiiMessage::raseNotice("Your account not have permission to modify resource of: $item_user->username");
-           $this->redirect(Router::buildLink("articles"));
+           $this->redirect(Router::buildLink("article"));
            return false;
        }
         
@@ -184,7 +184,7 @@ class HomeController extends BackEndController {
            $obj_users = YiiUser::getInstance();
            $item_user = $obj_users->getUser($obj_table->created_by);
            YiiMessage::raseNotice("Your account not have permission to modify resource of: $item_user->username");
-           $this->redirect(Router::buildLink("articles"));
+           $this->redirect(Router::buildLink("article"));
            return false;
        }
         

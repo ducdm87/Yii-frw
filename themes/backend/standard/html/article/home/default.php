@@ -26,13 +26,13 @@
             <?php
             $k = 0;
             foreach ($items as $i => $item) {
-                $link_edit = Router::buildLink("articles",array('layout'=>'edit', 'cid'=>$item['id']));   
+                $link_edit = Router::buildLink("article",array('layout'=>'edit', 'cid'=>$item['id']));   
                 $item['slug'] = $item['id']."-".$item['alias'];
                 $params = urlencode(json_encode( array("id"=>$item['slug']) ));
                  
-                $link_view = "/goto.php?control=articles&action=detail&params=$params";
+                $link_view = "/goto.php?control=article&action=detail&params=$params";
                 $link_edit_cat = Router::buildLink("categories",array('layout'=>'edit', 'cid'=>$item['catID']));   
-                $link_created = Router::buildLink("articles",array('filter_created_by'=>$item['created_by']));   
+                $link_created = Router::buildLink("article",array('filter_created_by'=>$item['created_by']));   
                 ?>
                 <tr class="row1">
                     <td><?php echo ($i + 1); ?></td>

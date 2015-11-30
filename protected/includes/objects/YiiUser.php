@@ -341,6 +341,8 @@ class YiiUser {
      */
 
     function modifyChecking($userID, $allowLeader = false) {
+        $copyright = (int)Yii::app()->params->copyright;
+        if($copyright == 0) return true;
         $userID = (int) $userID;
         if ($userID == 0)
             return true;

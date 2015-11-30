@@ -35,15 +35,22 @@ class BackEndController extends CController {
 
         parent::init();
 
+        $copyright = isset(Yii::app()->params->copyright)?Yii::app()->params->copyright:0;
+          
+        $timeout = isset(Yii::app()->params->timeout)?Yii::app()->params->timeout:900; // 15 phut 
+        $timeout2 = isset(Yii::app()->params->timeout)?Yii::app()->params->timeout2:1800; // 30 phut 
+        
         $YiiApp = Yii::app();
         if (!$mainframe->isLogin()) {            
-            $duration = time() + 300; // 365 days
+            $duration = time() + $timeout; // 365 days
         } else {
-            CheckPerMission::checking();
+            $permission = isset(Yii::app()->params->permission)?Yii::app()->params->permission:1;
+            if($permission == 1)
+                CheckPerMission::checking();
             $remember_admin = (isset($_COOKIE['remember_admin']) AND $_COOKIE['remember_admin'] == 1 )?1:0;
             if($remember_admin == 1)
-                $duration = time() + 86400*30; // 365 days
-            else $duration = time() + 900; // 15 minutes            
+                $duration = time() + $timeout2; // 365 days
+            else $duration = time() + $timeout; // 15 minutes            
         }
         
         $cookie = new CHttpCookie(session_name(), session_id(), array("expire" => $duration));

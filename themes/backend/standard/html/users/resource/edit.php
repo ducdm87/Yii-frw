@@ -9,7 +9,7 @@
                     <?php echo buildHtml::renderList("radio", "Affected Area", "affected", $lists['affected'], $item->affected, " field-introduct "); ?>
                     <?php echo buildHtml::renderList("radio", "Type", "type", $lists['type'], $item->type, " field-introduct "); ?>
                     <?php echo buildHtml::renderField("label", "app", $lists['apps'], "App", "field-verylong field-introduct"); ?>
-                    <?php echo buildHtml::renderField("text", "params", $item->params, "Params", "field-verylongt field-introduct"); ?>
+                    <?php echo buildHtml::renderField("text", "params", $item->params, "Params", "field-verylong field-introduct"); ?>
                     <?php echo buildHtml::renderField("text", "redirect_url", $item->redirect_url, "Redirect URL", "field-verylong field-introduct"); ?>
                     <?php echo buildHtml::renderField("text", "redirect_msg", $item->redirect_msg, "Redirect Message", "field-verylong field-introduct"); ?>                    
                     <?php echo buildHtml::renderField("textarea", "description", $item->description, "Description", "field-long"); ?>

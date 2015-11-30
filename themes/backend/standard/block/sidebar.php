@@ -32,26 +32,18 @@
                     </ul>
                 </li> 
 
-                <li class="dropdown <?php if ($app == "users") echo "active"; ?>">
-                    <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
-                        <i class="fa fa-caret-square-o-down"></i> Users <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu"> 
-                        <?php echo showSideBarMenu("users","group", "Group", "fa-folder"); ?>
-                        <?php echo showSideBarMenu("users","user", "User", "fa-file"); ?>
-                    </ul>
-                </li>
+                <?php echo showSideBarMenu("users","", "Users", "fa-folder"); ?>
 
                 <?php echo showSideBarMenu("menus","menutype", "Menus", "fa-file"); ?>
                  
 
-                <li class="dropdown <?php if ($app == "categories" OR $app == "articles"  OR $app == "videos") echo "active current"; ?>">
+                <li class="dropdown <?php if ($app == "categories" OR $app == "article"  OR $app == "videos") echo "active current"; ?>">
                     <a href="#" class="dropdown-toggle parent" data-toggle="dropdown">
                         <i class="fa fa-caret-square-o-down"></i> Applications 
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <?php echo showSideBarMenu("categories","", "Categories"); ?>
-                        <?php echo showSideBarMenu("articles","", "Articles", "fa-file"); ?>
+                        <?php echo showSideBarMenu("article","", "Article", "fa-file"); ?>
                         <?php echo showSideBarMenu("videos","", "Videos", "fa-film"); ?>
                     </ul>
                 </li> 
@@ -68,8 +60,7 @@
                                 <?php echo showSideBarMenu("installer","-manager", "Install"); ?>
                                 <?php echo showSideBarMenu("installer","manager", "Manager"); ?>
                             </ul> 
-                    </li> 
-                    <?php echo showSideBarMenu("permission","", "Permission"); ?>
+                    </li>                    
                 <?php 
                 
                 } ?>

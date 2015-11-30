@@ -61,3 +61,6 @@ INSERT INTO `tbl_rsm_resources` (`id`, `title`, `affected`, `parentID`, `level`,
 
 ===
 ALTER TABLE `tbl_rsm_resources` ADD `view` VARCHAR(64) NOT NULL AFTER `app`;
+
+=== 30/11/2016
+ALTER TABLE `tbl_extensions` ADD `allowall` TINYINT NOT NULL COMMENT 'cho phep tat ca acc truy cap hay khong' AFTER `status`;

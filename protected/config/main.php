@@ -80,5 +80,6 @@ return array(
     ),
     'params' => array(
         'adminEmail' => 'ducdm87@gmail.com',
+        'copyright' => '1',
     ),
 );

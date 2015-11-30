@@ -90,8 +90,7 @@ function VideosBuildRoute(& $query) {
                      $segments[] = $query['cat_alias'];
                  }                 
                  
-                $segments[] = $query['id']."-".$query['alias'];
-                $query['_suffix'] = ".html";
+                $segments[] = $query['id']."-".$query['alias'];                 
                 unset($query['catID']);
                 unset($query['cat_alias']);
             }

@@ -31,11 +31,11 @@ class HomeController extends BackendController {
             YiiMessage::raseSuccess("Successfully saved changes video(s)");
         }
         
-        $this->addIconToolbar("New", Router::buildLink("articles",array('layout'=>'new')), "new");
-        $this->addIconToolbar("Edit", Router::buildLink("articles",array('layout'=>'edit')), "edit", 1, 1, "Please select a item from the list to edit");        
-        $this->addIconToolbar("Publish", Router::buildLink("articles",array('layout'=>'publish')), "publish");
-        $this->addIconToolbar("Unpublish", Router::buildLink("articles",array('layout'=>'unpublish')), "unpublish");
-        $this->addIconToolbar("Delete", Router::buildLink("articles",array('layout'=>'remove')), "trash", 1, 1, "Please select a item from the list to Remove");        
+        $this->addIconToolbar("New", Router::buildLink("article",array('layout'=>'new')), "new");
+        $this->addIconToolbar("Edit", Router::buildLink("article",array('layout'=>'edit')), "edit", 1, 1, "Please select a item from the list to edit");        
+        $this->addIconToolbar("Publish", Router::buildLink("article",array('layout'=>'publish')), "publish");
+        $this->addIconToolbar("Unpublish", Router::buildLink("article",array('layout'=>'unpublish')), "unpublish");
+        $this->addIconToolbar("Delete", Router::buildLink("article",array('layout'=>'remove')), "trash", 1, 1, "Please select a item from the list to Remove");        
         $this->addBarTitle("Articles <small>[manager]</small>", "user"); 
             
         $model = Article::getInstance();
@@ -54,10 +54,10 @@ class HomeController extends BackendController {
         $cid = Request::getVar('cid', "");        
         setSysConfig("sidebar.display", 0);
         
-        $this->addIconToolbar("Save", Router::buildLink("articles",array('layout'=>'save')), "save");
-        $this->addIconToolbar("Apply", Router::buildLink("articles",array('layout'=>'apply')), "apply");
+        $this->addIconToolbar("Save", Router::buildLink("article",array('layout'=>'save')), "save");
+        $this->addIconToolbar("Apply", Router::buildLink("article",array('layout'=>'apply')), "apply");
         $this->addBarTitle("Article <small>[Edit]</small>", "user");
-        $this->addIconToolbar("Close", Router::buildLink("articles",array('layout'=>'cancel')), "cancel");
+        $this->addIconToolbar("Close", Router::buildLink("article",array('layout'=>'cancel')), "cancel");
         $this->pageTitle = "Edit article";     
         
         $model = Article::getInstance();
@@ -69,7 +69,7 @@ class HomeController extends BackendController {
             $obj_users = YiiUser::getInstance();
             $item_user = $obj_users->getUser($item->created_by);
             YiiMessage::raseNotice("Your account not have permission to edit resource of: $item_user->username");
-            $this->redirect(Router::buildLink("articles"));
+            $this->redirect(Router::buildLink("article"));
             return false;
         }
         
@@ -84,18 +84,18 @@ class HomeController extends BackendController {
     function actionApply() {
         $cid = $this->store();
         YiiMessage::raseSuccess("Successfully save Article");
-        $this->redirect(Router::buildLink("articles",array('layout'=>'edit','cid'=>$cid)));
+        $this->redirect(Router::buildLink("article",array('layout'=>'edit','cid'=>$cid)));
     }
     
     function actionSave() {
         $cid = $this->store();
         YiiMessage::raseSuccess("Successfully save Article");
-        $this->redirect(Router::buildLink("articles"));
+        $this->redirect(Router::buildLink("article"));
     }
     
     function actionCancel()
     {
-        $this->redirect(Router::buildLink("articles"));
+        $this->redirect(Router::buildLink("article"));
     }
     
     public function store() {
@@ -118,7 +118,7 @@ class HomeController extends BackendController {
                $obj_users = YiiUser::getInstance();
                $item_user = $obj_users->getUser($obj_table->created_by);
                YiiMessage::raseNotice("Your account not have permission to modify resource of: $item_user->username");
-               $this->redirect(Router::buildLink("articles"));
+               $this->redirect(Router::buildLink("article"));
                return false;
            }
         }
@@ -139,7 +139,7 @@ class HomeController extends BackendController {
             }
         }
         YiiMessage::raseSuccess("Successfully publish Article(s)");
-        $this->redirect(Router::buildLink("articles"));
+        $this->redirect(Router::buildLink("article"));
     }
     
     function actionUnpublish()
@@ -151,7 +151,7 @@ class HomeController extends BackendController {
             }
         }
         YiiMessage::raseSuccess("Successfully unpublish Article(s)");
-        $this->redirect(Router::buildLink("articles"));
+        $this->redirect(Router::buildLink("article"));
     }
     
     function actionRemove()
@@ -168,7 +168,7 @@ class HomeController extends BackendController {
                     $obj_users = YiiUser::getInstance();
                     $item_user = $obj_users->getUser($obj_table->created_by);
                     YiiMessage::raseNotice("Your account not have permission to delete article: $obj_table->title");
-                    $this->redirect(Router::buildLink("articles"));
+                    $this->redirect(Router::buildLink("article"));
                     return false;
                 }
                
@@ -176,7 +176,7 @@ class HomeController extends BackendController {
             }
         }
         YiiMessage::raseSuccess("Successfully delete Article(s)");
-        $this->redirect(Router::buildLink("articles"));
+        $this->redirect(Router::buildLink("article"));
     }
 
     function changeStatus($cid, $value)
@@ -190,7 +190,7 @@ class HomeController extends BackendController {
            $obj_users = YiiUser::getInstance();
            $item_user = $obj_users->getUser($obj_table->created_by);
            YiiMessage::raseNotice("Your account not have permission to modify resource of: $item_user->username");
-           $this->redirect(Router::buildLink("articles"));
+           $this->redirect(Router::buildLink("article"));
            return false;
        }
            
@@ -210,7 +210,7 @@ class HomeController extends BackendController {
            $obj_users = YiiUser::getInstance();
            $item_user = $obj_users->getUser($obj_table->created_by);
            YiiMessage::raseNotice("Your account not have permission to modify resource of: $item_user->username");
-           $this->redirect(Router::buildLink("articles"));
+           $this->redirect(Router::buildLink("article"));
            return false;
        }
         $obj_table->feature = $value;

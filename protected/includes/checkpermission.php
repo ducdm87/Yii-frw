@@ -26,29 +26,66 @@ class CheckPerMission {
 
         $string_url = CheckPerMission::get_fullurl();
         $arr_url = CheckPerMission::get_arr_url();
-
+        
         $arr_resource = CheckPerMission::getResources($backEnd, $arr_url);
+       
         $query_user = "SELECT * FROM ". TBL_RSM_RESOURCE_XREF . " WHERE object_type = 1 AND objectID = $user->id";
         $query_group = "SELECT * FROM ". TBL_RSM_RESOURCE_XREF . " WHERE object_type = 2 AND objectID = $user->groupID";
 
-        $arr_granted_user = Yii::app()->db->createCommand($query_user)->queryAll();
-        $arr_granted_group = Yii::app()->db->createCommand($query_group)->queryAll();
+        $arr_granted = CheckPerMission::getGranted($user->id,1);
+        $arr_Ggranted = CheckPerMission::getGranted($user->groupID,2);
         
-        if(count($arr_granted_user)){
-            $_arr_granted_user = array();
+        $table_ext = YiiTables::getInstance(TBL_EXTENSIONS);                
+        $ext_default_1 = $table_ext->loadColumn("name", "allowall = 1 ");
+       
+        if(count($arr_resource)){
+            // step 1: check allow user
+                // neu co cho phep thi return true
+		// neu khong thay noi gi thi sang s2
+            foreach ($arr_resource as $resource) {
+                if(in_array($resource->id, $arr_granted['allow'])){
+                    return true;
+                }
+            }
+
+            // step 2: check deny user
+                // neu co bi cam thi redirect
+                // neu khong thay noi gi thi sang s3
+            foreach ($arr_resource as $resource) {
+                if(in_array($resource->id, $arr_granted['deny'])){
+                    YiiMessage::raseNotice($resource->redirect_msg);
+                    Yii::app()->getRequest()->redirect($resource->redirect_url);
+                    return true;
+                }
+            }
+            // step 3: check allow group        
+                // neu co cho phep thi return true
+		// neu khong thay noi gi thi sang s4
+            foreach ($arr_resource as $resource) {
+                if(in_array($resource->app, $arr_Ggranted)){
+                    return true;
+                }
+            }
         }
-        
-        if (CheckPerMission::step1($arr_resource))
+
+        // kiem tra mac dinh  
+        $cur_app = Request::getVar('app');
+        if(in_array($cur_app, $ext_default_1)){ // neu app hien tai nam trong so app duoc phep thi return true
             return true;
-        if (CheckPerMission::step2())
-            return false;
-        if (CheckPerMission::step3())
-            return true;
-        die;
-        if ($mainframe->isBackEnd())
-            return false;
-        else
-            return true;
+        }else{ // khong duoc truy cap
+            if ($mainframe->isBackEnd())
+            {
+                YiiMessage::raseNotice("Your account not have permissin to visit page");            
+                if($cur_app == "cpanel"){ // ra trang chu froent-end          
+                    Yii::app()->getRequest()->redirect("/");
+                }
+                else{
+                    Yii::app()->getRequest()->redirect("?app=cpanel");
+                }
+
+            }else
+                return true;
+        }
     }
 
     
@@ -61,7 +98,7 @@ class CheckPerMission {
             $query_resource = ' (`affected` IN("F", "BF"))';
         }
 
-        $query = "SELECT * FROM " . TBL_RSM_RESOURCES . " WHERE type = 1 AND app = '$app' AND $query_resource";
+        $query = "SELECT * FROM " . TBL_RSM_RESOURCES . " WHERE `status` = 1 AND type = 1 AND app = '$app' AND $query_resource";
         $rows = Yii::app()->db->createCommand($query)->queryAll();
 
         if (count($rows)) {
@@ -71,9 +108,9 @@ class CheckPerMission {
                 $row = (object) $row;
                 $str_in = 'app=' . $app;
 
-                if ($row->view != '') {
-                    $str_in .= '&view=' . $row->view;
-                }
+//                if ($row->view != '') {
+//                    $str_in .= '&view=' . $row->view;
+//                }
                 if ($row->params != "")
                     $str_in .= '&' . $row->params;
                 $arr_url2 = $arr_url;
@@ -99,25 +136,7 @@ class CheckPerMission {
             return $new_arr_resources;
         }
     }
-
-    // check allow user
-    static function step1(){
-        
-    }
-    
-    // check deny user
-    static function step2() {
-        
-    }
-
-    // check allow group
-    static function step3() {
-        
-    }
-
-    static function step4() {
-        
-    }
+   
 
     static function get_arr_url() {
         $arr_url = $_REQUEST;
@@ -221,6 +240,27 @@ class CheckPerMission {
 
         $str_eval = "return ($str_in);";
         return @eval($str_eval);
+    }
+    
+    /*
+     * @$type: int: 1: usr, 2: group
+     * @$cid: int: userID/groupID
+     */
+     static function getGranted($cid, $type = 1){
+        $obj_res_xref = YiiTables::getInstance(TBL_RSM_RESOURCE_XREF);
+        $items = $obj_res_xref->loads("*"," object_type = $type AND objectID = $cid");        
+        if(count($items)){
+            $arr_new = array();
+            $arr_new['allow'] = array();
+            $arr_new['deny'] = array();
+            foreach($items as $item){
+                if($item['value'] == 1)
+                    $arr_new['allow'][$item['resourceID']] = $item['resourceID'];
+                else $arr_new['deny'][$item['resourceID']] = $item['resourceID'];
+            }
+            $items = $arr_new;
+        }
+        return $items;
     }
 
 }
