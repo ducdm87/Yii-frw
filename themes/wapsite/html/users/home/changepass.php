@@ -40,7 +40,7 @@
     </div>
      
         <div class="col-md-12 input-control">
-            <a href="<?php echo Router::buildLink('users', array('layout'=>'register')); ?>" class="btn btn-warning btn-register">Đăng ký tài khoản mới</a>
+            <a href="<?php echo Router::buildLink('user', array('layout'=>'register')); ?>" class="btn btn-warning btn-register">Đăng ký tài khoản mới</a>
         </div>
      
 </div>

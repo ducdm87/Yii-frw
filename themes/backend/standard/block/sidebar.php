@@ -33,7 +33,7 @@
                 </li> 
 
                 <?php echo showSideBarMenu("users","", "Users", "fa-folder"); ?>
-
+ 
                 <?php echo showSideBarMenu("menus","menutype", "Menus", "fa-file"); ?>
                  
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root type="app">
-    <name>homepage</name>
-    <title>Home Page</title>
+    <name>banner</name>
+    <title>Banner</title>
     <author>BHmedia group php</author>
     <version>1.0.0</version>
     <creationDate>July 2006</creationDate>
@@ -17,10 +17,21 @@
     </params>
     
     <views>
-        <view name="home" title="Home page" desc="Trang chủ">
+        <view name="banners" title="Banners" desc="Danh sách banner">
+            <layouts>
+                <layout value="blog" desc="Danh sách banner dạng blog">Blog</layout>
+                <layout value="list">List</layout>
+            </layouts>
              <param title="advance">
                  <field type="text" name="id" label="Category" />
-                 <field type="Menutype" name="Menutype" label="Menutype" />
+                 <field type="text" name="limit" label="Limit" />
+                 <field type="text" name="col" label="Col" />
+            </param>
+        </view>
+        
+        <view name="banner" title="Banner" desc="1 banner">
+            <param title="advance">
+                 <field type="text" name="id" label="Category" />
                  <field type="text" name="limit" label="Limit" />
                  <field type="text" name="col" label="Col" />
             </param>

@@ -136,12 +136,12 @@
         </div>
     </div>
     <div class="col-md-12 input-control">
-        <a href="<?php echo Router::buildLink('users', array('layout' => 'login')); ?>" class="btn btn-info">Đăng nhập</a>
-        <a href="<?php echo Router::buildLink('users', array('layout' => 'forgotpass')); ?>" class="btn btn-success">Quên mật khẩu</a>
+        <a href="<?php echo Router::buildLink('user', array('layout' => 'login')); ?>" class="btn btn-info">Đăng nhập</a>
+        <a href="<?php echo Router::buildLink('user', array('layout' => 'forgotpass')); ?>" class="btn btn-success">Quên mật khẩu</a>
     </div>
 </div>
 <script type="text/javascript">
-    var link_checkuser = "<?php echo Router::buildLink('users',array('layout'=>"checkuser"))?>";
-    var link_checkcaptacha = "<?php echo Router::buildLink('users',array('layout'=>"checkcaptcha"))?>";    
-    var link_checkmobile = "<?php echo Router::buildLink('users',array('layout'=>"checkmobile"))?>";    
+    var link_checkuser = "<?php echo Router::buildLink('user',array('layout'=>"checkuser"))?>";
+    var link_checkcaptacha = "<?php echo Router::buildLink('user',array('layout'=>"checkcaptcha"))?>";    
+    var link_checkmobile = "<?php echo Router::buildLink('user',array('layout'=>"checkmobile"))?>";    
 </script>    

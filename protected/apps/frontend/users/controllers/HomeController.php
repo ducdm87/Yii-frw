@@ -27,7 +27,7 @@ class HomeController extends FrontEndController {
     public function actionRegister() {
         global $mainframe;
         if ($mainframe->isLogin()) {
-            $this->redirect(Router::buildLink('users'));
+            $this->redirect(Router::buildLink('user'));
         }
         if (isset($_POST['submitform']))
             $this->registration();
@@ -95,9 +95,9 @@ class HomeController extends FrontEndController {
             $model = User::getInstance();
             if (!$model->login()) {
                 YiiMessage::raseNotice('Invalid username or password !!!');
-                $this->redirect(Router::buildLink('users', array('layout' => "login")));
+                $this->redirect(Router::buildLink('user', array('layout' => "login")));
             } else {
-                $this->redirect(Router::buildLink('users'));
+                $this->redirect(Router::buildLink('user'));
             }
         }
         $data = array();
@@ -106,7 +106,7 @@ class HomeController extends FrontEndController {
 
     public function actionLogout() {
         Yii::app()->user->logout();
-        $this->redirect(Router::buildLink('users', array('layout' => 'login')));
+        $this->redirect(Router::buildLink('user', array('layout' => 'login')));
     }
 
     public function registration() {
@@ -133,16 +133,16 @@ class HomeController extends FrontEndController {
         
         if (!$model->register($data_user)) {
             Yii::app()->session['data_user_register'] = $data_user;             
-            $this->redirect(Router::buildLink('users',array('layout'=>'register')));
+            $this->redirect(Router::buildLink('user',array('layout'=>'register')));
         } else {
-            $this->redirect(Router::buildLink('users'));
+            $this->redirect(Router::buildLink('user'));
         }
     }
 
     public function actionChangeinfo() {
         global $mainframe, $user;
         if (!$mainframe->isLogin()) {
-            $this->redirect(Router::buildLink('users', array('layout' => 'login')));
+            $this->redirect(Router::buildLink('user', array('layout' => 'login')));
         }
         $this->render('changeinfo', $data);
     }
@@ -151,14 +151,14 @@ class HomeController extends FrontEndController {
         global $mainframe, $user;
         if (!$mainframe->isLogin()) {
             YiiMessage::raseNotice('Please login before change password !!!');
-            $this->redirect(Router::buildLink('users', array('layout' => 'login')));
+            $this->redirect(Router::buildLink('user', array('layout' => 'login')));
         }
 
         if (isset($_POST['submitform'])) {
             $model = User::getInstance();
             if ($model->changepass()) {
                 YiiMessage::raseSuccess('Change pass successfully !!!');
-                $this->redirect(Router::buildLink('users'));
+                $this->redirect(Router::buildLink('user'));
             }
         }
 

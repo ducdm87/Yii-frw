@@ -17,7 +17,7 @@
 
 function fnHelperFindMenuDetail($cid) {
     $YiiMenu = YiiMenu::getInstance();
-    $menuItem = $YiiMenu->getMenuApp("article");
+    $menuItem = $YiiMenu->getMenuApp("articles");
     $found = false;
 
     foreach ($menuItem as $item) {
@@ -34,7 +34,7 @@ function fnHelperFindMenuCategory($catID) {
     // fnHelperFindMenuArticles()
     // =>  => menu-article/muc-con/
     $YiiMenu = YiiMenu::getInstance();
-    $menuItem = $YiiMenu->getMenuApp("article");
+    $menuItem = $YiiMenu->getMenuApp("articles");
     foreach ($menuItem as $item) {
         $params = $item['params'];
         if ($params->view == "category" AND $params->id == $catID) {
@@ -44,9 +44,9 @@ function fnHelperFindMenuCategory($catID) {
     return false;
 }
 
-function fnHelperFindMenuArticles() {
+function fnHelperFindMenuArticlesHome() {
     $YiiMenu = YiiMenu::getInstance();
-    $menuItem = $YiiMenu->getMenuApp("article");
+    $menuItem = $YiiMenu->getMenuApp("articles");
     foreach ($menuItem as $item) {
         $params = $item['params'];
         if ($params->view == "home") {
@@ -58,52 +58,58 @@ function fnHelperFindMenuArticles() {
 
 // $query: array query [view:detail, id:10 ...]
 // build
-function articleBuildRoute(& $query) {
+function articlesBuildRoute(& $query) {
     $segments = array();
     if (isset($query['view'])) {
-        
+
         if ($query['view'] == "home") {
-            if($menuID = fnHelperFindMenuArticles()){
+            if ($menuID = fnHelperFindMenuArticlesHome()) {
                 $query['menuID'] = $menuID;
             }
         } elseif ($query['view'] == "category") {
-            if($menuID = fnHelperFindMenuCategory($query['id'])){
-                 $query['menuID'] = $menuID;
-            }else{
-                if($menuID = fnHelperFindMenuArticles()){
-                    $query['menuID'] = $menuID;
-                }
-                $segments[] = $query['alias'];                
+            if ($menuID = fnHelperFindMenuCategory($query['id'])) {
+                $query['menuID'] = $menuID;
+            } else if ($menuID = fnHelperFindMenuArticlesHome()) {
+                $query['menuID'] = $menuID;
+                $segments[] = $query['alias'];
+            }
+            if (isset($query['page']) AND $query['page'] == 0)
+                unset($query['page']);
+            if (isset($query['menuID'])) {
+                unset($query['alias']);
+                unset($query['view']);
+                unset($query['id']);
             }
         } elseif ($query['view'] == "detail") {
-            if($menuID = fnHelperFindMenuDetail($query['id'])){
+            if ($menuID = fnHelperFindMenuDetail($query['id'])) {
                 $query['menuID'] = $menuID;
-            }else{
-                 if($menuID = fnHelperFindMenuCategory($query['catID'])){
-                     $query['menuID'] = $menuID;
-                 }else{
-                     if($menuID = fnHelperFindMenuArticles()){
+            } else {
+                if ($menuID = fnHelperFindMenuCategory($query['catID'])) {
+                    $query['menuID'] = $menuID;
+                    $segments[] = $query['id'] . "-" . $query['alias'];
+                } else {
+                    if ($menuID = fnHelperFindMenuArticlesHome()) {
                         $query['menuID'] = $menuID;
-                     }
-                     $segments[] = $query['cat_alias'];
-                 }
-                 
-                $segments[] = $query['id']."-".$query['alias'];                
+                        $segments[] = $query['cat_alias'];
+                        $segments[] = $query['id'] . "-" . $query['alias'];
+                    }
+                }
             }
-            unset($query['catID']);
-            unset($query['cat_alias']);
+            if (isset($query['menuID'])) {
+                unset($query['view']);
+                unset($query['catID']);
+                unset($query['cat_alias']);
+                unset($query['id']);
+                unset($query['alias']);
+            }
         }
-        
-        unset($query['view']);
-        unset($query['id']);
-        unset($query['alias']);
     }
-   
+
     return $segments;
 }
 
 // $segments: array path from url[0: tin-tuc,1:tin-lam-dep ... ]
-function articleParseRoute($segments, $_params = null) {
+function articlesParseRoute($segments, $_params = null) {
     $n = count($segments);
     $params = array();
     $segment = array_pop($segments);

@@ -38,7 +38,7 @@ class BackEndController extends CController {
         $copyright = isset(Yii::app()->params->copyright)?Yii::app()->params->copyright:0;
           
         $timeout = isset(Yii::app()->params->timeout)?Yii::app()->params->timeout:900; // 15 phut 
-        $timeout2 = isset(Yii::app()->params->timeout)?Yii::app()->params->timeout2:1800; // 30 phut 
+        $timeout2 = isset(Yii::app()->params->timeout2)?Yii::app()->params->timeout2:1800; // 30 phut 
         
         $YiiApp = Yii::app();
         if (!$mainframe->isLogin()) {            

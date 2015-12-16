@@ -43,8 +43,8 @@
     </div>
 
     <div class="col-md-12 input-control">
-        <a href="<?php echo Router::buildLink('users', array('layout' => 'register')); ?>" class="btn btn-info">Đăng ký tài khoản mới</a>
-        <a href="<?php echo Router::buildLink('users', array('layout' => 'forgotpass')); ?>" class="btn btn-success">Quên mật khẩu</a>
+        <a href="<?php echo Router::buildLink('user', array('layout' => 'register')); ?>" class="btn btn-info">Đăng ký tài khoản mới</a>
+        <a href="<?php echo Router::buildLink('user', array('layout' => 'forgotpass')); ?>" class="btn btn-success">Quên mật khẩu</a>
     </div>
 
 </div>

@@ -29,7 +29,7 @@ class CategoryController extends FrontEndController {
         $obj_category = $model->getCategory($catID, $catAlias);
          
         if($obj_category == false){ 
-            $this->redirect($this->createUrl("article/"));
+            $this->redirect($this->createUrl("articles/"));
         }
         
         $start = ($currentPage - 1)*$limit;
@@ -41,9 +41,9 @@ class CategoryController extends FrontEndController {
 
         if($page>1){
             
-            $obj_category['pagemore'] = Yii::app()->createUrl("article/category", array("alias"=>$catAlias, "page"=>$page));
+            $obj_category['pagemore'] = Yii::app()->createUrl("articles/category", array("alias"=>$catAlias, "page"=>$page));
         }elseif($page == 1)
-            $obj_category['pagemore'] = Yii::app()->createUrl("article/category", array("alias"=>$catAlias));
+            $obj_category['pagemore'] = Yii::app()->createUrl("articles/category", array("alias"=>$catAlias));
         
         $page_title = $obj_category['title'];
         if($currentPage > 1) $page_title = $page_title . " trang $currentPage";
